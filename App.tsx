@@ -1,25 +1,87 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
-import { Polygon } from 'react-native-maps';
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { Circle, Marker } from "react-native-maps";
+import * as Location from "expo-location";
+import { Polygon } from "react-native-maps";
+
+const MAP_STYLE = [
+  {
+    featureType: "poi",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
+  },
+  {
+    featureType: "road",
+    elementType: "all",
+    stylers: [{ visibility: "off" }],
+  },
+  {
+    featureType: "all",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
+  },
+];
+
+function generateGrid() {
+  const tileSize = 0.005;
+  const tiles = [];
+
+  for (let lat = 59.84; lat < 59.98; lat += tileSize) {
+    for (let lng = 10.62; lng < 10.94; lng += tileSize) {
+      tiles.push([
+        { latitude: lat, longitude: lng },
+        { latitude: lat + tileSize, longitude: lng },
+        { latitude: lat + tileSize, longitude: lng + tileSize },
+        { latitude: lat, longitude: lng + tileSize },
+      ]);
+    }
+  }
+
+  return tiles;
+}
+
+function isVisited(
+  tile: { latitude: number; longitude: number }[],
+  visitedLocations: { latitude: number; longitude: number }[],
+) {
+  return visitedLocations.some((position) => {
+    return (
+      position.latitude > tile[0].latitude &&
+      position.latitude < tile[0].latitude + 0.005 &&
+      position.longitude > tile[0].longitude &&
+      position.longitude < tile[0].longitude + 0.005
+    );
+  });
+}
 
 export default function App() {
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [visitedLocations, setVisitedLocations] = useState<{ latitude: number, longitude: number }[]>([]);
+  const [location, setLocation] = useState<Location.LocationObject | null>(
+    null,
+  );
+  const [visitedLocations, setVisitedLocations] = useState<
+    { latitude: number; longitude: number }[]
+  >([]);
+  const [grid, setGrid] = useState<{ latitude: number; longitude: number }[][]>(
+    [],
+  );
 
   useEffect(() => {
     async function getLocation() {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') return;
+      if (status !== "granted") return;
 
-      const current = await Location.getCurrentPositionAsync({});
-      setLocation(current);
+      setGrid(generateGrid());
+
+      Location.watchPositionAsync(
+        { accuracy: Location.Accuracy.BestForNavigation },
+        (newPosition) => {
+          setLocation(newPosition);
+          setVisitedLocations((prev) => [...prev, newPosition.coords]);
+        },
+      );
     }
     getLocation();
   }, []);
-
-  
 
   return (
     <View style={styles.container}>
@@ -41,27 +103,17 @@ export default function App() {
             title="Du er her"
           />
         )}
-        <Polygon 
-          coordinates={[
-              {
-                  "latitude": 59.9600,
-                  "longitude": 10.6200
-              },
-              {
-                  "latitude": 59.9600,
-                  "longitude": 10.9000
-              },
-              {
-                  "latitude": 59.8400,
-                  "longitude": 10.9000
-              },
-              {
-                  "latitude": 59.8400,
-                  "longitude": 10.6200
-              },
-            ]}
-            fillColor="rgba(0,0,0,0.7)"
-          />
+
+        {grid.map(
+          (rute, index) =>
+            !isVisited(rute, visitedLocations) && (
+              <Polygon
+                key={index}
+                coordinates={rute}
+                fillColor="rgba(0,0,0,0.8)"
+              />
+            ),
+        )}
       </MapView>
     </View>
   );
