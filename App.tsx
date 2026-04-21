@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Circle, Marker } from "react-native-maps";
+import MapView, { Marker, Polygon } from "react-native-maps";
 import * as Location from "expo-location";
-import { Polygon } from "react-native-maps";
+import locationsData from "./data/locations.json";
 
 const MAP_STYLE = [
   {
@@ -25,7 +25,6 @@ const MAP_STYLE = [
 function generateGrid() {
   const tileSize = 0.005;
   const tiles = [];
-
   for (let lat = 59.84; lat < 59.98; lat += tileSize) {
     for (let lng = 10.62; lng < 10.94; lng += tileSize) {
       tiles.push([
@@ -36,7 +35,6 @@ function generateGrid() {
       ]);
     }
   }
-
   return tiles;
 }
 
@@ -64,29 +62,51 @@ export default function App() {
   const [grid, setGrid] = useState<{ latitude: number; longitude: number }[][]>(
     [],
   );
+  const [discoveredPOIs, setDiscoveredPOIs] = useState<number[]>([]);
 
   useEffect(() => {
+    let subscription: Location.LocationSubscription | null = null;
+
     async function getLocation() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") return;
 
       setGrid(generateGrid());
 
-      Location.watchPositionAsync(
+      subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.BestForNavigation },
         (newPosition) => {
           setLocation(newPosition);
           setVisitedLocations((prev) => [...prev, newPosition.coords]);
+          setDiscoveredPOIs((prev) => {
+            const newlyDiscovered = locationsData
+              .filter(
+                (poi) =>
+                  !prev.includes(poi.id) &&
+                  Math.abs(newPosition.coords.latitude - poi.latitude) <
+                    0.0025 &&
+                  Math.abs(newPosition.coords.longitude - poi.longitude) <
+                    0.0025,
+              )
+              .map((poi) => poi.id);
+            return [...prev, ...newlyDiscovered];
+          });
         },
       );
     }
+
     getLocation();
+
+    return () => {
+      subscription?.remove();
+    };
   }, []);
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
+        customMapStyle={MAP_STYLE}
         initialRegion={{
           latitude: 59.9139,
           longitude: 10.7522,
@@ -103,7 +123,6 @@ export default function App() {
             title="Du er her"
           />
         )}
-
         {grid.map(
           (rute, index) =>
             !isVisited(rute, visitedLocations) && (
@@ -111,8 +130,26 @@ export default function App() {
                 key={index}
                 coordinates={rute}
                 fillColor="rgba(0,0,0,0.8)"
+                strokeWidth={0}
               />
             ),
+        )}
+        {locationsData.map((poi) =>
+          discoveredPOIs.includes(poi.id) ? (
+            <Marker
+              key={`poi-${poi.id}`}
+              coordinate={{ latitude: poi.latitude, longitude: poi.longitude }}
+              title={poi.name}
+              description={poi.category}
+            />
+          ) : (
+            <Marker
+              key={`poi-${poi.id}`}
+              coordinate={{ latitude: poi.latitude, longitude: poi.longitude }}
+              title="?"
+              pinColor="gray"
+            />
+          ),
         )}
       </MapView>
     </View>
