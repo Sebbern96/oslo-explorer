@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 import MapView, { Circle, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { Polygon } from "react-native-maps";
-import { GOOGLE_MAPS_API_KEY } from "@env";
 
 const MAP_STYLE = [
   {
@@ -87,7 +86,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <MapView
-        provider="google"
         style={styles.map}
         initialRegion={{
           latitude: 59.9139,
