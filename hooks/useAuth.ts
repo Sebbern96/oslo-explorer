@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../utils/supabase';
 
 export interface Progress {
@@ -11,8 +12,11 @@ export interface Progress {
 export function useAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
+    AsyncStorage.getItem('pending_username').then(u => { if (u) setUsername(u); });
+
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setLoading(false);
@@ -30,12 +34,16 @@ export function useAuth() {
     if (error) throw error;
   }
 
-  async function signUp(email: string, password: string) {
+  async function signUp(email: string, password: string, name: string) {
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
+    setUsername(name);
+    await AsyncStorage.setItem('pending_username', name);
   }
 
   async function signOut() {
+    setUsername(null);
+    await AsyncStorage.removeItem('pending_username');
     await supabase.auth.signOut();
   }
 
@@ -43,10 +51,14 @@ export function useAuth() {
     if (!session) return null;
     const { data, error } = await supabase
       .from('user_progress')
-      .select('visited_keys, discovered_poi_ids, xp')
+      .select('visited_keys, discovered_poi_ids, xp, username')
       .eq('user_id', session.user.id)
       .single();
     if (error || !data) return null;
+    if (data.username) {
+      setUsername(data.username);
+      await AsyncStorage.removeItem('pending_username');
+    }
     return {
       visitedKeys: data.visited_keys ?? [],
       discoveredPOIIds: data.discovered_poi_ids ?? [],
@@ -58,6 +70,7 @@ export function useAuth() {
     if (!session) return;
     await supabase.from('user_progress').upsert({
       user_id: session.user.id,
+      ...(username ? { username } : {}),
       visited_keys: progress.visitedKeys,
       discovered_poi_ids: progress.discoveredPOIIds,
       xp: progress.xp,
@@ -65,5 +78,14 @@ export function useAuth() {
     });
   }
 
-  return { session, loading, signIn, signUp, signOut, fetchCloudProgress, uploadProgress };
+  async function fetchLeaderboard() {
+    const { data } = await supabase
+      .from('user_progress')
+      .select('username, xp')
+      .order('xp', { ascending: false })
+      .limit(20);
+    return data ?? [];
+  }
+
+  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard };
 }

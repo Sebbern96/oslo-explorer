@@ -8,6 +8,7 @@ import { useAuth } from "./hooks/useAuth";
 import { ProfileModal } from "./components/ProfileModal";
 import { AuthModal } from "./components/AuthModal";
 import { POIDetailSheet } from "./components/POIDetailSheet";
+import { LeaderboardModal } from "./components/LeaderboardModal";
 import locationsData from "./data/locations.json";
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
@@ -37,8 +38,9 @@ function AppInner() {
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
+  const [leaderboardVisible, setLeaderboardVisible] = useState(false);
   const [selectedPOIId, setSelectedPOIId] = useState<number | null>(null);
-  const { session, loading, signIn, signUp, signOut, fetchCloudProgress, uploadProgress } = useAuth();
+  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard } = useAuth();
   // loading prevents flashing the auth gate before Supabase resolves the stored session
 
   function showNotification(name: string, xpGain: number) {
@@ -70,6 +72,10 @@ function AppInner() {
       await loadProgress(merged);
       await uploadProgress(merged);
     }
+  }
+
+  async function handleSignUp(email: string, password: string, name: string) {
+    await signUp(email, password, name);
   }
 
   async function handleSignOut() {
@@ -113,6 +119,9 @@ function AppInner() {
       )}
 
       <View style={[styles.topButtons, { top: insets.top + 10 }]}>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setLeaderboardVisible(true)}>
+          <Text style={styles.iconBtnText}>🏆</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.iconBtn} onPress={() => setProfileVisible(true)}>
           <Text style={styles.iconBtnText}>👤</Text>
         </TouchableOpacity>
@@ -155,7 +164,7 @@ function AppInner() {
         visible={!session && !loading}
         onClose={() => {}}
         onSignIn={handleSignIn}
-        onSignUp={signUp}
+        onSignUp={handleSignUp}
         mandatory
       />
 
@@ -163,6 +172,13 @@ function AppInner() {
         poi={locationsData.find(p => p.id === selectedPOIId) ?? null}
         discovered={discoveredPOIIds.includes(selectedPOIId!)}
         onClose={() => setSelectedPOIId(null)}
+      />
+
+      <LeaderboardModal
+        visible={leaderboardVisible}
+        onClose={() => setLeaderboardVisible(false)}
+        currentUsername={username}
+        fetchLeaderboard={fetchLeaderboard}
       />
     </View>
   );

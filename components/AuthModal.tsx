@@ -15,7 +15,7 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   onSignIn: (email: string, password: string) => Promise<void>;
-  onSignUp: (email: string, password: string) => Promise<void>;
+  onSignUp: (email: string, password: string, username: string) => Promise<void>;
   mandatory?: boolean;
 }
 
@@ -23,6 +23,7 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: P
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -31,13 +32,14 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: P
     setError(null);
     setSuccess(null);
     if (!email || !password) { setError('Fyll inn e-post og passord.'); return; }
+    if (mode === 'signup' && !username.trim()) { setError('Velg et brukernavn.'); return; }
     setLoading(true);
     try {
       if (mode === 'signin') {
         await onSignIn(email, password);
         onClose();
       } else {
-        await onSignUp(email, password);
+        await onSignUp(email, password, username.trim());
         setSuccess('Konto opprettet! Sjekk e-posten din for bekreftelse.');
       }
     } catch (e: any) {
@@ -77,6 +79,18 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: P
               ? 'Logg inn for å synkronisere fremgang og konkurrere på rangeringslisten.'
               : 'Opprett en konto for å lagre fremgangen din i skyen.'}
           </Text>
+
+          {mode === 'signup' && (
+            <TextInput
+              style={styles.input}
+              placeholder="Brukernavn"
+              placeholderTextColor="#444466"
+              value={username}
+              onChangeText={setUsername}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          )}
 
           <TextInput
             style={styles.input}
