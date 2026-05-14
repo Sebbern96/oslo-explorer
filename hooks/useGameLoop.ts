@@ -28,9 +28,10 @@ function fsSave(uri: string, data: unknown): void {
 interface Props {
   webViewRef: React.RefObject<WebView | null>;
   showNotification: (name: string, xpGain: number) => void;
+  onProgressChange?: (progress: { visitedKeys: string[]; discoveredPOIIds: number[]; xp: number }) => void;
 }
 
-export function useGameLoop({ webViewRef, showNotification }: Props) {
+export function useGameLoop({ webViewRef, showNotification, onProgressChange }: Props) {
   const stateRef = useRef({
     visitedKeys: new Set<string>(),
     discoveredPOIs: [] as number[],
@@ -108,6 +109,11 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
             send({ type: "tile", key });
             setTilesCount(stateRef.current.visitedKeys.size);
             setXp(stateRef.current.xp);
+            onProgressChange?.({
+              visitedKeys: [...stateRef.current.visitedKeys],
+              discoveredPOIIds: stateRef.current.discoveredPOIs,
+              xp: stateRef.current.xp,
+            });
           }
 
           const newPOIs = locationsData.filter(
@@ -128,6 +134,11 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
             fsSave(XP_URI, stateRef.current.xp);
             setDiscoveredPOIIds([...stateRef.current.discoveredPOIs]);
             setXp(stateRef.current.xp);
+            onProgressChange?.({
+              visitedKeys: [...stateRef.current.visitedKeys],
+              discoveredPOIIds: stateRef.current.discoveredPOIs,
+              xp: stateRef.current.xp,
+            });
           }
         }
       );

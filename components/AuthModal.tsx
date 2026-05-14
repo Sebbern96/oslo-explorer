@@ -16,9 +16,10 @@ interface Props {
   onClose: () => void;
   onSignIn: (email: string, password: string) => Promise<void>;
   onSignUp: (email: string, password: string) => Promise<void>;
+  mandatory?: boolean;
 }
 
-export function AuthModal({ visible, onClose, onSignIn, onSignUp }: Props) {
+export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: Props) {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +48,7 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp }: Props) {
   }
 
   function handleClose() {
+    if (mandatory) return;
     setEmail('');
     setPassword('');
     setError(null);
@@ -61,9 +63,11 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp }: Props) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <View style={styles.sheet}>
-          <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
-            <Text style={styles.closeBtnText}>✕</Text>
-          </TouchableOpacity>
+          {!mandatory && (
+            <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
+              <Text style={styles.closeBtnText}>✕</Text>
+            </TouchableOpacity>
+          )}
 
           <Text style={styles.title}>
             {mode === 'signin' ? 'LOGG INN' : 'OPPRETT KONTO'}

@@ -30,8 +30,8 @@ export default function App() {
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
-  const [authVisible, setAuthVisible] = useState(false);
-  const { session, signIn, signUp, signOut, fetchCloudProgress, uploadProgress } = useAuth();
+  const { session, loading, signIn, signUp, signOut, fetchCloudProgress, uploadProgress } = useAuth();
+  // loading prevents flashing the auth gate before Supabase resolves the stored session
 
   function showNotification(name: string, xpGain: number) {
     setNotification({ name, xpGain });
@@ -46,6 +46,7 @@ export default function App() {
   const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress } = useGameLoop({
     webViewRef,
     showNotification,
+    onProgressChange: (progress) => { uploadProgress(progress); },
   });
 
   async function handleSignIn(email: string, password: string) {
@@ -103,9 +104,6 @@ export default function App() {
       )}
 
       <View style={styles.topButtons}>
-        <TouchableOpacity style={styles.iconBtn} onPress={() => setAuthVisible(true)}>
-          <Text style={styles.iconBtnText}>{session ? '☁️' : '🔑'}</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.iconBtn} onPress={() => setProfileVisible(true)}>
           <Text style={styles.iconBtnText}>👤</Text>
         </TouchableOpacity>
@@ -145,10 +143,11 @@ export default function App() {
       />
 
       <AuthModal
-        visible={authVisible}
-        onClose={() => setAuthVisible(false)}
+        visible={!session && !loading}
+        onClose={() => {}}
         onSignIn={handleSignIn}
         onSignUp={signUp}
+        mandatory
       />
     </View>
   );
