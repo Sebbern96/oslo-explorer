@@ -26,9 +26,17 @@ All logic lives in [App.tsx](App.tsx) (single-file until it approaches ~200 line
 **POI discovery** — A POI is discovered when the user comes within `0.0025` degrees (~200m) of it. Undiscovered POIs render as custom dark `?` markers (visible through fog to entice exploration). Discovered POIs render as standard markers with name and category.
 
 **POI data schema** (`data/locations.json`):
+
 ```json
-{ "id": 1, "name": "Operaen", "category": "kultur", "latitude": 59.9075, "longitude": 10.7530 }
+{
+  "id": 1,
+  "name": "Operaen",
+  "category": "kultur",
+  "latitude": 59.9075,
+  "longitude": 10.753
+}
 ```
+
 Categories in use: `kultur`, `park`, `landemerke`, `museum`, `mat_drikke`, `restaurant`, `bar`
 
 **HUD** — Bottom bar shows: tiles revealed / POIs discovered / POIs remaining.
@@ -46,6 +54,7 @@ Categories in use: `kultur`, `park`, `landemerke`, `museum`, `mat_drikke`, `rest
 Set custom GPS in simulator: **Features → Location → Custom Location**
 
 Good test coordinates (central Oslo, near POI clusters):
+
 - Karl Johans gate: `59.9133, 10.7389`
 - Near Operaen + Munch: `59.9065, 10.7529`
 
@@ -62,4 +71,3 @@ Good test coordinates (central Oslo, near POI clusters):
 ## Conventions
 
 - Code in English, git commits in Norwegian.
-- Claude is the coder, I am the pilot only.
