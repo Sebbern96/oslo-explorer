@@ -31,11 +31,13 @@ Always use `npx expo install <package>` — never `npm install` — when adding 
 - WebView → RN: `window.ReactNativeWebView.postMessage(JSON.stringify({type:'ready'}))` on map init
 - **Timing guard** — `mapReadyRef` in App.tsx gates all `send()` calls. Reset on `onLoadStart`, set on `onMapReady`. Prevents "handleMessage is not a function" errors from location events firing before the WebView page loads.
 
-**Persistence** — `expo-file-system/legacy` (NOT AsyncStorage v2 — incompatible with Expo Go). Files: `visitedTiles.json`, `discoveredPOIs.json` in `documentDirectory`.
+**Persistence** — `expo-file-system/legacy` (NOT AsyncStorage v2 — incompatible with Expo Go). Files: `visitedTiles.json`, `discoveredPOIs.json`, `xp.json` in `documentDirectory`.
 
 **POI discovery** — Within `0.0025` degrees (~200m). Undiscovered = dark `?` circle marker. Discovered = blue circle with first letter of name.
 
-**HUD** — React Native View overlay (not inside WebView) showing Ruter / Oppdaget / Gjenstår.
+**XP system** — `XP_PER_TILE = 10`, `XP_PER_POI = 50`. Level thresholds: `[100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000]` (levels 1–10). `computeLevel(xp)` counts how many thresholds the player has passed.
+
+**HUD** — React Native View overlay (not inside WebView) showing Nivå / XP / Oppdaget / Gjenstår.
 
 ## API Key
 
@@ -56,7 +58,6 @@ Custom GPS: **Features → Location → Custom Location**
 
 ## Planned features (not yet built)
 
-- **XP system** — earn XP for discovering POIs and revealing tiles. Show XP and level in HUD.
 - **Discovery notification** — popup/toast when a new POI is found, showing name and category
 - **Haptic feedback** — vibrate on POI discovery
 - **POI category styling** — different marker colors/icons per category

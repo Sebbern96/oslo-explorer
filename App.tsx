@@ -9,8 +9,16 @@ import locationsData from "./data/locations.json";
 const TILE_SIZE = 0.005;
 const TILES_URI = FileSystem.documentDirectory + "visitedTiles.json";
 const POIS_URI = FileSystem.documentDirectory + "discoveredPOIs.json";
+const XP_URI = FileSystem.documentDirectory + "xp.json";
+const XP_PER_TILE = 10;
+const XP_PER_POI = 50;
+const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
 const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 const MAP_HTML = buildMapHtml(API_KEY, JSON.stringify(locationsData));
+
+function computeLevel(xp: number): number {
+  return 1 + LEVEL_THRESHOLDS.filter(t => xp >= t).length;
+}
 
 async function fsRead<T>(uri: string, fallback: T): Promise<T> {
   try {
@@ -26,11 +34,11 @@ function fsSave(uri: string, data: unknown): void {
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
-  const stateRef = useRef({ visitedKeys: new Set<string>(), discoveredPOIs: [] as number[] });
+  const stateRef = useRef({ visitedKeys: new Set<string>(), discoveredPOIs: [] as number[], xp: 0 });
   const mapReadyRef = useRef(false);
   const lastPosRef = useRef<{ latitude: number; longitude: number } | null>(null);
-  const [visitedCount, setVisitedCount] = useState(0);
   const [discoveredCount, setDiscoveredCount] = useState(0);
+  const [xp, setXp] = useState(0);
 
   function send(msg: object) {
     if (!mapReadyRef.current) return;
@@ -59,15 +67,17 @@ export default function App() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") return;
 
-      const [savedKeys, savedPOIs] = await Promise.all([
+      const [savedKeys, savedPOIs, savedXp] = await Promise.all([
         fsRead<string[]>(TILES_URI, []),
         fsRead<number[]>(POIS_URI, []),
+        fsRead<number>(XP_URI, 0),
       ]);
 
       stateRef.current.visitedKeys = new Set(savedKeys);
       stateRef.current.discoveredPOIs = savedPOIs;
-      setVisitedCount(savedKeys.length);
+      stateRef.current.xp = savedXp;
       setDiscoveredCount(savedPOIs.length);
+      setXp(savedXp);
 
       subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.BestForNavigation },
@@ -83,9 +93,11 @@ export default function App() {
 
           if (!stateRef.current.visitedKeys.has(key)) {
             stateRef.current.visitedKeys.add(key);
+            stateRef.current.xp += XP_PER_TILE;
             fsSave(TILES_URI, [...stateRef.current.visitedKeys]);
+            fsSave(XP_URI, stateRef.current.xp);
             send({ type: "tile", key });
-            setVisitedCount(stateRef.current.visitedKeys.size);
+            setXp(stateRef.current.xp);
           }
 
           const newPOIs = locationsData.filter(
@@ -98,10 +110,13 @@ export default function App() {
           if (newPOIs.length > 0) {
             newPOIs.forEach((poi) => {
               stateRef.current.discoveredPOIs.push(poi.id);
+              stateRef.current.xp += XP_PER_POI;
               send({ type: "poi", poiId: poi.id });
             });
             fsSave(POIS_URI, stateRef.current.discoveredPOIs);
+            fsSave(XP_URI, stateRef.current.xp);
             setDiscoveredCount(stateRef.current.discoveredPOIs.length);
+            setXp(stateRef.current.xp);
           }
         }
       );
@@ -129,8 +144,13 @@ export default function App() {
       />
       <View style={styles.hud}>
         <View style={styles.hudItem}>
-          <Text style={styles.hudValue}>{visitedCount}</Text>
-          <Text style={styles.hudLabel}>Ruter</Text>
+          <Text style={styles.hudValue}>{computeLevel(xp)}</Text>
+          <Text style={styles.hudLabel}>Nivå</Text>
+        </View>
+        <View style={styles.hudDivider} />
+        <View style={styles.hudItem}>
+          <Text style={styles.hudValue}>{xp}</Text>
+          <Text style={styles.hudLabel}>XP</Text>
         </View>
         <View style={styles.hudDivider} />
         <View style={styles.hudItem}>
@@ -164,7 +184,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   hudItem: { alignItems: "center", flex: 1 },
-  hudValue: { color: "#fff", fontSize: 24, fontWeight: "700" },
+  hudValue: { color: "#fff", fontSize: 20, fontWeight: "700" },
   hudLabel: {
     color: "#666",
     fontSize: 11,
