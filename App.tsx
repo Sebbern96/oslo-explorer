@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
 import * as Location from "expo-location";
 import * as FileSystem from "expo-file-system/legacy";
@@ -18,6 +18,15 @@ const MAP_HTML = buildMapHtml(API_KEY, JSON.stringify(locationsData));
 
 function computeLevel(xp: number): number {
   return 1 + LEVEL_THRESHOLDS.filter(t => xp >= t).length;
+}
+
+function xpProgress(xp: number): { percent: number; label: string } {
+  const level = computeLevel(xp);
+  const prev = level > 1 ? LEVEL_THRESHOLDS[level - 2] : 0;
+  const next = LEVEL_THRESHOLDS[level - 1];
+  if (!next) return { percent: 100, label: `${xp} XP` };
+  const percent = Math.min(100, Math.round(((xp - prev) / (next - prev)) * 100));
+  return { percent, label: `${xp} / ${next} XP` };
 }
 
 async function fsRead<T>(uri: string, fallback: T): Promise<T> {
@@ -39,6 +48,8 @@ export default function App() {
   const lastPosRef = useRef<{ latitude: number; longitude: number } | null>(null);
   const [discoveredCount, setDiscoveredCount] = useState(0);
   const [xp, setXp] = useState(0);
+  const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
+  const notifOpacity = useRef(new Animated.Value(0)).current;
 
   function send(msg: object) {
     if (!mapReadyRef.current) return;
@@ -58,6 +69,16 @@ export default function App() {
         ...(pos ?? {}),
       })}); true;`
     );
+  }
+
+  function showNotification(name: string, xpGain: number) {
+    setNotification({ name, xpGain });
+    notifOpacity.setValue(0);
+    Animated.sequence([
+      Animated.timing(notifOpacity, { toValue: 1, duration: 300, useNativeDriver: true }),
+      Animated.delay(2000),
+      Animated.timing(notifOpacity, { toValue: 0, duration: 400, useNativeDriver: true }),
+    ]).start(() => setNotification(null));
   }
 
   useEffect(() => {
@@ -108,10 +129,11 @@ export default function App() {
           );
 
           if (newPOIs.length > 0) {
-            newPOIs.forEach((poi) => {
+            newPOIs.forEach((poi, i) => {
               stateRef.current.discoveredPOIs.push(poi.id);
               stateRef.current.xp += XP_PER_POI;
               send({ type: "poi", poiId: poi.id });
+              if (i === 0) showNotification(poi.name, XP_PER_POI);
             });
             fsSave(POIS_URI, stateRef.current.discoveredPOIs);
             fsSave(XP_URI, stateRef.current.xp);
@@ -125,6 +147,9 @@ export default function App() {
     init();
     return () => { subscription?.remove(); };
   }, []);
+
+  const level = computeLevel(xp);
+  const { percent, label: xpLabel } = xpProgress(xp);
 
   return (
     <View style={styles.container}>
@@ -142,25 +167,34 @@ export default function App() {
         javaScriptEnabled
         domStorageEnabled
       />
+
+      {notification && (
+        <Animated.View style={[styles.notification, { opacity: notifOpacity }]}>
+          <Text style={styles.notifEyebrow}>NYTT STED OPPDAGET</Text>
+          <Text style={styles.notifName}>{notification.name}</Text>
+          <Text style={styles.notifXp}>+{notification.xpGain} XP</Text>
+        </Animated.View>
+      )}
+
       <View style={styles.hud}>
-        <View style={styles.hudItem}>
-          <Text style={styles.hudValue}>{computeLevel(xp)}</Text>
-          <Text style={styles.hudLabel}>Nivå</Text>
+        <View style={styles.hudHeader}>
+          <Text style={styles.hudLvlLabel}>NIVÅ</Text>
+          <Text style={styles.hudLvl}>{level}</Text>
+          <Text style={styles.hudXpLabel}>{xpLabel}</Text>
         </View>
-        <View style={styles.hudDivider} />
-        <View style={styles.hudItem}>
-          <Text style={styles.hudValue}>{xp}</Text>
-          <Text style={styles.hudLabel}>XP</Text>
+        <View style={styles.xpTrack}>
+          <View style={[styles.xpFill, { width: `${percent}%` as any }]} />
         </View>
-        <View style={styles.hudDivider} />
-        <View style={styles.hudItem}>
-          <Text style={styles.hudValue}>{discoveredCount}</Text>
-          <Text style={styles.hudLabel}>Oppdaget</Text>
-        </View>
-        <View style={styles.hudDivider} />
-        <View style={styles.hudItem}>
-          <Text style={styles.hudValue}>{locationsData.length - discoveredCount}</Text>
-          <Text style={styles.hudLabel}>Gjenstår</Text>
+        <View style={styles.hudStats}>
+          <View style={styles.hudStat}>
+            <Text style={styles.hudStatValue}>{discoveredCount}</Text>
+            <Text style={styles.hudStatLabel}>Oppdaget</Text>
+          </View>
+          <View style={styles.hudStatDivider} />
+          <View style={styles.hudStat}>
+            <Text style={styles.hudStatValue}>{locationsData.length - discoveredCount}</Text>
+            <Text style={styles.hudStatLabel}>Gjenstår</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -170,27 +204,98 @@ export default function App() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#0a0a14" },
   map: { flex: 1 },
+
+  notification: {
+    position: "absolute",
+    top: 60,
+    left: 24,
+    right: 24,
+    backgroundColor: "rgba(8,8,20,0.96)",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#f4b942",
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    alignItems: "center",
+    shadowColor: "#f4b942",
+    shadowOpacity: 0.55,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  notifEyebrow: {
+    color: "#f4b942",
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 1.5,
+    marginBottom: 4,
+  },
+  notifName: { color: "#ffffff", fontSize: 18, fontWeight: "700" },
+  notifXp: { color: "#4a9eff", fontSize: 13, fontWeight: "600", marginTop: 4 },
+
   hud: {
     position: "absolute",
     bottom: 44,
     left: 24,
     right: 24,
+    backgroundColor: "rgba(8,8,20,0.92)",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "rgba(74,158,255,0.3)",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    shadowColor: "#4a9eff",
+    shadowOpacity: 0.4,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  hudHeader: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    marginBottom: 8,
+  },
+  hudLvlLabel: {
+    color: "#4466bb",
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 1.5,
+    marginRight: 6,
+  },
+  hudLvl: {
+    color: "#4a9eff",
+    fontSize: 24,
+    fontWeight: "800",
+    marginRight: "auto" as any,
+  },
+  hudXpLabel: {
+    color: "#555877",
+    fontSize: 11,
+    fontWeight: "600",
+  },
+  xpTrack: {
+    height: 6,
+    backgroundColor: "rgba(255,255,255,0.07)",
+    borderRadius: 3,
+    overflow: "hidden",
+    marginBottom: 14,
+  },
+  xpFill: {
+    height: 6,
+    backgroundColor: "#4a9eff",
+    borderRadius: 3,
+  },
+  hudStats: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    backgroundColor: "rgba(10,10,20,0.85)",
-    borderRadius: 18,
-    paddingVertical: 14,
-    paddingHorizontal: 12,
   },
-  hudItem: { alignItems: "center", flex: 1 },
-  hudValue: { color: "#fff", fontSize: 20, fontWeight: "700" },
-  hudLabel: {
-    color: "#666",
+  hudStat: { alignItems: "center", flex: 1 },
+  hudStatValue: { color: "#ffffff", fontSize: 20, fontWeight: "700" },
+  hudStatLabel: {
+    color: "#4466aa",
     fontSize: 11,
     marginTop: 2,
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
-  hudDivider: { width: 1, height: 32, backgroundColor: "rgba(255,255,255,0.1)" },
+  hudStatDivider: { width: 1, height: 32, backgroundColor: "rgba(255,255,255,0.08)" },
 });

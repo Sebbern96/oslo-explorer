@@ -24,7 +24,38 @@ export function buildMapHtml(apiKey: string, poisJson: string): string {
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body, #map { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; }
-</style>
+    .player-overlay {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      width: 44px;
+      height: 44px;
+    }
+    .pulse-ring {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(74,158,255,0.75);
+      animation: pulse-anim 2s ease-out infinite;
+    }
+    .player-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #4a9eff;
+      border: 2.5px solid #ffffff;
+      border-radius: 50%;
+      top: 14px;
+      left: 14px;
+      box-shadow: 0 0 10px rgba(74,158,255,0.9);
+    }
+    @keyframes pulse-anim {
+      0%   { transform: scale(0.3); opacity: 0.9; }
+      60%  { opacity: 0.3; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
 <div id="map"></div>
@@ -33,7 +64,7 @@ const TILE_SIZE = 0.005;
 const POI_DATA = ${poisJson};
 const DARK_STYLE = ${DARK_STYLE};
 
-let map, fogPolygon, playerMarker;
+let map, fogPolygon, PlayerOverlayClass, playerOverlay;
 const poiMarkers = {};
 let playerPos = null;
 let visitedKeys = new Set();
@@ -42,6 +73,29 @@ const queue = [];
 let mapReady = false;
 
 function initMap() {
+  PlayerOverlayClass = class extends google.maps.OverlayView {
+    constructor() { super(); this._pos = null; this._el = null; }
+    onAdd() {
+      const el = document.createElement('div');
+      el.className = 'player-overlay';
+      el.innerHTML = '<div class="pulse-ring"></div><div class="player-dot"></div>';
+      this._el = el;
+      this.getPanes().floatPane.appendChild(el);
+    }
+    draw() {
+      if (!this._pos || !this._el) return;
+      const p = this.getProjection().fromLatLngToDivPixel(this._pos);
+      if (p) { this._el.style.left = p.x + 'px'; this._el.style.top = p.y + 'px'; }
+    }
+    onRemove() {
+      if (this._el && this._el.parentNode) { this._el.parentNode.removeChild(this._el); this._el = null; }
+    }
+    setPosition(lat, lng) {
+      this._pos = new google.maps.LatLng(lat, lng);
+      this.draw();
+    }
+  };
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 59.9139, lng: 10.7522 },
     zoom: 15,
@@ -125,14 +179,14 @@ function revealPOI(poiId) {
   entry.marker.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
     scale: 11,
-    fillColor: '#4285f4',
+    fillColor: '#f4b942',
     fillOpacity: 1,
     strokeColor: '#ffffff',
     strokeWeight: 2,
   });
   entry.marker.setLabel({
     text: entry.poi.name.charAt(0).toUpperCase(),
-    color: '#fff',
+    color: '#1a1000',
     fontWeight: 'bold',
     fontSize: '12px',
   });
@@ -142,23 +196,11 @@ function revealPOI(poiId) {
 function updatePlayer(lat, lng) {
   playerPos = { lat, lng };
   map.setCenter(playerPos);
-  if (!playerMarker) {
-    playerMarker = new google.maps.Marker({
-      position: playerPos,
-      map,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 8,
-        fillColor: '#4285f4',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2.5,
-      },
-      zIndex: 1000,
-    });
-  } else {
-    playerMarker.setPosition(playerPos);
+  if (!playerOverlay) {
+    playerOverlay = new PlayerOverlayClass();
+    playerOverlay.setMap(map);
   }
+  playerOverlay.setPosition(lat, lng);
 }
 
 function handle(msg) {
