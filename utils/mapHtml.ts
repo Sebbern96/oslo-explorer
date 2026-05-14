@@ -63,6 +63,15 @@ export function buildMapHtml(apiKey: string, poisJson: string): string {
 const TILE_SIZE = 0.005;
 const POI_DATA = ${poisJson};
 const DARK_STYLE = ${DARK_STYLE};
+const CATEGORY_COLORS = {
+  kultur:     '#a855f7',
+  park:       '#22c55e',
+  landemerke: '#f97316',
+  museum:     '#06b6d4',
+  mat_drikke: '#f4b942',
+  restaurant: '#ef4444',
+  bar:        '#ec4899',
+};
 
 let map, fogPolygon, PlayerOverlayClass, playerOverlay;
 const poiMarkers = {};
@@ -154,18 +163,19 @@ function buildFog() {
 
 function buildPOIMarkers() {
   POI_DATA.forEach(poi => {
+    const catColor = CATEGORY_COLORS[poi.category] || '#5050a0';
     const marker = new google.maps.Marker({
       position: { lat: poi.latitude, lng: poi.longitude },
       map,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 9,
-        fillColor: '#1a1a30',
-        fillOpacity: 0.95,
-        strokeColor: '#5050a0',
-        strokeWeight: 1.5,
+        fillColor: '#0e0e1e',
+        fillOpacity: 1,
+        strokeColor: catColor,
+        strokeWeight: 2,
       },
-      label: { text: '?', color: '#7070c0', fontWeight: 'bold', fontSize: '13px' },
+      label: { text: '?', color: catColor, fontWeight: 'bold', fontSize: '13px' },
       zIndex: 10,
     });
     poiMarkers[poi.id] = { marker, poi, discovered: false };
@@ -176,17 +186,18 @@ function revealPOI(poiId) {
   const entry = poiMarkers[poiId];
   if (!entry || entry.discovered) return;
   entry.discovered = true;
+  const catColor = CATEGORY_COLORS[entry.poi.category] || '#f4b942';
   entry.marker.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
     scale: 11,
-    fillColor: '#f4b942',
+    fillColor: catColor,
     fillOpacity: 1,
     strokeColor: '#ffffff',
     strokeWeight: 2,
   });
   entry.marker.setLabel({
     text: entry.poi.name.charAt(0).toUpperCase(),
-    color: '#1a1000',
+    color: '#ffffff',
     fontWeight: 'bold',
     fontSize: '12px',
   });
