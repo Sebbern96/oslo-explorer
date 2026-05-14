@@ -1,19 +1,19 @@
 const DARK_STYLE = JSON.stringify([
-  { elementType: "geometry", stylers: [{ color: "#1a1a2e" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#1a1a2e" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#7070a0" }] },
+  { elementType: "geometry", stylers: [{ color: "#1e2038" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#1e2038" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#9090c0" }] },
   { featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#2a2a42" }] },
-  { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#14142a" }] },
-  { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#5a5a80" }] },
-  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#3a3a5e" }] },
-  { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#8080b0" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#0d1b2a" }] },
-  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#3a4a5a" }] },
-  { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#1a1a2e" }] },
-  { featureType: "transit", elementType: "geometry", stylers: [{ color: "#2a2a42" }] },
-  { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#3a3a5e" }] },
-  { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#9090c0" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#383862" }] },
+  { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1e1e40" }] },
+  { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#7070a0" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#4a4a80" }] },
+  { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#a0a0d0" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#1a3d6e" }] },
+  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#4a7aaa" }] },
+  { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#1e2038" }] },
+  { featureType: "transit", elementType: "geometry", stylers: [{ color: "#383862" }] },
+  { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#404070" }] },
+  { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#a0a0d0" }] },
 ]);
 
 export function buildMapHtml(apiKey: string, poisJson: string): string {
@@ -24,11 +24,9 @@ export function buildMapHtml(apiKey: string, poisJson: string): string {
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body, #map { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; }
-  #debug { position: absolute; top: 0; left: 0; z-index: 9999; background: red; color: white; font-size: 12px; padding: 4px; }
-  </style>
+</style>
 </head>
 <body>
-<div id="debug">KEY: ${apiKey ? apiKey.substring(0, 8) + "..." : "EMPTY"}</div>
 <div id="map"></div>
 <script>
 const TILE_SIZE = 0.005;
@@ -69,26 +67,31 @@ function initMap() {
   }
 }
 
+function tileCircle(iLat, iLng) {
+  const centerLat = (iLat + 0.5) * TILE_SIZE;
+  const centerLng = (iLng + 0.5) * TILE_SIZE;
+  const rLat = TILE_SIZE * 0.5;
+  const lngScale = 1 / Math.cos(centerLat * Math.PI / 180);
+  const N = 32;
+  return Array.from({ length: N }, (_, i) => {
+    const a = (i / N) * 2 * Math.PI;
+    return { lat: centerLat + rLat * Math.sin(a), lng: centerLng + rLat * lngScale * Math.cos(a) };
+  });
+}
+
 function buildFog() {
   if (fogPolygon) fogPolygon.setMap(null);
   const paths = [
-    [{ lat: 85, lng: -180 }, { lat: 85, lng: 180 }, { lat: -85, lng: 180 }, { lat: -85, lng: -180 }],
+    [{ lat: 73, lng: 2 }, { lat: 73, lng: 33 }, { lat: 55, lng: 33 }, { lat: 55, lng: 2 }],
     ...[...visitedKeys].map(key => {
       const [iLat, iLng] = key.split('_').map(Number);
-      const lat = iLat * TILE_SIZE;
-      const lng = iLng * TILE_SIZE;
-      return [
-        { lat, lng },
-        { lat, lng: lng + TILE_SIZE },
-        { lat: lat + TILE_SIZE, lng: lng + TILE_SIZE },
-        { lat: lat + TILE_SIZE, lng },
-      ];
+      return tileCircle(iLat, iLng);
     }),
   ];
   fogPolygon = new google.maps.Polygon({
     paths,
-    fillColor: '#0a0a14',
-    fillOpacity: 0.93,
+    fillColor: '#000000',
+    fillOpacity: 0.88,
     strokeWeight: 0,
     clickable: false,
     map,

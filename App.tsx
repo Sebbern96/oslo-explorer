@@ -27,21 +27,29 @@ function fsSave(uri: string, data: unknown): void {
 export default function App() {
   const webViewRef = useRef<WebView>(null);
   const stateRef = useRef({ visitedKeys: new Set<string>(), discoveredPOIs: [] as number[] });
+  const mapReadyRef = useRef(false);
+  const lastPosRef = useRef<{ latitude: number; longitude: number } | null>(null);
   const [visitedCount, setVisitedCount] = useState(0);
   const [discoveredCount, setDiscoveredCount] = useState(0);
 
   function send(msg: object) {
+    if (!mapReadyRef.current) return;
     webViewRef.current?.injectJavaScript(
       `window.handleMessage(${JSON.stringify(msg)}); true;`
     );
   }
 
   function onMapReady() {
-    send({
-      type: "state",
-      visitedKeys: [...stateRef.current.visitedKeys],
-      discoveredPOIs: stateRef.current.discoveredPOIs,
-    });
+    mapReadyRef.current = true;
+    const pos = lastPosRef.current;
+    webViewRef.current?.injectJavaScript(
+      `window.handleMessage(${JSON.stringify({
+        type: "state",
+        visitedKeys: [...stateRef.current.visitedKeys],
+        discoveredPOIs: stateRef.current.discoveredPOIs,
+        ...(pos ?? {}),
+      })}); true;`
+    );
   }
 
   useEffect(() => {
@@ -66,6 +74,7 @@ export default function App() {
         (pos) => {
           const { latitude, longitude } = pos.coords;
 
+          lastPosRef.current = { latitude, longitude };
           send({ type: "position", latitude, longitude });
 
           const iLat = Math.floor(latitude / TILE_SIZE);
@@ -108,6 +117,7 @@ export default function App() {
         ref={webViewRef}
         source={{ html: MAP_HTML }}
         style={styles.map}
+        onLoadStart={() => { mapReadyRef.current = false; }}
         onMessage={(e) => {
           const msg = JSON.parse(e.nativeEvent.data);
           if (msg.type === "ready") onMapReady();
