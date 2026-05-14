@@ -39,14 +39,20 @@ export default function App() {
     ]).start(() => setNotification(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, onMapReady, onMapUnload } = useGameLoop({
+  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload } = useGameLoop({
     webViewRef,
     showNotification,
   });
 
-  const discoveredCount = discoveredPOIIds.length;
   const level = computeLevel(xp);
   const { percent, label: xpLabel } = xpProgress(xp);
+
+  const bydelPOIs = currentBydel
+    ? locationsData.filter((p: any) => p.bydelId === currentBydel.id)
+    : locationsData;
+  const localDiscovered = bydelPOIs.filter(p => discoveredPOIIds.includes(p.id)).length;
+  const localRemaining = bydelPOIs.length - localDiscovered;
+  const bydelName = currentBydel?.name ?? "Oslo";
 
   return (
     <View style={styles.container}>
@@ -86,14 +92,15 @@ export default function App() {
         <View style={styles.xpTrack}>
           <View style={[styles.xpFill, { width: `${percent}%` as any }]} />
         </View>
+        <Text style={styles.hudBydel}>{bydelName.toUpperCase()}</Text>
         <View style={styles.hudStats}>
           <View style={styles.hudStat}>
-            <Text style={styles.hudStatValue}>{discoveredCount}</Text>
+            <Text style={styles.hudStatValue}>{localDiscovered}</Text>
             <Text style={styles.hudStatLabel}>Oppdaget</Text>
           </View>
           <View style={styles.hudStatDivider} />
           <View style={styles.hudStat}>
-            <Text style={styles.hudStatValue}>{locationsData.length - discoveredCount}</Text>
+            <Text style={styles.hudStatValue}>{localRemaining}</Text>
             <Text style={styles.hudStatLabel}>Gjenstår</Text>
           </View>
         </View>
@@ -207,6 +214,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   hudStatDivider: { width: 1, height: 32, backgroundColor: "rgba(255,255,255,0.08)" },
+  hudBydel: {
+    color: "#4466bb",
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 1.5,
+    marginBottom: 10,
+  },
 
   profileBtn: {
     position: "absolute",

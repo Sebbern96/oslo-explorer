@@ -3,6 +3,8 @@ import { WebView } from "react-native-webview";
 import * as Location from "expo-location";
 import * as FileSystem from "expo-file-system/legacy";
 import locationsData from "../data/locations.json";
+import bydelerData from "../data/bydeler_runtime.json";
+import { findBydel, Bydel } from "../utils/geo";
 
 const TILE_SIZE = 0.005;
 const TILES_URI = FileSystem.documentDirectory + "visitedTiles.json";
@@ -39,6 +41,7 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
   const [xp, setXp] = useState(0);
   const [tilesCount, setTilesCount] = useState(0);
   const [discoveredPOIIds, setDiscoveredPOIIds] = useState<number[]>([]);
+  const [currentBydel, setCurrentBydel] = useState<Bydel | null>(null);
 
   function send(msg: object) {
     if (!mapReadyRef.current) return;
@@ -91,6 +94,7 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
 
           lastPosRef.current = { latitude, longitude };
           send({ type: "position", latitude, longitude });
+          setCurrentBydel(findBydel(latitude, longitude, bydelerData));
 
           const iLat = Math.floor(latitude / TILE_SIZE);
           const iLng = Math.floor(longitude / TILE_SIZE);
@@ -133,5 +137,5 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
     return () => { subscription?.remove(); };
   }, []);
 
-  return { xp, tilesCount, discoveredPOIIds, onMapReady, onMapUnload };
+  return { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload };
 }

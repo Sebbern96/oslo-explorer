@@ -1,32 +1,5946 @@
 [
-  { "id": 1, "name": "Operaen", "category": "kultur", "latitude": 59.9075, "longitude": 10.7530 },
-  { "id": 2, "name": "Vigelandsparken", "category": "park", "latitude": 59.9270, "longitude": 10.6995 },
-  { "id": 3, "name": "Akershus Festning", "category": "landemerke", "latitude": 59.9077, "longitude": 10.7366 },
-  { "id": 4, "name": "Munch-museet", "category": "museum", "latitude": 59.9054, "longitude": 10.7528 },
-  { "id": 5, "name": "Nasjonalgalleriet", "category": "museum", "latitude": 59.9171, "longitude": 10.7383 },
-  { "id": 6, "name": "Rådhuset", "category": "landemerke", "latitude": 59.9113, "longitude": 10.7334 },
-  { "id": 7, "name": "Holmenkollbakken", "category": "landemerke", "latitude": 59.9642, "longitude": 10.6669 },
-  { "id": 8, "name": "Aker Brygge", "category": "mat_drikke", "latitude": 59.9100, "longitude": 10.7290 },
-  { "id": 9, "name": "Grünerløkka Brygge", "category": "mat_drikke", "latitude": 59.9225, "longitude": 10.7580 },
-  { "id": 10, "name": "Mathallen Oslo", "category": "mat_drikke", "latitude": 59.9222, "longitude": 10.7539 },
-  { "id": 11, "name": "Botanisk hage", "category": "park", "latitude": 59.9148, "longitude": 10.7726 },
-  { "id": 12, "name": "Ekeberg Restaurant", "category": "restaurant", "latitude": 59.8993, "longitude": 10.7721 },
-  { "id": 13, "name": "Stortinget", "category": "landemerke", "latitude": 59.9127, "longitude": 10.7393 },
-  { "id": 14, "name": "Karl Johans gate", "category": "landemerke", "latitude": 59.9138, "longitude": 10.7387 },
-  { "id": 15, "name": "Frognerparken", "category": "park", "latitude": 59.9264, "longitude": 10.6975 },
-  { "id": 16, "name": "Tjuvholmen", "category": "mat_drikke", "latitude": 59.9083, "longitude": 10.7241 },
-  { "id": 17, "name": "Oslofjordmuseet", "category": "museum", "latitude": 59.9055, "longitude": 10.6605 },
-  { "id": 18, "name": "Vikingskipshuset", "category": "museum", "latitude": 59.9046, "longitude": 10.6844 },
-  { "id": 19, "name": "Norsk Folkemuseum", "category": "museum", "latitude": 59.9031, "longitude": 10.6844 },
-  { "id": 20, "name": "Youngstorget", "category": "landemerke", "latitude": 59.9155, "longitude": 10.7490 },
-  { "id": 21, "name": "Blå", "category": "bar", "latitude": 59.9213, "longitude": 10.7562 },
-  { "id": 22, "name": "Torggata Bad", "category": "bar", "latitude": 59.9165, "longitude": 10.7510 },
-  { "id": 23, "name": "Himkok", "category": "bar", "latitude": 59.9160, "longitude": 10.7448 },
-  { "id": 24, "name": "Paleet", "category": "mat_drikke", "latitude": 59.9135, "longitude": 10.7378 },
-  { "id": 25, "name": "Ekeberg Skulpturpark", "category": "park", "latitude": 59.8985, "longitude": 10.7699 },
-  { "id": 26, "name": "Gamle Aker Kirke", "category": "landemerke", "latitude": 59.9247, "longitude": 10.7396 },
-  { "id": 27, "name": "Sagene Samfunnshus", "category": "kultur", "latitude": 59.9300, "longitude": 10.7478 },
-  { "id": 28, "name": "Vulkan", "category": "mat_drikke", "latitude": 59.9218, "longitude": 10.7528 },
-  { "id": 29, "name": "Deichmanske bibliotek", "category": "kultur", "latitude": 59.9073, "longitude": 10.7530 },
-  { "id": 30, "name": "Akerselva", "category": "park", "latitude": 59.9265, "longitude": 10.7535 }
+  {
+    "id": 1,
+    "name": "Peppes Pizza Nydalen",
+    "category": "restaurant",
+    "latitude": 59.9499642,
+    "longitude": 10.7664274,
+    "bydelId": 4
+  },
+  {
+    "id": 2,
+    "name": "Peppes Pizza",
+    "category": "restaurant",
+    "latitude": 59.911368,
+    "longitude": 10.749451,
+    "bydelId": 13
+  },
+  {
+    "id": 3,
+    "name": "Vika kino",
+    "category": "kultur",
+    "latitude": 59.913388,
+    "longitude": 10.72853,
+    "bydelId": 13
+  },
+  {
+    "id": 4,
+    "name": "Klingenberg kino",
+    "category": "kultur",
+    "latitude": 59.913468,
+    "longitude": 10.732893,
+    "bydelId": 13
+  },
+  {
+    "id": 5,
+    "name": "Beer Palace",
+    "category": "bar",
+    "latitude": 59.9105204,
+    "longitude": 10.7261726,
+    "bydelId": 2
+  },
+  {
+    "id": 6,
+    "name": "Stopp Pressen",
+    "category": "bar",
+    "latitude": 59.915414,
+    "longitude": 10.742575,
+    "bydelId": 15
+  },
+  {
+    "id": 7,
+    "name": "Abelone Kjøkken & Bar",
+    "category": "restaurant",
+    "latitude": 59.91384,
+    "longitude": 10.756428,
+    "bydelId": 13
+  },
+  {
+    "id": 8,
+    "name": "Frogner kino",
+    "category": "kultur",
+    "latitude": 59.918655,
+    "longitude": 10.709961,
+    "bydelId": 2
+  },
+  {
+    "id": 9,
+    "name": "Det internasjonale barnekunstmuseet",
+    "category": "museum",
+    "latitude": 59.9357546,
+    "longitude": 10.7115263,
+    "bydelId": 5
+  },
+  {
+    "id": 10,
+    "name": "Ophelia",
+    "category": "bar",
+    "latitude": 59.918974,
+    "longitude": 10.733822,
+    "bydelId": 2
+  },
+  {
+    "id": 11,
+    "name": "Boletini",
+    "category": "restaurant",
+    "latitude": 59.919089,
+    "longitude": 10.733937,
+    "bydelId": 2
+  },
+  {
+    "id": 12,
+    "name": "Det Norske Teatret",
+    "category": "kultur",
+    "latitude": 59.9152186,
+    "longitude": 10.7386249,
+    "bydelId": 13
+  },
+  {
+    "id": 13,
+    "name": "Mahayana Asian Dining",
+    "category": "restaurant",
+    "latitude": 59.9133121,
+    "longitude": 10.736849,
+    "bydelId": 13
+  },
+  {
+    "id": 14,
+    "name": "Dubliner",
+    "category": "bar",
+    "latitude": 59.909824,
+    "longitude": 10.740531,
+    "bydelId": 13
+  },
+  {
+    "id": 15,
+    "name": "Det Gamle Raadhus",
+    "category": "restaurant",
+    "latitude": 59.909861,
+    "longitude": 10.740101,
+    "bydelId": 13
+  },
+  {
+    "id": 16,
+    "name": "Ullevålseter Sportsstue",
+    "category": "mat_drikke",
+    "latitude": 60.0094561,
+    "longitude": 10.711906,
+    "bydelId": 14
+  },
+  {
+    "id": 17,
+    "name": "Trafalgar Sportsbar",
+    "category": "bar",
+    "latitude": 59.917078,
+    "longitude": 10.744108,
+    "bydelId": 15
+  },
+  {
+    "id": 18,
+    "name": "Kampen Bistro",
+    "category": "restaurant",
+    "latitude": 59.913764,
+    "longitude": 10.781102,
+    "bydelId": 6
+  },
+  {
+    "id": 19,
+    "name": "Deichman Lambertseter",
+    "category": "kultur",
+    "latitude": 59.873518,
+    "longitude": 10.81184,
+    "bydelId": 12
+  },
+  {
+    "id": 20,
+    "name": "Villa Paradiso Grünerløkka",
+    "category": "restaurant",
+    "latitude": 59.923502,
+    "longitude": 10.757423,
+    "bydelId": 8
+  },
+  {
+    "id": 21,
+    "name": "Babbo Collective",
+    "category": "mat_drikke",
+    "latitude": 59.9226482,
+    "longitude": 10.7571777,
+    "bydelId": 8
+  },
+  {
+    "id": 22,
+    "name": "Rebell",
+    "category": "bar",
+    "latitude": 59.9220628,
+    "longitude": 10.7594146,
+    "bydelId": 8
+  },
+  {
+    "id": 23,
+    "name": "Karlsrud Mat og Vinhus",
+    "category": "restaurant",
+    "latitude": 59.8796914,
+    "longitude": 10.8042443,
+    "bydelId": 12
+  },
+  {
+    "id": 24,
+    "name": "Deichman Majorstuen",
+    "category": "kultur",
+    "latitude": 59.9307549,
+    "longitude": 10.7163562,
+    "bydelId": 2
+  },
+  {
+    "id": 25,
+    "name": "Egon Nordstrand",
+    "category": "restaurant",
+    "latitude": 59.861313,
+    "longitude": 10.800466,
+    "bydelId": 12
+  },
+  {
+    "id": 26,
+    "name": "Tordenskiold",
+    "category": "landemerke",
+    "latitude": 59.9105698,
+    "longitude": 10.7343397,
+    "bydelId": 13
+  },
+  {
+    "id": 27,
+    "name": "Norges hjemmefrontmuseum",
+    "category": "museum",
+    "latitude": 59.907803,
+    "longitude": 10.735762,
+    "bydelId": 13
+  },
+  {
+    "id": 28,
+    "name": "Carl III Johan",
+    "category": "landemerke",
+    "latitude": 59.9166853,
+    "longitude": 10.7289774,
+    "bydelId": 13
+  },
+  {
+    "id": 29,
+    "name": "Johan Christoffer Vogelius",
+    "category": "landemerke",
+    "latitude": 59.8477782,
+    "longitude": 10.4407204,
+    "bydelId": null
+  },
+  {
+    "id": 30,
+    "name": "Deichman Torshov",
+    "category": "kultur",
+    "latitude": 59.9381578,
+    "longitude": 10.7683582,
+    "bydelId": 8
+  },
+  {
+    "id": 31,
+    "name": "Svanen Cocktailbar",
+    "category": "bar",
+    "latitude": 59.9123665,
+    "longitude": 10.7447916,
+    "bydelId": 13
+  },
+  {
+    "id": 32,
+    "name": "Folkvang",
+    "category": "restaurant",
+    "latitude": 59.9375292,
+    "longitude": 10.7564649,
+    "bydelId": 8
+  },
+  {
+    "id": 33,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.923489,
+    "longitude": 10.758756,
+    "bydelId": 8
+  },
+  {
+    "id": 34,
+    "name": "Parkteateret",
+    "category": "bar",
+    "latitude": 59.9234961,
+    "longitude": 10.7583654,
+    "bydelId": 8
+  },
+  {
+    "id": 35,
+    "name": "Jimmy’s",
+    "category": "bar",
+    "latitude": 59.9192355,
+    "longitude": 10.7575314,
+    "bydelId": 13
+  },
+  {
+    "id": 36,
+    "name": "Bar Boca",
+    "category": "bar",
+    "latitude": 59.9252056,
+    "longitude": 10.7593699,
+    "bydelId": 8
+  },
+  {
+    "id": 37,
+    "name": "Mucho Mas",
+    "category": "restaurant",
+    "latitude": 59.924171,
+    "longitude": 10.759395,
+    "bydelId": 8
+  },
+  {
+    "id": 38,
+    "name": "Tamara Café & Bar",
+    "category": "bar",
+    "latitude": 59.9256497,
+    "longitude": 10.7612976,
+    "bydelId": 8
+  },
+  {
+    "id": 39,
+    "name": "Café Stolen",
+    "category": "restaurant",
+    "latitude": 59.9242723,
+    "longitude": 10.7626023,
+    "bydelId": 10
+  },
+  {
+    "id": 40,
+    "name": "Südøst",
+    "category": "restaurant",
+    "latitude": 59.9181246,
+    "longitude": 10.7606108,
+    "bydelId": 10
+  },
+  {
+    "id": 41,
+    "name": "Delicatessen",
+    "category": "restaurant",
+    "latitude": 59.918731,
+    "longitude": 10.758267,
+    "bydelId": 10
+  },
+  {
+    "id": 42,
+    "name": "Bistroen",
+    "category": "restaurant",
+    "latitude": 59.8495984,
+    "longitude": 10.6585857,
+    "bydelId": null
+  },
+  {
+    "id": 43,
+    "name": "Galleri Vanntårnet",
+    "category": "kultur",
+    "latitude": 59.8571678,
+    "longitude": 10.6609178,
+    "bydelId": null
+  },
+  {
+    "id": 44,
+    "name": "Bærum bibliotek, Sandvika",
+    "category": "kultur",
+    "latitude": 59.8922768,
+    "longitude": 10.5253831,
+    "bydelId": null
+  },
+  {
+    "id": 45,
+    "name": "Hellviktangen",
+    "category": "kultur",
+    "latitude": 59.8512651,
+    "longitude": 10.6868102,
+    "bydelId": null
+  },
+  {
+    "id": 46,
+    "name": "Bydelskroa",
+    "category": "bar",
+    "latitude": 59.9127213,
+    "longitude": 10.7734065,
+    "bydelId": 6
+  },
+  {
+    "id": 47,
+    "name": "Baker Hansen",
+    "category": "mat_drikke",
+    "latitude": 59.936791,
+    "longitude": 10.766383,
+    "bydelId": 8
+  },
+  {
+    "id": 48,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.934769,
+    "longitude": 10.764458,
+    "bydelId": 8
+  },
+  {
+    "id": 49,
+    "name": "Roald & Umberto",
+    "category": "restaurant",
+    "latitude": 59.908379,
+    "longitude": 10.769636,
+    "bydelId": 6
+  },
+  {
+    "id": 50,
+    "name": "Universitetsbiblioteket i Oslo - Bibliotek for medisin og helsefag",
+    "category": "kultur",
+    "latitude": 59.9479701,
+    "longitude": 10.7155471,
+    "bydelId": 4
+  },
+  {
+    "id": 51,
+    "name": "Sporveismuseet",
+    "category": "museum",
+    "latitude": 59.931273,
+    "longitude": 10.716363,
+    "bydelId": 2
+  },
+  {
+    "id": 52,
+    "name": "Peppes Pizza",
+    "category": "restaurant",
+    "latitude": 59.9129421,
+    "longitude": 10.7384783,
+    "bydelId": 13
+  },
+  {
+    "id": 53,
+    "name": "Chateau Neuf",
+    "category": "kultur",
+    "latitude": 59.932344,
+    "longitude": 10.712638,
+    "bydelId": 2
+  },
+  {
+    "id": 54,
+    "name": "Asker kulturhus",
+    "category": "kultur",
+    "latitude": 59.8360581,
+    "longitude": 10.4327486,
+    "bydelId": null
+  },
+  {
+    "id": 55,
+    "name": "Big Horn Steakhouse",
+    "category": "restaurant",
+    "latitude": 59.8362206,
+    "longitude": 10.4322023,
+    "bydelId": null
+  },
+  {
+    "id": 56,
+    "name": "Jonathan Sushi & Asian Dining",
+    "category": "restaurant",
+    "latitude": 59.8802876,
+    "longitude": 10.7867365,
+    "bydelId": 12
+  },
+  {
+    "id": 57,
+    "name": "Markveien Mat & Vinhus",
+    "category": "restaurant",
+    "latitude": 59.9197894,
+    "longitude": 10.7572411,
+    "bydelId": 13
+  },
+  {
+    "id": 58,
+    "name": "Oslo Mikrobryggeri",
+    "category": "bar",
+    "latitude": 59.9242717,
+    "longitude": 10.7241227,
+    "bydelId": 2
+  },
+  {
+    "id": 59,
+    "name": "Lorry",
+    "category": "restaurant",
+    "latitude": 59.9207598,
+    "longitude": 10.728849,
+    "bydelId": 2
+  },
+  {
+    "id": 60,
+    "name": "Egon Byporten",
+    "category": "restaurant",
+    "latitude": 59.911853,
+    "longitude": 10.751104,
+    "bydelId": 13
+  },
+  {
+    "id": 61,
+    "name": "Cafe Cathedral",
+    "category": "restaurant",
+    "latitude": 59.911827,
+    "longitude": 10.747301,
+    "bydelId": 13
+  },
+  {
+    "id": 62,
+    "name": "Sir Winston",
+    "category": "bar",
+    "latitude": 59.911778,
+    "longitude": 10.746518,
+    "bydelId": 13
+  },
+  {
+    "id": 63,
+    "name": "The Scotsman",
+    "category": "bar",
+    "latitude": 59.9141161,
+    "longitude": 10.7381596,
+    "bydelId": 13
+  },
+  {
+    "id": 64,
+    "name": "Samson konditori",
+    "category": "mat_drikke",
+    "latitude": 59.912826,
+    "longitude": 10.741586,
+    "bydelId": 13
+  },
+  {
+    "id": 65,
+    "name": "Grønland Gym",
+    "category": "bar",
+    "latitude": 59.9114697,
+    "longitude": 10.7629442,
+    "bydelId": 6
+  },
+  {
+    "id": 66,
+    "name": "Gimle Kino",
+    "category": "kultur",
+    "latitude": 59.9173752,
+    "longitude": 10.7091982,
+    "bydelId": 2
+  },
+  {
+    "id": 67,
+    "name": "Sawan",
+    "category": "restaurant",
+    "latitude": 59.9188268,
+    "longitude": 10.7157254,
+    "bydelId": 2
+  },
+  {
+    "id": 68,
+    "name": "Soria Moria",
+    "category": "kultur",
+    "latitude": 59.9361726,
+    "longitude": 10.7656686,
+    "bydelId": 8
+  },
+  {
+    "id": 69,
+    "name": "Bymuseet",
+    "category": "museum",
+    "latitude": 59.9239183,
+    "longitude": 10.7030137,
+    "bydelId": 2
+  },
+  {
+    "id": 70,
+    "name": "Helt rått",
+    "category": "restaurant",
+    "latitude": 59.9362576,
+    "longitude": 10.7523858,
+    "bydelId": 8
+  },
+  {
+    "id": 71,
+    "name": "Gate of India",
+    "category": "restaurant",
+    "latitude": 59.9286639,
+    "longitude": 10.7153507,
+    "bydelId": 2
+  },
+  {
+    "id": 72,
+    "name": "Chinatown",
+    "category": "restaurant",
+    "latitude": 59.9294898,
+    "longitude": 10.7165854,
+    "bydelId": 2
+  },
+  {
+    "id": 73,
+    "name": "Bryggen Sushi",
+    "category": "restaurant",
+    "latitude": 59.910075,
+    "longitude": 10.724626,
+    "bydelId": 2
+  },
+  {
+    "id": 74,
+    "name": "ODEON Sandvika",
+    "category": "kultur",
+    "latitude": 59.8890706,
+    "longitude": 10.5223144,
+    "bydelId": null
+  },
+  {
+    "id": 75,
+    "name": "Lofotstua",
+    "category": "restaurant",
+    "latitude": 59.9272795,
+    "longitude": 10.7123803,
+    "bydelId": 2
+  },
+  {
+    "id": 76,
+    "name": "Tatakii Asian",
+    "category": "restaurant",
+    "latitude": 59.9283461,
+    "longitude": 10.7088669,
+    "bydelId": 2
+  },
+  {
+    "id": 77,
+    "name": "Mamma Pizza",
+    "category": "restaurant",
+    "latitude": 59.950059,
+    "longitude": 10.764512,
+    "bydelId": 4
+  },
+  {
+    "id": 78,
+    "name": "Deichman Romsås",
+    "category": "kultur",
+    "latitude": 59.9636711,
+    "longitude": 10.8925123,
+    "bydelId": 1
+  },
+  {
+    "id": 79,
+    "name": "Hanske-fontenen",
+    "category": "landemerke",
+    "latitude": 59.9102095,
+    "longitude": 10.7395665,
+    "bydelId": 13
+  },
+  {
+    "id": 80,
+    "name": "Big Horn Steak House",
+    "category": "restaurant",
+    "latitude": 59.908998,
+    "longitude": 10.725268,
+    "bydelId": 2
+  },
+  {
+    "id": 81,
+    "name": "Il Barbera",
+    "category": "bar",
+    "latitude": 59.910555,
+    "longitude": 10.723674,
+    "bydelId": 2
+  },
+  {
+    "id": 82,
+    "name": "Felix konferansesenter",
+    "category": "kultur",
+    "latitude": 59.910294,
+    "longitude": 10.724758,
+    "bydelId": 2
+  },
+  {
+    "id": 83,
+    "name": "Ringen Kino",
+    "category": "kultur",
+    "latitude": 59.928574,
+    "longitude": 10.760733,
+    "bydelId": 8
+  },
+  {
+    "id": 84,
+    "name": "Hjemme hos svigers",
+    "category": "mat_drikke",
+    "latitude": 59.903453,
+    "longitude": 10.6877962,
+    "bydelId": 2
+  },
+  {
+    "id": 85,
+    "name": "Strandsitterhuset",
+    "category": "museum",
+    "latitude": 59.8395811,
+    "longitude": 10.5114941,
+    "bydelId": null
+  },
+  {
+    "id": 86,
+    "name": "Sushi & Dinner",
+    "category": "restaurant",
+    "latitude": 59.920475,
+    "longitude": 10.733085,
+    "bydelId": 2
+  },
+  {
+    "id": 87,
+    "name": "Sushi Express",
+    "category": "restaurant",
+    "latitude": 59.921266,
+    "longitude": 10.730067,
+    "bydelId": 2
+  },
+  {
+    "id": 88,
+    "name": "Vollen Kystkultursenter",
+    "category": "museum",
+    "latitude": 59.8067443,
+    "longitude": 10.4922554,
+    "bydelId": null
+  },
+  {
+    "id": 89,
+    "name": "Lekter'n",
+    "category": "bar",
+    "latitude": 59.909512,
+    "longitude": 10.727846,
+    "bydelId": 2
+  },
+  {
+    "id": 90,
+    "name": "Feinschmecker",
+    "category": "restaurant",
+    "latitude": 59.918421,
+    "longitude": 10.70795,
+    "bydelId": 2
+  },
+  {
+    "id": 91,
+    "name": "Peppes",
+    "category": "restaurant",
+    "latitude": 59.9200173,
+    "longitude": 10.6843247,
+    "bydelId": 9
+  },
+  {
+    "id": 92,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.920229,
+    "longitude": 10.683402,
+    "bydelId": 9
+  },
+  {
+    "id": 93,
+    "name": "Frederikke",
+    "category": "restaurant",
+    "latitude": 59.9404039,
+    "longitude": 10.7214857,
+    "bydelId": 4
+  },
+  {
+    "id": 94,
+    "name": "Johan Sverdrup",
+    "category": "landemerke",
+    "latitude": 59.9124518,
+    "longitude": 10.7401014,
+    "bydelId": 13
+  },
+  {
+    "id": 95,
+    "name": "Kirsten Flagstad",
+    "category": "landemerke",
+    "latitude": 59.9085356,
+    "longitude": 10.7513208,
+    "bydelId": 6
+  },
+  {
+    "id": 96,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.911979,
+    "longitude": 10.740345,
+    "bydelId": 13
+  },
+  {
+    "id": 97,
+    "name": "Deichman Bjerke",
+    "category": "kultur",
+    "latitude": 59.942466,
+    "longitude": 10.811559,
+    "bydelId": 3
+  },
+  {
+    "id": 98,
+    "name": "Peppes Pizza",
+    "category": "restaurant",
+    "latitude": 59.8870805,
+    "longitude": 10.5208618,
+    "bydelId": null
+  },
+  {
+    "id": 99,
+    "name": "Sjøengen House",
+    "category": "restaurant",
+    "latitude": 59.8795638,
+    "longitude": 10.5053487,
+    "bydelId": null
+  },
+  {
+    "id": 100,
+    "name": "Kragstøtten",
+    "category": "landemerke",
+    "latitude": 59.9724502,
+    "longitude": 10.6554365,
+    "bydelId": 5
+  },
+  {
+    "id": 101,
+    "name": "Stockfleth's",
+    "category": "mat_drikke",
+    "latitude": 59.915384,
+    "longitude": 10.741662,
+    "bydelId": 15
+  },
+  {
+    "id": 102,
+    "name": "Tim Wendelboe",
+    "category": "mat_drikke",
+    "latitude": 59.9233547,
+    "longitude": 10.7556638,
+    "bydelId": 8
+  },
+  {
+    "id": 103,
+    "name": "Stockfleths",
+    "category": "mat_drikke",
+    "latitude": 59.9104891,
+    "longitude": 10.7465548,
+    "bydelId": 13
+  },
+  {
+    "id": 104,
+    "name": "Baker Hansen",
+    "category": "mat_drikke",
+    "latitude": 59.919816,
+    "longitude": 10.68447,
+    "bydelId": 9
+  },
+  {
+    "id": 105,
+    "name": "Sinober Sportsstue",
+    "category": "mat_drikke",
+    "latitude": 60.0254126,
+    "longitude": 10.840258,
+    "bydelId": null
+  },
+  {
+    "id": 106,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.916363,
+    "longitude": 10.716001,
+    "bydelId": 2
+  },
+  {
+    "id": 107,
+    "name": "Wyllerstua",
+    "category": "mat_drikke",
+    "latitude": 59.9904491,
+    "longitude": 10.6318827,
+    "bydelId": 14
+  },
+  {
+    "id": 108,
+    "name": "Hytta",
+    "category": "bar",
+    "latitude": 59.9201731,
+    "longitude": 10.7594949,
+    "bydelId": 10
+  },
+  {
+    "id": 109,
+    "name": "Sunt og Godt",
+    "category": "mat_drikke",
+    "latitude": 59.9281009,
+    "longitude": 10.7592605,
+    "bydelId": 8
+  },
+  {
+    "id": 110,
+    "name": "Minnelund",
+    "category": "landemerke",
+    "latitude": 59.9327497,
+    "longitude": 10.8532903,
+    "bydelId": 7
+  },
+  {
+    "id": 111,
+    "name": "Solfjellstua",
+    "category": "landemerke",
+    "latitude": 59.9401643,
+    "longitude": 10.4600741,
+    "bydelId": null
+  },
+  {
+    "id": 112,
+    "name": "Deichman Tøyen",
+    "category": "kultur",
+    "latitude": 59.914156,
+    "longitude": 10.7755428,
+    "bydelId": 6
+  },
+  {
+    "id": 113,
+    "name": "Club Maccaroni",
+    "category": "mat_drikke",
+    "latitude": 59.9414882,
+    "longitude": 10.6716546,
+    "bydelId": 9
+  },
+  {
+    "id": 114,
+    "name": "KUMI",
+    "category": "mat_drikke",
+    "latitude": 59.908429,
+    "longitude": 10.769455,
+    "bydelId": 6
+  },
+  {
+    "id": 115,
+    "name": "Bærum bibliotek, Eiksmarka",
+    "category": "kultur",
+    "latitude": 59.9466882,
+    "longitude": 10.6189095,
+    "bydelId": 9
+  },
+  {
+    "id": 116,
+    "name": "Donsbautaen",
+    "category": "landemerke",
+    "latitude": 59.8924279,
+    "longitude": 10.8829569,
+    "bydelId": 14
+  },
+  {
+    "id": 117,
+    "name": "Enga bar & café",
+    "category": "bar",
+    "latitude": 59.9074287,
+    "longitude": 10.7836085,
+    "bydelId": 6
+  },
+  {
+    "id": 118,
+    "name": "Linderud gruver",
+    "category": "landemerke",
+    "latitude": 59.9738358,
+    "longitude": 10.8405463,
+    "bydelId": 14
+  },
+  {
+    "id": 119,
+    "name": "Gravhauger Tanum",
+    "category": "landemerke",
+    "latitude": 59.8978988,
+    "longitude": 10.4780117,
+    "bydelId": null
+  },
+  {
+    "id": 120,
+    "name": "Tranen",
+    "category": "bar",
+    "latitude": 59.92813,
+    "longitude": 10.749162,
+    "bydelId": 15
+  },
+  {
+    "id": 121,
+    "name": "Cacadou",
+    "category": "bar",
+    "latitude": 59.9168848,
+    "longitude": 10.7532829,
+    "bydelId": 13
+  },
+  {
+    "id": 122,
+    "name": "Hylla Cafe og Bar",
+    "category": "bar",
+    "latitude": 59.8973214,
+    "longitude": 10.812952,
+    "bydelId": 16
+  },
+  {
+    "id": 123,
+    "name": "Uglebo",
+    "category": "bar",
+    "latitude": 59.9414799,
+    "longitude": 10.7226895,
+    "bydelId": 4
+  },
+  {
+    "id": 124,
+    "name": "RF-Kjellern",
+    "category": "bar",
+    "latitude": 59.9402,
+    "longitude": 10.723175,
+    "bydelId": 4
+  },
+  {
+    "id": 125,
+    "name": "U1",
+    "category": "bar",
+    "latitude": 59.9410177,
+    "longitude": 10.7249748,
+    "bydelId": 4
+  },
+  {
+    "id": 126,
+    "name": "Parkteatret Scene",
+    "category": "kultur",
+    "latitude": 59.9236202,
+    "longitude": 10.7583527,
+    "bydelId": 8
+  },
+  {
+    "id": 127,
+    "name": "Gothalfske Gruver",
+    "category": "landemerke",
+    "latitude": 59.9627651,
+    "longitude": 10.8482007,
+    "bydelId": 14
+  },
+  {
+    "id": 128,
+    "name": "Jettegryte",
+    "category": "landemerke",
+    "latitude": 59.9772165,
+    "longitude": 10.8031013,
+    "bydelId": 14
+  },
+  {
+    "id": 129,
+    "name": "Olsen",
+    "category": "bar",
+    "latitude": 59.9075609,
+    "longitude": 10.8182649,
+    "bydelId": 16
+  },
+  {
+    "id": 130,
+    "name": "Shamrock",
+    "category": "bar",
+    "latitude": 59.9274247,
+    "longitude": 10.7652371,
+    "bydelId": 8
+  },
+  {
+    "id": 131,
+    "name": "Nasjonalmuseet - Arkitektur",
+    "category": "museum",
+    "latitude": 59.908759,
+    "longitude": 10.740227,
+    "bydelId": 13
+  },
+  {
+    "id": 132,
+    "name": "Lasarett",
+    "category": "bar",
+    "latitude": 59.933287,
+    "longitude": 10.766437,
+    "bydelId": 8
+  },
+  {
+    "id": 133,
+    "name": "Oslo Nye Trikkestallen",
+    "category": "kultur",
+    "latitude": 59.932775,
+    "longitude": 10.768167,
+    "bydelId": 8
+  },
+  {
+    "id": 134,
+    "name": "Kolben kino",
+    "category": "kultur",
+    "latitude": 59.810149,
+    "longitude": 10.8014541,
+    "bydelId": 11
+  },
+  {
+    "id": 135,
+    "name": "Skillebekk",
+    "category": "landemerke",
+    "latitude": 59.9729386,
+    "longitude": 10.5767873,
+    "bydelId": null
+  },
+  {
+    "id": 136,
+    "name": "Kaffebrenneriet",
+    "category": "mat_drikke",
+    "latitude": 59.9140959,
+    "longitude": 10.7420316,
+    "bydelId": 13
+  },
+  {
+    "id": 137,
+    "name": "Vålerenga Vertshus",
+    "category": "bar",
+    "latitude": 59.909546,
+    "longitude": 10.789509,
+    "bydelId": 6
+  },
+  {
+    "id": 138,
+    "name": "Lincoln Sports Bar",
+    "category": "bar",
+    "latitude": 59.9334897,
+    "longitude": 10.7637241,
+    "bydelId": 8
+  },
+  {
+    "id": 139,
+    "name": "Øvre rettersted",
+    "category": "landemerke",
+    "latitude": 59.9525953,
+    "longitude": 10.5955088,
+    "bydelId": null
+  },
+  {
+    "id": 140,
+    "name": "Schouskjelleren Mikrobryggeri",
+    "category": "bar",
+    "latitude": 59.918368,
+    "longitude": 10.76021,
+    "bydelId": 10
+  },
+  {
+    "id": 141,
+    "name": "Alf nabolagsbar",
+    "category": "bar",
+    "latitude": 59.9274649,
+    "longitude": 10.7510975,
+    "bydelId": 15
+  },
+  {
+    "id": 142,
+    "name": "Norsk Maritimt Museum",
+    "category": "museum",
+    "latitude": 59.902833,
+    "longitude": 10.698662,
+    "bydelId": 2
+  },
+  {
+    "id": 143,
+    "name": "The Highbury Pub",
+    "category": "bar",
+    "latitude": 59.927478,
+    "longitude": 10.719017,
+    "bydelId": 2
+  },
+  {
+    "id": 144,
+    "name": "Den Gamle Major",
+    "category": "bar",
+    "latitude": 59.9286373,
+    "longitude": 10.7157436,
+    "bydelId": 2
+  },
+  {
+    "id": 145,
+    "name": "Emanuel Vigelands museum",
+    "category": "museum",
+    "latitude": 59.9471099,
+    "longitude": 10.6926345,
+    "bydelId": 5
+  },
+  {
+    "id": 146,
+    "name": "Harald Løvenskiold, Nordmarkens eier",
+    "category": "landemerke",
+    "latitude": 60.077653,
+    "longitude": 10.6559701,
+    "bydelId": 14
+  },
+  {
+    "id": 147,
+    "name": "Nuggerudsteinen",
+    "category": "landemerke",
+    "latitude": 59.9089137,
+    "longitude": 10.9080724,
+    "bydelId": 7
+  },
+  {
+    "id": 148,
+    "name": "Dramatikkens hus",
+    "category": "kultur",
+    "latitude": 59.911256,
+    "longitude": 10.762057,
+    "bydelId": 6
+  },
+  {
+    "id": 149,
+    "name": "Stengun-hytta",
+    "category": "landemerke",
+    "latitude": 59.956631,
+    "longitude": 10.9498912,
+    "bydelId": 17
+  },
+  {
+    "id": 150,
+    "name": "Stubberudbråten",
+    "category": "landemerke",
+    "latitude": 59.9754,
+    "longitude": 10.7698,
+    "bydelId": 14
+  },
+  {
+    "id": 151,
+    "name": "Bygdetun",
+    "category": "landemerke",
+    "latitude": 59.9974995,
+    "longitude": 10.7637528,
+    "bydelId": 14
+  },
+  {
+    "id": 152,
+    "name": "Bødkerstua",
+    "category": "landemerke",
+    "latitude": 60.0286,
+    "longitude": 10.7807,
+    "bydelId": 14
+  },
+  {
+    "id": 153,
+    "name": "Helgheim",
+    "category": "landemerke",
+    "latitude": 60.0384297,
+    "longitude": 10.7501908,
+    "bydelId": 14
+  },
+  {
+    "id": 154,
+    "name": "Skar kruttverk",
+    "category": "landemerke",
+    "latitude": 60.0305537,
+    "longitude": 10.7758132,
+    "bydelId": 14
+  },
+  {
+    "id": 155,
+    "name": "Kamphaug sag",
+    "category": "landemerke",
+    "latitude": 60.0107663,
+    "longitude": 10.7272966,
+    "bydelId": 14
+  },
+  {
+    "id": 156,
+    "name": "Torget",
+    "category": "landemerke",
+    "latitude": 60.0223134,
+    "longitude": 10.7943429,
+    "bydelId": 14
+  },
+  {
+    "id": 157,
+    "name": "Galgeberg Corner",
+    "category": "bar",
+    "latitude": 59.9072312,
+    "longitude": 10.7804949,
+    "bydelId": 6
+  },
+  {
+    "id": 158,
+    "name": "Harlem",
+    "category": "bar",
+    "latitude": 59.9144484,
+    "longitude": 10.7494912,
+    "bydelId": 15
+  },
+  {
+    "id": 159,
+    "name": "Bærum bibliotek, Høvik",
+    "category": "kultur",
+    "latitude": 59.898951,
+    "longitude": 10.577445,
+    "bydelId": null
+  },
+  {
+    "id": 160,
+    "name": "Grisen",
+    "category": "bar",
+    "latitude": 59.93417,
+    "longitude": 10.762693,
+    "bydelId": 8
+  },
+  {
+    "id": 161,
+    "name": "Fritz Huitfelt",
+    "category": "landemerke",
+    "latitude": 59.9890597,
+    "longitude": 10.6678965,
+    "bydelId": 14
+  },
+  {
+    "id": 162,
+    "name": "Slåttebråten",
+    "category": "landemerke",
+    "latitude": 59.8263284,
+    "longitude": 10.9452556,
+    "bydelId": null
+  },
+  {
+    "id": 163,
+    "name": "Heim Gastropub",
+    "category": "bar",
+    "latitude": 59.927151,
+    "longitude": 10.7384826,
+    "bydelId": 15
+  },
+  {
+    "id": 164,
+    "name": "Buen Bar",
+    "category": "bar",
+    "latitude": 59.9297631,
+    "longitude": 10.7803576,
+    "bydelId": 10
+  },
+  {
+    "id": 165,
+    "name": "Hans Nielsen Hauge",
+    "category": "landemerke",
+    "latitude": 59.9468667,
+    "longitude": 10.8600574,
+    "bydelId": 3
+  },
+  {
+    "id": 166,
+    "name": "Dronningparken",
+    "category": "park",
+    "latitude": 59.9161383,
+    "longitude": 10.7253578,
+    "bydelId": 13
+  },
+  {
+    "id": 167,
+    "name": "Bekkestua",
+    "category": "landemerke",
+    "latitude": 60.0053,
+    "longitude": 10.7636,
+    "bydelId": 14
+  },
+  {
+    "id": 168,
+    "name": "Dalen",
+    "category": "landemerke",
+    "latitude": 60.0348,
+    "longitude": 10.7788,
+    "bydelId": 14
+  },
+  {
+    "id": 169,
+    "name": "Kvandehytta",
+    "category": "landemerke",
+    "latitude": 60.0407,
+    "longitude": 10.7529,
+    "bydelId": 14
+  },
+  {
+    "id": 170,
+    "name": "Musebo",
+    "category": "landemerke",
+    "latitude": 60.0075,
+    "longitude": 10.7282,
+    "bydelId": 14
+  },
+  {
+    "id": 171,
+    "name": "Slåttebråten",
+    "category": "landemerke",
+    "latitude": 59.9928828,
+    "longitude": 10.8039628,
+    "bydelId": 14
+  },
+  {
+    "id": 172,
+    "name": "Solbergfoss kraftverk",
+    "category": "landemerke",
+    "latitude": 60.011414,
+    "longitude": 10.7257788,
+    "bydelId": 14
+  },
+  {
+    "id": 173,
+    "name": "Taraldsrud",
+    "category": "landemerke",
+    "latitude": 60.0024,
+    "longitude": 10.7267,
+    "bydelId": 14
+  },
+  {
+    "id": 174,
+    "name": "Kroken",
+    "category": "landemerke",
+    "latitude": 60.0262,
+    "longitude": 10.788,
+    "bydelId": 14
+  },
+  {
+    "id": 175,
+    "name": "Byens første vannintak",
+    "category": "landemerke",
+    "latitude": 59.9337271,
+    "longitude": 10.7567505,
+    "bydelId": 8
+  },
+  {
+    "id": 176,
+    "name": "Dusgård",
+    "category": "landemerke",
+    "latitude": 60.0098,
+    "longitude": 10.7787,
+    "bydelId": 14
+  },
+  {
+    "id": 177,
+    "name": "Sulua",
+    "category": "landemerke",
+    "latitude": 60.0092,
+    "longitude": 10.7658,
+    "bydelId": 14
+  },
+  {
+    "id": 178,
+    "name": "Brekke sagbruk",
+    "category": "landemerke",
+    "latitude": 59.9697971,
+    "longitude": 10.7798385,
+    "bydelId": 4
+  },
+  {
+    "id": 179,
+    "name": "Haugen",
+    "category": "landemerke",
+    "latitude": 60.0173,
+    "longitude": 10.7833,
+    "bydelId": 14
+  },
+  {
+    "id": 180,
+    "name": "Kornløken",
+    "category": "landemerke",
+    "latitude": 59.9957,
+    "longitude": 10.7904,
+    "bydelId": 14
+  },
+  {
+    "id": 181,
+    "name": "Lillestrand",
+    "category": "landemerke",
+    "latitude": 59.9707078,
+    "longitude": 10.7740026,
+    "bydelId": 14
+  },
+  {
+    "id": 182,
+    "name": "Lurhølet",
+    "category": "landemerke",
+    "latitude": 60.0213,
+    "longitude": 10.8049,
+    "bydelId": 14
+  },
+  {
+    "id": 183,
+    "name": "Maristua",
+    "category": "landemerke",
+    "latitude": 59.9991,
+    "longitude": 10.7759,
+    "bydelId": 14
+  },
+  {
+    "id": 184,
+    "name": "Murerstua",
+    "category": "landemerke",
+    "latitude": 59.9975,
+    "longitude": 10.7789,
+    "bydelId": 14
+  },
+  {
+    "id": 185,
+    "name": "Saugstuen",
+    "category": "landemerke",
+    "latitude": 60.0002,
+    "longitude": 10.7913,
+    "bydelId": 14
+  },
+  {
+    "id": 186,
+    "name": "Skomakerstua",
+    "category": "landemerke",
+    "latitude": 60.0011,
+    "longitude": 10.7655,
+    "bydelId": 14
+  },
+  {
+    "id": 187,
+    "name": "Sommero",
+    "category": "landemerke",
+    "latitude": 59.9975,
+    "longitude": 10.7765,
+    "bydelId": 14
+  },
+  {
+    "id": 188,
+    "name": "Stranden",
+    "category": "landemerke",
+    "latitude": 59.9695537,
+    "longitude": 10.7757858,
+    "bydelId": 4
+  },
+  {
+    "id": 189,
+    "name": "Vestern",
+    "category": "landemerke",
+    "latitude": 60.0003,
+    "longitude": 10.7547,
+    "bydelId": 14
+  },
+  {
+    "id": 190,
+    "name": "Åsly",
+    "category": "landemerke",
+    "latitude": 60.0261542,
+    "longitude": 10.7895851,
+    "bydelId": 14
+  },
+  {
+    "id": 191,
+    "name": "Bråten",
+    "category": "landemerke",
+    "latitude": 59.9969,
+    "longitude": 10.7481,
+    "bydelId": 14
+  },
+  {
+    "id": 192,
+    "name": "Kramla",
+    "category": "landemerke",
+    "latitude": 60.0267,
+    "longitude": 10.7754,
+    "bydelId": 14
+  },
+  {
+    "id": 193,
+    "name": "Musestua",
+    "category": "landemerke",
+    "latitude": 59.9778,
+    "longitude": 10.7611,
+    "bydelId": 14
+  },
+  {
+    "id": 194,
+    "name": "Pollen",
+    "category": "landemerke",
+    "latitude": 59.9720095,
+    "longitude": 10.7600278,
+    "bydelId": 14
+  },
+  {
+    "id": 195,
+    "name": "Skovheim",
+    "category": "landemerke",
+    "latitude": 59.9805,
+    "longitude": 10.7669,
+    "bydelId": 14
+  },
+  {
+    "id": 196,
+    "name": "Skrauperud",
+    "category": "landemerke",
+    "latitude": 59.9775946,
+    "longitude": 10.7599244,
+    "bydelId": 14
+  },
+  {
+    "id": 197,
+    "name": "Slottet",
+    "category": "landemerke",
+    "latitude": 60.0029,
+    "longitude": 10.7459,
+    "bydelId": 14
+  },
+  {
+    "id": 198,
+    "name": "Susenstua",
+    "category": "landemerke",
+    "latitude": 60.0249,
+    "longitude": 10.7814,
+    "bydelId": 14
+  },
+  {
+    "id": 199,
+    "name": "Steinkirken",
+    "category": "landemerke",
+    "latitude": 59.8414482,
+    "longitude": 10.8696399,
+    "bydelId": 14
+  },
+  {
+    "id": 200,
+    "name": "Deichman Nordtvet",
+    "category": "kultur",
+    "latitude": 59.9512723,
+    "longitude": 10.8739488,
+    "bydelId": 1
+  },
+  {
+    "id": 201,
+    "name": "Tøistua",
+    "category": "landemerke",
+    "latitude": 60.0789459,
+    "longitude": 10.8243465,
+    "bydelId": null
+  },
+  {
+    "id": 202,
+    "name": "Christian August-monumentet",
+    "category": "landemerke",
+    "latitude": 59.9019875,
+    "longitude": 10.6668183,
+    "bydelId": 2
+  },
+  {
+    "id": 203,
+    "name": "Wedelmonumentet",
+    "category": "landemerke",
+    "latitude": 59.9143071,
+    "longitude": 10.6827389,
+    "bydelId": 2
+  },
+  {
+    "id": 204,
+    "name": "Ole Høilands hule",
+    "category": "landemerke",
+    "latitude": 59.9668357,
+    "longitude": 10.824851,
+    "bydelId": 14
+  },
+  {
+    "id": 205,
+    "name": "Deichman Holmlia",
+    "category": "kultur",
+    "latitude": 59.8351239,
+    "longitude": 10.7946001,
+    "bydelId": 11
+  },
+  {
+    "id": 206,
+    "name": "Benjamin Hermansen minnesmerke",
+    "category": "landemerke",
+    "latitude": 59.8268047,
+    "longitude": 10.7834318,
+    "bydelId": 11
+  },
+  {
+    "id": 207,
+    "name": "Niels Henrik Abel",
+    "category": "landemerke",
+    "latitude": 59.9155642,
+    "longitude": 10.7312163,
+    "bydelId": 13
+  },
+  {
+    "id": 208,
+    "name": "P. A. Munch",
+    "category": "landemerke",
+    "latitude": 59.9151773,
+    "longitude": 10.7354966,
+    "bydelId": 13
+  },
+  {
+    "id": 209,
+    "name": "Trygve Lie",
+    "category": "landemerke",
+    "latitude": 59.9413679,
+    "longitude": 10.8980589,
+    "bydelId": 7
+  },
+  {
+    "id": 210,
+    "name": "Dansens Hus",
+    "category": "kultur",
+    "latitude": 59.921613,
+    "longitude": 10.752348,
+    "bydelId": 10
+  },
+  {
+    "id": 211,
+    "name": "Popsenteret",
+    "category": "museum",
+    "latitude": 59.919777,
+    "longitude": 10.761033,
+    "bydelId": 10
+  },
+  {
+    "id": 212,
+    "name": "Krohgstøtten",
+    "category": "landemerke",
+    "latitude": 59.9172896,
+    "longitude": 10.7592889,
+    "bydelId": 10
+  },
+  {
+    "id": 213,
+    "name": "Rødkleivhytta ruin",
+    "category": "landemerke",
+    "latitude": 59.9893032,
+    "longitude": 10.6539633,
+    "bydelId": 14
+  },
+  {
+    "id": 214,
+    "name": "Nesodden bibliotek",
+    "category": "kultur",
+    "latitude": 59.8554774,
+    "longitude": 10.662449,
+    "bydelId": null
+  },
+  {
+    "id": 215,
+    "name": "Nesoddeparken Kunst- og Kultursenter",
+    "category": "kultur",
+    "latitude": 59.8078691,
+    "longitude": 10.6829056,
+    "bydelId": null
+  },
+  {
+    "id": 216,
+    "name": "Heftye-bautaen",
+    "category": "landemerke",
+    "latitude": 59.95968,
+    "longitude": 10.6848269,
+    "bydelId": 5
+  },
+  {
+    "id": 217,
+    "name": "Klondyke",
+    "category": "landemerke",
+    "latitude": 59.8533356,
+    "longitude": 10.936056,
+    "bydelId": null
+  },
+  {
+    "id": 218,
+    "name": "Korpås-Olsen",
+    "category": "landemerke",
+    "latitude": 59.8566397,
+    "longitude": 10.8592272,
+    "bydelId": 14
+  },
+  {
+    "id": 219,
+    "name": "Spenningsbygruva",
+    "category": "landemerke",
+    "latitude": 60.0866823,
+    "longitude": 10.9155362,
+    "bydelId": null
+  },
+  {
+    "id": 220,
+    "name": "Astrup Fearnley Museet",
+    "category": "museum",
+    "latitude": 59.906925,
+    "longitude": 10.721938,
+    "bydelId": 2
+  },
+  {
+    "id": 221,
+    "name": "Realfagsbiblioteket",
+    "category": "kultur",
+    "latitude": 59.940141,
+    "longitude": 10.723388,
+    "bydelId": 4
+  },
+  {
+    "id": 222,
+    "name": "Old lighthouse",
+    "category": "landemerke",
+    "latitude": 59.8711391,
+    "longitude": 10.656149,
+    "bydelId": null
+  },
+  {
+    "id": 223,
+    "name": "Deichman Oppsal",
+    "category": "kultur",
+    "latitude": 59.894278,
+    "longitude": 10.841913,
+    "bydelId": 16
+  },
+  {
+    "id": 224,
+    "name": "Sentrum Scene",
+    "category": "kultur",
+    "latitude": 59.9154765,
+    "longitude": 10.7517805,
+    "bydelId": 15
+  },
+  {
+    "id": 225,
+    "name": "Knut Møyen",
+    "category": "landemerke",
+    "latitude": 60.0247076,
+    "longitude": 10.6589098,
+    "bydelId": 14
+  },
+  {
+    "id": 226,
+    "name": "Airship “Norge” Landing Site",
+    "category": "landemerke",
+    "latitude": 59.8953398,
+    "longitude": 10.7817315,
+    "bydelId": 12
+  },
+  {
+    "id": 227,
+    "name": "Milorghytte",
+    "category": "landemerke",
+    "latitude": 60.082216,
+    "longitude": 10.6234202,
+    "bydelId": 14
+  },
+  {
+    "id": 228,
+    "name": "Flyvraket i Hansakollen",
+    "category": "landemerke",
+    "latitude": 60.0449494,
+    "longitude": 10.5682824,
+    "bydelId": 14
+  },
+  {
+    "id": 229,
+    "name": "Colletthytta",
+    "category": "landemerke",
+    "latitude": 60.0149962,
+    "longitude": 10.5744227,
+    "bydelId": 14
+  },
+  {
+    "id": 230,
+    "name": "Steinhytta i Stuttandersdalen",
+    "category": "landemerke",
+    "latitude": 60.0876428,
+    "longitude": 10.7279481,
+    "bydelId": 14
+  },
+  {
+    "id": 231,
+    "name": "Ramnagrø",
+    "category": "landemerke",
+    "latitude": 60.0386154,
+    "longitude": 10.7899091,
+    "bydelId": 14
+  },
+  {
+    "id": 232,
+    "name": "Lommedalsbanen",
+    "category": "museum",
+    "latitude": 59.9819171,
+    "longitude": 10.4836961,
+    "bydelId": null
+  },
+  {
+    "id": 233,
+    "name": "Galleri Av og Til",
+    "category": "museum",
+    "latitude": 59.928583,
+    "longitude": 10.765335,
+    "bydelId": 8
+  },
+  {
+    "id": 234,
+    "name": "Nedre rettersted",
+    "category": "landemerke",
+    "latitude": 59.9490478,
+    "longitude": 10.5953359,
+    "bydelId": null
+  },
+  {
+    "id": 235,
+    "name": "Orlogsgast",
+    "category": "landemerke",
+    "latitude": 59.9048021,
+    "longitude": 10.7376812,
+    "bydelId": 13
+  },
+  {
+    "id": 236,
+    "name": "Brunskovsetra",
+    "category": "landemerke",
+    "latitude": 59.9828109,
+    "longitude": 10.8129101,
+    "bydelId": 14
+  },
+  {
+    "id": 237,
+    "name": "Villa Blokksberg",
+    "category": "landemerke",
+    "latitude": 59.9800148,
+    "longitude": 10.8541928,
+    "bydelId": 14
+  },
+  {
+    "id": 238,
+    "name": "Det Andre Teatret",
+    "category": "kultur",
+    "latitude": 59.9386767,
+    "longitude": 10.765609,
+    "bydelId": 8
+  },
+  {
+    "id": 239,
+    "name": "Oslo Nye Centralteatret",
+    "category": "kultur",
+    "latitude": 59.91454,
+    "longitude": 10.743455,
+    "bydelId": 15
+  },
+  {
+    "id": 240,
+    "name": "Oslo Nye Hovedscenen",
+    "category": "kultur",
+    "latitude": 59.914414,
+    "longitude": 10.739797,
+    "bydelId": 13
+  },
+  {
+    "id": 241,
+    "name": "Mariakirken",
+    "category": "landemerke",
+    "latitude": 59.9034666,
+    "longitude": 10.7617498,
+    "bydelId": 6
+  },
+  {
+    "id": 242,
+    "name": "Cinemateket",
+    "category": "kultur",
+    "latitude": 59.909533,
+    "longitude": 10.745719,
+    "bydelId": 13
+  },
+  {
+    "id": 243,
+    "name": "Asker's fallen during the Second World War",
+    "category": "landemerke",
+    "latitude": 59.843247,
+    "longitude": 10.4388083,
+    "bydelId": null
+  },
+  {
+    "id": 244,
+    "name": "MS Scandinavian Star minnesmerke",
+    "category": "landemerke",
+    "latitude": 59.9073301,
+    "longitude": 10.7352153,
+    "bydelId": 13
+  },
+  {
+    "id": 245,
+    "name": "22. juli-senteret",
+    "category": "museum",
+    "latitude": 59.915948,
+    "longitude": 10.74274,
+    "bydelId": 15
+  },
+  {
+    "id": 246,
+    "name": "Tenthaus Gallery",
+    "category": "museum",
+    "latitude": 59.920658,
+    "longitude": 10.751597,
+    "bydelId": 10
+  },
+  {
+    "id": 247,
+    "name": "LNM",
+    "category": "museum",
+    "latitude": 59.910805,
+    "longitude": 10.7368358,
+    "bydelId": 13
+  },
+  {
+    "id": 248,
+    "name": "Arbeidermuseet",
+    "category": "museum",
+    "latitude": 59.930892,
+    "longitude": 10.75576,
+    "bydelId": 8
+  },
+  {
+    "id": 249,
+    "name": "Hans Nielsen Hauge 1771-1824",
+    "category": "landemerke",
+    "latitude": 59.9216165,
+    "longitude": 10.7204733,
+    "bydelId": 2
+  },
+  {
+    "id": 250,
+    "name": "Soot",
+    "category": "museum",
+    "latitude": 59.938951,
+    "longitude": 10.501578,
+    "bydelId": null
+  },
+  {
+    "id": 251,
+    "name": "Hytta hennes Ingeborg",
+    "category": "landemerke",
+    "latitude": 59.9067542,
+    "longitude": 10.8977844,
+    "bydelId": 14
+  },
+  {
+    "id": 252,
+    "name": "Bomstua",
+    "category": "landemerke",
+    "latitude": 60.0240631,
+    "longitude": 10.8095904,
+    "bydelId": 14
+  },
+  {
+    "id": 253,
+    "name": "Furuset bibliotek og aktivitetshus - FUBIAK",
+    "category": "kultur",
+    "latitude": 59.941072,
+    "longitude": 10.89738,
+    "bydelId": 7
+  },
+  {
+    "id": 254,
+    "name": "Annes Dukketeater",
+    "category": "kultur",
+    "latitude": 59.9263853,
+    "longitude": 10.7084137,
+    "bydelId": 2
+  },
+  {
+    "id": 255,
+    "name": "Lincoln",
+    "category": "landemerke",
+    "latitude": 59.9237749,
+    "longitude": 10.704997,
+    "bydelId": 2
+  },
+  {
+    "id": 256,
+    "name": "Galleri Skallum",
+    "category": "museum",
+    "latitude": 59.9108569,
+    "longitude": 10.5931396,
+    "bydelId": null
+  },
+  {
+    "id": 257,
+    "name": "Cay-Cay Tren-Tren",
+    "category": "landemerke",
+    "latitude": 59.9379334,
+    "longitude": 10.75115,
+    "bydelId": 8
+  },
+  {
+    "id": 258,
+    "name": "Leif Tronstad",
+    "category": "landemerke",
+    "latitude": 59.8929011,
+    "longitude": 10.5227267,
+    "bydelId": null
+  },
+  {
+    "id": 259,
+    "name": "Christian Krohg",
+    "category": "landemerke",
+    "latitude": 59.9135273,
+    "longitude": 10.7404319,
+    "bydelId": 13
+  },
+  {
+    "id": 260,
+    "name": "Grafill",
+    "category": "museum",
+    "latitude": 59.9119122,
+    "longitude": 10.7360723,
+    "bydelId": 13
+  },
+  {
+    "id": 261,
+    "name": "W.A. Wexels",
+    "category": "landemerke",
+    "latitude": 59.9121358,
+    "longitude": 10.7461077,
+    "bydelId": 13
+  },
+  {
+    "id": 262,
+    "name": "Interkulturelt museum",
+    "category": "museum",
+    "latitude": 59.913048,
+    "longitude": 10.763251,
+    "bydelId": 6
+  },
+  {
+    "id": 263,
+    "name": "Rådyrgruppen",
+    "category": "landemerke",
+    "latitude": 59.9387515,
+    "longitude": 10.6149469,
+    "bydelId": 9
+  },
+  {
+    "id": 264,
+    "name": "Adolph Tidemand",
+    "category": "landemerke",
+    "latitude": 59.9176274,
+    "longitude": 10.7353475,
+    "bydelId": 13
+  },
+  {
+    "id": 265,
+    "name": "Betzy Kjelsberg",
+    "category": "landemerke",
+    "latitude": 59.9324286,
+    "longitude": 10.7594262,
+    "bydelId": 8
+  },
+  {
+    "id": 266,
+    "name": "Hans Poulsen Egede (1686 – 1758)",
+    "category": "landemerke",
+    "latitude": 59.9166519,
+    "longitude": 10.7457417,
+    "bydelId": 15
+  },
+  {
+    "id": 267,
+    "name": "Johan Sebastian Welhaven 1807-1873",
+    "category": "landemerke",
+    "latitude": 59.919406,
+    "longitude": 10.7192112,
+    "bydelId": 2
+  },
+  {
+    "id": 268,
+    "name": "Rikard Nordraak",
+    "category": "landemerke",
+    "latitude": 59.9178298,
+    "longitude": 10.7320573,
+    "bydelId": 2
+  },
+  {
+    "id": 269,
+    "name": "Diderich Hegermann",
+    "category": "landemerke",
+    "latitude": 59.9098815,
+    "longitude": 10.74556,
+    "bydelId": 13
+  },
+  {
+    "id": 270,
+    "name": "Ole Dehli",
+    "category": "landemerke",
+    "latitude": 59.9389019,
+    "longitude": 10.7588362,
+    "bydelId": 8
+  },
+  {
+    "id": 271,
+    "name": "Kunsthall Oslo",
+    "category": "museum",
+    "latitude": 59.9079628,
+    "longitude": 10.7615216,
+    "bydelId": 6
+  },
+  {
+    "id": 272,
+    "name": "Milorgstøtta",
+    "category": "landemerke",
+    "latitude": 59.8921717,
+    "longitude": 10.8796707,
+    "bydelId": 14
+  },
+  {
+    "id": 273,
+    "name": "Informatikkbiblioteket",
+    "category": "kultur",
+    "latitude": 59.943615,
+    "longitude": 10.718416,
+    "bydelId": 4
+  },
+  {
+    "id": 274,
+    "name": "Galleri Pingvin",
+    "category": "museum",
+    "latitude": 59.9306846,
+    "longitude": 10.7224278,
+    "bydelId": 2
+  },
+  {
+    "id": 275,
+    "name": "Vestbredden",
+    "category": "landemerke",
+    "latitude": 59.9193326,
+    "longitude": 10.7517878,
+    "bydelId": 10
+  },
+  {
+    "id": 276,
+    "name": "Winston Churchill statue",
+    "category": "landemerke",
+    "latitude": 59.9146656,
+    "longitude": 10.718926,
+    "bydelId": 2
+  },
+  {
+    "id": 277,
+    "name": "Oslos geografiske midtpunkt - Pyramide",
+    "category": "landemerke",
+    "latitude": 59.9809895,
+    "longitude": 10.7394846,
+    "bydelId": 14
+  },
+  {
+    "id": 278,
+    "name": "Nordic Black Theatre & Cafeteatret",
+    "category": "kultur",
+    "latitude": 59.910351,
+    "longitude": 10.767021,
+    "bydelId": 6
+  },
+  {
+    "id": 279,
+    "name": "Hellåsbonn",
+    "category": "landemerke",
+    "latitude": 59.943632,
+    "longitude": 10.4391849,
+    "bydelId": null
+  },
+  {
+    "id": 280,
+    "name": "Gresstua",
+    "category": "landemerke",
+    "latitude": 59.9876611,
+    "longitude": 10.8057009,
+    "bydelId": 14
+  },
+  {
+    "id": 281,
+    "name": "Kullmile",
+    "category": "landemerke",
+    "latitude": 59.9430245,
+    "longitude": 10.5557348,
+    "bydelId": null
+  },
+  {
+    "id": 282,
+    "name": "Folketeatret",
+    "category": "kultur",
+    "latitude": 59.9142808,
+    "longitude": 10.7504213,
+    "bydelId": 15
+  },
+  {
+    "id": 283,
+    "name": "Pionerstatuen",
+    "category": "landemerke",
+    "latitude": 59.9150734,
+    "longitude": 10.7495874,
+    "bydelId": 15
+  },
+  {
+    "id": 284,
+    "name": "Galleri Duer",
+    "category": "museum",
+    "latitude": 59.9174758,
+    "longitude": 10.7519507,
+    "bydelId": 15
+  },
+  {
+    "id": 285,
+    "name": "Fire frosker",
+    "category": "landemerke",
+    "latitude": 59.8488618,
+    "longitude": 10.6695654,
+    "bydelId": null
+  },
+  {
+    "id": 286,
+    "name": "1940 Til mine om våre falne 1945",
+    "category": "landemerke",
+    "latitude": 59.9478902,
+    "longitude": 10.7018977,
+    "bydelId": 5
+  },
+  {
+    "id": 287,
+    "name": "King Olav V",
+    "category": "landemerke",
+    "latitude": 59.8349953,
+    "longitude": 10.4353641,
+    "bydelId": null
+  },
+  {
+    "id": 288,
+    "name": "Stone table",
+    "category": "landemerke",
+    "latitude": 59.8250137,
+    "longitude": 10.4502226,
+    "bydelId": null
+  },
+  {
+    "id": 289,
+    "name": "Salen - Institutt for musikkvitenskap",
+    "category": "kultur",
+    "latitude": 59.9371055,
+    "longitude": 10.7203522,
+    "bydelId": 4
+  },
+  {
+    "id": 290,
+    "name": "Deichman Nydalen",
+    "category": "kultur",
+    "latitude": 59.9502876,
+    "longitude": 10.7625645,
+    "bydelId": 4
+  },
+  {
+    "id": 291,
+    "name": "Hans Henrik Dedichen 1895-1960",
+    "category": "landemerke",
+    "latitude": 59.9233258,
+    "longitude": 10.8667132,
+    "bydelId": 7
+  },
+  {
+    "id": 292,
+    "name": "German cruiser \" Blücher\" anchor",
+    "category": "landemerke",
+    "latitude": 59.9084308,
+    "longitude": 10.7242953,
+    "bydelId": 2
+  },
+  {
+    "id": 293,
+    "name": "Prinsesse Ingrid Alexandras Skulpturpark",
+    "category": "museum",
+    "latitude": 59.9186919,
+    "longitude": 10.7292963,
+    "bydelId": 13
+  },
+  {
+    "id": 294,
+    "name": "Mann og bauta",
+    "category": "landemerke",
+    "latitude": 59.9122704,
+    "longitude": 10.7319152,
+    "bydelId": 13
+  },
+  {
+    "id": 295,
+    "name": "Deichman Stovner",
+    "category": "kultur",
+    "latitude": 59.961621,
+    "longitude": 10.9259,
+    "bydelId": 17
+  },
+  {
+    "id": 296,
+    "name": "Nasjonalmonumentet for krigens ofre 1940-45",
+    "category": "landemerke",
+    "latitude": 59.9060883,
+    "longitude": 10.7387308,
+    "bydelId": 13
+  },
+  {
+    "id": 297,
+    "name": "Naturhistorisk museum",
+    "category": "museum",
+    "latitude": 59.919783,
+    "longitude": 10.771714,
+    "bydelId": 10
+  },
+  {
+    "id": 298,
+    "name": "Dronning Maud",
+    "category": "landemerke",
+    "latitude": 59.9162133,
+    "longitude": 10.7273234,
+    "bydelId": 13
+  },
+  {
+    "id": 299,
+    "name": "Grini museum",
+    "category": "museum",
+    "latitude": 59.9557896,
+    "longitude": 10.5847011,
+    "bydelId": null
+  },
+  {
+    "id": 300,
+    "name": "Eugene Hansen sogneprest",
+    "category": "landemerke",
+    "latitude": 59.9354492,
+    "longitude": 10.7358595,
+    "bydelId": 15
+  },
+  {
+    "id": 301,
+    "name": "Liten pike 10 år",
+    "category": "landemerke",
+    "latitude": 59.8111861,
+    "longitude": 10.7977799,
+    "bydelId": 11
+  },
+  {
+    "id": 302,
+    "name": "Rådhusparken",
+    "category": "park",
+    "latitude": 59.8110162,
+    "longitude": 10.7973346,
+    "bydelId": 11
+  },
+  {
+    "id": 303,
+    "name": "Dansk krigsminne",
+    "category": "landemerke",
+    "latitude": 59.932462,
+    "longitude": 10.703754,
+    "bydelId": 9
+  },
+  {
+    "id": 304,
+    "name": "Senter for studier av Holocaust og livssynsminoriteter",
+    "category": "museum",
+    "latitude": 59.898946,
+    "longitude": 10.67814,
+    "bydelId": 2
+  },
+  {
+    "id": 305,
+    "name": "Nittedal bibliotek",
+    "category": "kultur",
+    "latitude": 60.0439155,
+    "longitude": 10.8810943,
+    "bydelId": null
+  },
+  {
+    "id": 306,
+    "name": "Harald Haardraade (1015-1066)",
+    "category": "landemerke",
+    "latitude": 59.9076203,
+    "longitude": 10.7728038,
+    "bydelId": 6
+  },
+  {
+    "id": 307,
+    "name": "Falt i kampen for Norge 1940 - 1945",
+    "category": "landemerke",
+    "latitude": 59.9418601,
+    "longitude": 10.7340769,
+    "bydelId": 4
+  },
+  {
+    "id": 308,
+    "name": "Institut Français",
+    "category": "kultur",
+    "latitude": 59.92351,
+    "longitude": 10.723177,
+    "bydelId": 2
+  },
+  {
+    "id": 309,
+    "name": "Bjørnstjerne Bjørnsons grav og Karoline, Johanne, Elisabeth",
+    "category": "landemerke",
+    "latitude": 59.9213365,
+    "longitude": 10.7444517,
+    "bydelId": 15
+  },
+  {
+    "id": 310,
+    "name": "Minne om falne fra Polititroppene Sverige og Norge 1943-1945",
+    "category": "landemerke",
+    "latitude": 59.9047662,
+    "longitude": 10.741461,
+    "bydelId": 13
+  },
+  {
+    "id": 311,
+    "name": "Otto Ruge",
+    "category": "landemerke",
+    "latitude": 59.9069865,
+    "longitude": 10.7408513,
+    "bydelId": 13
+  },
+  {
+    "id": 312,
+    "name": "Kronprinsesse Märtha",
+    "category": "landemerke",
+    "latitude": 59.8427271,
+    "longitude": 10.4363351,
+    "bydelId": null
+  },
+  {
+    "id": 313,
+    "name": "Deichman Bjørnholt",
+    "category": "kultur",
+    "latitude": 59.8344276,
+    "longitude": 10.8354109,
+    "bydelId": 11
+  },
+  {
+    "id": 314,
+    "name": "Deichman Smestad",
+    "category": "kultur",
+    "latitude": 59.9325072,
+    "longitude": 10.6827315,
+    "bydelId": 9
+  },
+  {
+    "id": 315,
+    "name": "Deichman Røa",
+    "category": "kultur",
+    "latitude": 59.946444,
+    "longitude": 10.6436558,
+    "bydelId": 5
+  },
+  {
+    "id": 316,
+    "name": "Deichman Rommen",
+    "category": "kultur",
+    "latitude": 59.9673978,
+    "longitude": 10.9142652,
+    "bydelId": 14
+  },
+  {
+    "id": 317,
+    "name": "Krigsseilermonumentet",
+    "category": "landemerke",
+    "latitude": 59.9033904,
+    "longitude": 10.7014233,
+    "bydelId": 2
+  },
+  {
+    "id": 318,
+    "name": "Grusomhetens teater",
+    "category": "kultur",
+    "latitude": 59.919332,
+    "longitude": 10.7524618,
+    "bydelId": 10
+  },
+  {
+    "id": 319,
+    "name": "Ølakademiet",
+    "category": "landemerke",
+    "latitude": 59.9211501,
+    "longitude": 10.7588191,
+    "bydelId": 8
+  },
+  {
+    "id": 320,
+    "name": "Bærum bibliotek, Rykkinn",
+    "category": "kultur",
+    "latitude": 59.9237471,
+    "longitude": 10.4844619,
+    "bydelId": null
+  },
+  {
+    "id": 321,
+    "name": "NLB - Norsk lyd- og blindeskriftbibliotek",
+    "category": "kultur",
+    "latitude": 59.9139292,
+    "longitude": 10.7179995,
+    "bydelId": 2
+  },
+  {
+    "id": 322,
+    "name": "Store Sarabråtbakken skihopp",
+    "category": "landemerke",
+    "latitude": 59.887391,
+    "longitude": 10.8850621,
+    "bydelId": 14
+  },
+  {
+    "id": 323,
+    "name": "Oslo Skiklubs hytte",
+    "category": "landemerke",
+    "latitude": 59.8700078,
+    "longitude": 10.8964544,
+    "bydelId": 14
+  },
+  {
+    "id": 324,
+    "name": "Sandvika teater",
+    "category": "kultur",
+    "latitude": 59.890933,
+    "longitude": 10.5249487,
+    "bydelId": null
+  },
+  {
+    "id": 325,
+    "name": "Galleri Würth",
+    "category": "museum",
+    "latitude": 59.9875448,
+    "longitude": 10.9415637,
+    "bydelId": 17
+  },
+  {
+    "id": 326,
+    "name": "Jansløkka skolemuseum",
+    "category": "museum",
+    "latitude": 59.8491827,
+    "longitude": 10.4427912,
+    "bydelId": null
+  },
+  {
+    "id": 327,
+    "name": "Oslofjordmuseet",
+    "category": "museum",
+    "latitude": 59.8070344,
+    "longitude": 10.4910148,
+    "bydelId": null
+  },
+  {
+    "id": 328,
+    "name": "Skimuseet",
+    "category": "museum",
+    "latitude": 59.9646108,
+    "longitude": 10.6666128,
+    "bydelId": 14
+  },
+  {
+    "id": 329,
+    "name": "Kreftforeningens Vitensenter",
+    "category": "museum",
+    "latitude": 59.9098172,
+    "longitude": 10.7418568,
+    "bydelId": 13
+  },
+  {
+    "id": 330,
+    "name": "Brannmuseet i Oslo",
+    "category": "museum",
+    "latitude": 59.9116584,
+    "longitude": 10.7670017,
+    "bydelId": 6
+  },
+  {
+    "id": 331,
+    "name": "The Salmon Vitensenter",
+    "category": "landemerke",
+    "latitude": 59.9079824,
+    "longitude": 10.723189,
+    "bydelId": 2
+  },
+  {
+    "id": 332,
+    "name": "The Viking Planet",
+    "category": "museum",
+    "latitude": 59.9132799,
+    "longitude": 10.7340478,
+    "bydelId": 13
+  },
+  {
+    "id": 333,
+    "name": "Bygdø kongsgård",
+    "category": "museum",
+    "latitude": 59.9113605,
+    "longitude": 10.6803409,
+    "bydelId": 2
+  },
+  {
+    "id": 334,
+    "name": "Telemuseet",
+    "category": "museum",
+    "latitude": 59.9668982,
+    "longitude": 10.7841371,
+    "bydelId": 4
+  },
+  {
+    "id": 335,
+    "name": "Småflaskemuseet",
+    "category": "museum",
+    "latitude": 59.909641,
+    "longitude": 10.743402,
+    "bydelId": 13
+  },
+  {
+    "id": 336,
+    "name": "Norsk tryllemuseum",
+    "category": "museum",
+    "latitude": 59.9112029,
+    "longitude": 10.7199527,
+    "bydelId": 2
+  },
+  {
+    "id": 337,
+    "name": "Oslo skolemuseum",
+    "category": "museum",
+    "latitude": 59.9182871,
+    "longitude": 10.7499149,
+    "bydelId": 15
+  },
+  {
+    "id": 338,
+    "name": "Sara Rottman",
+    "category": "landemerke",
+    "latitude": 59.9119052,
+    "longitude": 10.7499037,
+    "bydelId": 13
+  },
+  {
+    "id": 339,
+    "name": "Atelier Nord",
+    "category": "museum",
+    "latitude": 59.92227,
+    "longitude": 10.7581945,
+    "bydelId": 8
+  },
+  {
+    "id": 340,
+    "name": "Dette er et fint sted",
+    "category": "landemerke",
+    "latitude": 59.9271166,
+    "longitude": 10.7800405,
+    "bydelId": 10
+  },
+  {
+    "id": 341,
+    "name": "Herla Syversens Garteri",
+    "category": "landemerke",
+    "latitude": 59.9272978,
+    "longitude": 10.7812895,
+    "bydelId": 10
+  },
+  {
+    "id": 342,
+    "name": "Pilegrimsleden ⌘ 639 km til Nidaros",
+    "category": "landemerke",
+    "latitude": 59.9233672,
+    "longitude": 10.7466242,
+    "bydelId": 15
+  },
+  {
+    "id": 343,
+    "name": "Oslo Summerpark",
+    "category": "park",
+    "latitude": 59.9929693,
+    "longitude": 10.6667068,
+    "bydelId": 14
+  },
+  {
+    "id": 344,
+    "name": "Johannes Brun",
+    "category": "landemerke",
+    "latitude": 59.9088394,
+    "longitude": 10.7421158,
+    "bydelId": 13
+  },
+  {
+    "id": 345,
+    "name": "Bærum kunsthåndverk",
+    "category": "museum",
+    "latitude": 59.9401004,
+    "longitude": 10.5018604,
+    "bydelId": null
+  },
+  {
+    "id": 346,
+    "name": "Den internasjonale brigade i Spania",
+    "category": "landemerke",
+    "latitude": 59.9268674,
+    "longitude": 10.7601196,
+    "bydelId": 8
+  },
+  {
+    "id": 347,
+    "name": "Den illegale presse 1940-45",
+    "category": "landemerke",
+    "latitude": 59.9144989,
+    "longitude": 10.7167417,
+    "bydelId": 2
+  },
+  {
+    "id": 348,
+    "name": "Grete Waitz",
+    "category": "landemerke",
+    "latitude": 59.9259359,
+    "longitude": 10.7342294,
+    "bydelId": 15
+  },
+  {
+    "id": 349,
+    "name": "BETZY KJELSBERG 1866-1950",
+    "category": "landemerke",
+    "latitude": 59.9328419,
+    "longitude": 10.7581843,
+    "bydelId": 8
+  },
+  {
+    "id": 350,
+    "name": "Eivind H. Solberg 1933-2008",
+    "category": "landemerke",
+    "latitude": 59.9297843,
+    "longitude": 10.7121413,
+    "bydelId": 2
+  },
+  {
+    "id": 351,
+    "name": "Mathia Anker 1737-1801",
+    "category": "landemerke",
+    "latitude": 59.9248516,
+    "longitude": 10.7031764,
+    "bydelId": 2
+  },
+  {
+    "id": 352,
+    "name": "Rektor O.J. Skattum 1862-1930",
+    "category": "landemerke",
+    "latitude": 59.9170236,
+    "longitude": 10.7172474,
+    "bydelId": 2
+  },
+  {
+    "id": 353,
+    "name": "Camilla Collett",
+    "category": "landemerke",
+    "latitude": 59.9181274,
+    "longitude": 10.727978,
+    "bydelId": 13
+  },
+  {
+    "id": 354,
+    "name": "Gatebarnas Far",
+    "category": "landemerke",
+    "latitude": 59.9106036,
+    "longitude": 10.7505486,
+    "bydelId": 13
+  },
+  {
+    "id": 355,
+    "name": "Rudolf Nilsens",
+    "category": "landemerke",
+    "latitude": 59.9161694,
+    "longitude": 10.7655897,
+    "bydelId": 6
+  },
+  {
+    "id": 356,
+    "name": "Egebergløkka Parsellhage",
+    "category": "landemerke",
+    "latitude": 59.9233264,
+    "longitude": 10.7484823,
+    "bydelId": 15
+  },
+  {
+    "id": 357,
+    "name": "Hovedøya klosterruin",
+    "category": "landemerke",
+    "latitude": 59.8963542,
+    "longitude": 10.7282516,
+    "bydelId": 6
+  },
+  {
+    "id": 358,
+    "name": "Fred",
+    "category": "landemerke",
+    "latitude": 59.8433918,
+    "longitude": 10.433742,
+    "bydelId": null
+  },
+  {
+    "id": 359,
+    "name": "Frogner Hovedgård",
+    "category": "landemerke",
+    "latitude": 59.9231984,
+    "longitude": 10.7021718,
+    "bydelId": 2
+  },
+  {
+    "id": 360,
+    "name": "Kultur Kontinuitet",
+    "category": "landemerke",
+    "latitude": 60.0091219,
+    "longitude": 10.9471027,
+    "bydelId": null
+  },
+  {
+    "id": 361,
+    "name": "Krigsseilerminnesmerket",
+    "category": "landemerke",
+    "latitude": 59.9207229,
+    "longitude": 10.7455152,
+    "bydelId": 15
+  },
+  {
+    "id": 362,
+    "name": "Granli",
+    "category": "landemerke",
+    "latitude": 59.8715545,
+    "longitude": 10.8254257,
+    "bydelId": 12
+  },
+  {
+    "id": 363,
+    "name": "Alnaparken",
+    "category": "park",
+    "latitude": 59.9426114,
+    "longitude": 10.8774877,
+    "bydelId": 7
+  },
+  {
+    "id": 364,
+    "name": "Mil-Org. D 13",
+    "category": "landemerke",
+    "latitude": 59.9151414,
+    "longitude": 10.7001239,
+    "bydelId": 2
+  },
+  {
+    "id": 365,
+    "name": "Deichman Bjørvika",
+    "category": "kultur",
+    "latitude": 59.908712,
+    "longitude": 10.752468,
+    "bydelId": 6
+  },
+  {
+    "id": 366,
+    "name": "Gregers Gram",
+    "category": "landemerke",
+    "latitude": 59.9416018,
+    "longitude": 10.6721806,
+    "bydelId": 9
+  },
+  {
+    "id": 367,
+    "name": "Isca Gallery",
+    "category": "museum",
+    "latitude": 59.9193195,
+    "longitude": 10.7497112,
+    "bydelId": 15
+  },
+  {
+    "id": 368,
+    "name": "Universitetsbiblioteket",
+    "category": "kultur",
+    "latitude": 59.9389959,
+    "longitude": 10.7215302,
+    "bydelId": 4
+  },
+  {
+    "id": 369,
+    "name": "Reist i 1949 til minne om sinsenboere falne under krigen 1940-1946",
+    "category": "landemerke",
+    "latitude": 59.9336241,
+    "longitude": 10.7859813,
+    "bydelId": 10
+  },
+  {
+    "id": 370,
+    "name": "Nobels Fredssenter",
+    "category": "museum",
+    "latitude": 59.911612,
+    "longitude": 10.7304,
+    "bydelId": 2
+  },
+  {
+    "id": 371,
+    "name": "Arno Berg",
+    "category": "landemerke",
+    "latitude": 59.9210168,
+    "longitude": 10.7136926,
+    "bydelId": 2
+  },
+  {
+    "id": 372,
+    "name": "Schandorffs plass",
+    "category": "park",
+    "latitude": 59.9170949,
+    "longitude": 10.7451594,
+    "bydelId": 15
+  },
+  {
+    "id": 373,
+    "name": "Sørli gård",
+    "category": "landemerke",
+    "latitude": 59.8816305,
+    "longitude": 10.8619218,
+    "bydelId": 14
+  },
+  {
+    "id": 374,
+    "name": "Skytebane",
+    "category": "landemerke",
+    "latitude": 59.8380735,
+    "longitude": 10.6476619,
+    "bydelId": null
+  },
+  {
+    "id": 375,
+    "name": "Skytebane",
+    "category": "landemerke",
+    "latitude": 59.8378229,
+    "longitude": 10.6511351,
+    "bydelId": null
+  },
+  {
+    "id": 376,
+    "name": "Holmenkollbanen 1957",
+    "category": "landemerke",
+    "latitude": 59.9151806,
+    "longitude": 10.7331042,
+    "bydelId": 13
+  },
+  {
+    "id": 377,
+    "name": "Van Etten",
+    "category": "museum",
+    "latitude": 59.9121259,
+    "longitude": 10.7692697,
+    "bydelId": 6
+  },
+  {
+    "id": 378,
+    "name": "Hageteater",
+    "category": "kultur",
+    "latitude": 59.9081049,
+    "longitude": 10.6845582,
+    "bydelId": 2
+  },
+  {
+    "id": 379,
+    "name": "Dampen",
+    "category": "landemerke",
+    "latitude": 59.9524719,
+    "longitude": 10.7677093,
+    "bydelId": 4
+  },
+  {
+    "id": 380,
+    "name": "Midlertidig Minnesmerke",
+    "category": "landemerke",
+    "latitude": 59.9155708,
+    "longitude": 10.7450776,
+    "bydelId": 15
+  },
+  {
+    "id": 381,
+    "name": "Rotary International",
+    "category": "landemerke",
+    "latitude": 59.8268571,
+    "longitude": 10.7681813,
+    "bydelId": 12
+  },
+  {
+    "id": 382,
+    "name": "Teaterloftet",
+    "category": "kultur",
+    "latitude": 59.90868,
+    "longitude": 10.601836,
+    "bydelId": null
+  },
+  {
+    "id": 383,
+    "name": "Christian Lous Lange",
+    "category": "landemerke",
+    "latitude": 59.9262193,
+    "longitude": 10.7138702,
+    "bydelId": 2
+  },
+  {
+    "id": 384,
+    "name": "Knut «Kupper'n» Johannesen",
+    "category": "landemerke",
+    "latitude": 59.9239799,
+    "longitude": 10.7346035,
+    "bydelId": 15
+  },
+  {
+    "id": 385,
+    "name": "Heggholmen Fyr",
+    "category": "landemerke",
+    "latitude": 59.885311,
+    "longitude": 10.7138077,
+    "bydelId": 6
+  },
+  {
+    "id": 386,
+    "name": "Skøytemuseet",
+    "category": "museum",
+    "latitude": 59.927723,
+    "longitude": 10.709451,
+    "bydelId": 2
+  },
+  {
+    "id": 387,
+    "name": "Regjeringshagen",
+    "category": "park",
+    "latitude": 59.9153342,
+    "longitude": 10.7446361,
+    "bydelId": 15
+  },
+  {
+    "id": 388,
+    "name": "Ulvestuen på Isi",
+    "category": "landemerke",
+    "latitude": 59.9359964,
+    "longitude": 10.4359266,
+    "bydelId": null
+  },
+  {
+    "id": 389,
+    "name": "Galleri Brandstrup",
+    "category": "museum",
+    "latitude": 59.908474,
+    "longitude": 10.722203,
+    "bydelId": 2
+  },
+  {
+    "id": 390,
+    "name": "MYRENS VERKSTED",
+    "category": "landemerke",
+    "latitude": 59.9353992,
+    "longitude": 10.7580316,
+    "bydelId": 8
+  },
+  {
+    "id": 391,
+    "name": "HAUSMANNS BRO",
+    "category": "landemerke",
+    "latitude": 59.9150169,
+    "longitude": 10.7599959,
+    "bydelId": 6
+  },
+  {
+    "id": 392,
+    "name": "Black Box Theater",
+    "category": "kultur",
+    "latitude": 59.9270076,
+    "longitude": 10.7686799,
+    "bydelId": 10
+  },
+  {
+    "id": 393,
+    "name": "Paulus kirke 1892",
+    "category": "landemerke",
+    "latitude": 59.9263606,
+    "longitude": 10.7587933,
+    "bydelId": 8
+  },
+  {
+    "id": 394,
+    "name": "FALT FOR SITT LAND 1940-1945",
+    "category": "landemerke",
+    "latitude": 59.9256456,
+    "longitude": 10.754318,
+    "bydelId": 8
+  },
+  {
+    "id": 395,
+    "name": "GAMLE BROVERKSTED",
+    "category": "landemerke",
+    "latitude": 59.9224532,
+    "longitude": 10.7517795,
+    "bydelId": 10
+  },
+  {
+    "id": 396,
+    "name": "NANNA BROCH",
+    "category": "landemerke",
+    "latitude": 59.9179788,
+    "longitude": 10.7558924,
+    "bydelId": 13
+  },
+  {
+    "id": 397,
+    "name": "Soria Moria",
+    "category": "landemerke",
+    "latitude": 59.9361673,
+    "longitude": 10.7658221,
+    "bydelId": 8
+  },
+  {
+    "id": 398,
+    "name": "Birkeland-Eyde lysbueovn",
+    "category": "landemerke",
+    "latitude": 59.9662236,
+    "longitude": 10.7817529,
+    "bydelId": 4
+  },
+  {
+    "id": 399,
+    "name": "Sverre Halvorsen",
+    "category": "landemerke",
+    "latitude": 59.9653026,
+    "longitude": 10.7848951,
+    "bydelId": 4
+  },
+  {
+    "id": 400,
+    "name": "Fotografihuset",
+    "category": "museum",
+    "latitude": 59.9051004,
+    "longitude": 10.7529956,
+    "bydelId": 6
+  },
+  {
+    "id": 401,
+    "name": "Hundremeterskogen",
+    "category": "landemerke",
+    "latitude": 59.891304,
+    "longitude": 10.5999632,
+    "bydelId": null
+  },
+  {
+    "id": 402,
+    "name": "Fornebu Bilmuseum",
+    "category": "museum",
+    "latitude": 59.9010581,
+    "longitude": 10.6240183,
+    "bydelId": 9
+  },
+  {
+    "id": 403,
+    "name": "Lauritz Bergendahl",
+    "category": "landemerke",
+    "latitude": 60.0169877,
+    "longitude": 10.6125998,
+    "bydelId": 14
+  },
+  {
+    "id": 404,
+    "name": "Ole Gjølstad Gudmundsen",
+    "category": "landemerke",
+    "latitude": 59.9144512,
+    "longitude": 10.763216,
+    "bydelId": 6
+  },
+  {
+    "id": 405,
+    "name": "KATIONTANK",
+    "category": "landemerke",
+    "latitude": 59.9243612,
+    "longitude": 10.6737671,
+    "bydelId": 9
+  },
+  {
+    "id": 406,
+    "name": "HOVEDTANK KONS AMONIAKK 15%",
+    "category": "landemerke",
+    "latitude": 59.9251189,
+    "longitude": 10.6726161,
+    "bydelId": 9
+  },
+  {
+    "id": 407,
+    "name": "Aschehoug villaen",
+    "category": "landemerke",
+    "latitude": 59.9180973,
+    "longitude": 10.6984085,
+    "bydelId": 2
+  },
+  {
+    "id": 408,
+    "name": "Kirkeristen",
+    "category": "landemerke",
+    "latitude": 59.9128255,
+    "longitude": 10.7473219,
+    "bydelId": 13
+  },
+  {
+    "id": 409,
+    "name": "Galleri Gimle",
+    "category": "museum",
+    "latitude": 59.9211678,
+    "longitude": 10.7054242,
+    "bydelId": 2
+  },
+  {
+    "id": 410,
+    "name": "DEN EUROPÆISKE GRADMÅLING GRUNDLINIE: EKEBERG 1864",
+    "category": "landemerke",
+    "latitude": 59.8967518,
+    "longitude": 10.7697457,
+    "bydelId": 12
+  },
+  {
+    "id": 411,
+    "name": "Bygårder fra det eldste Christiania 1624-1686",
+    "category": "landemerke",
+    "latitude": 59.9099191,
+    "longitude": 10.7380995,
+    "bydelId": 13
+  },
+  {
+    "id": 412,
+    "name": "Kösk",
+    "category": "museum",
+    "latitude": 59.9067053,
+    "longitude": 10.7581733,
+    "bydelId": 6
+  },
+  {
+    "id": 413,
+    "name": "Valgkirke",
+    "category": "landemerke",
+    "latitude": 59.9032258,
+    "longitude": 10.7684371,
+    "bydelId": 6
+  },
+  {
+    "id": 414,
+    "name": "Aker Brygge",
+    "category": "landemerke",
+    "latitude": 59.9105098,
+    "longitude": 10.7286938,
+    "bydelId": 2
+  },
+  {
+    "id": 415,
+    "name": "Schous kulturbryggeri",
+    "category": "kultur",
+    "latitude": 59.9200327,
+    "longitude": 10.7604909,
+    "bydelId": 10
+  },
+  {
+    "id": 416,
+    "name": "SOFIENBERG KIRKE 1877 ARKITEKT JAKOB WILHELM NORDAN",
+    "category": "landemerke",
+    "latitude": 59.9222459,
+    "longitude": 10.7658717,
+    "bydelId": 10
+  },
+  {
+    "id": 417,
+    "name": "Tøyen Hovedgård",
+    "category": "landemerke",
+    "latitude": 59.9180458,
+    "longitude": 10.7705313,
+    "bydelId": 10
+  },
+  {
+    "id": 418,
+    "name": "De gav sitt liv Oslo Politi 1940-1945",
+    "category": "landemerke",
+    "latitude": 59.9107122,
+    "longitude": 10.7699956,
+    "bydelId": 6
+  },
+  {
+    "id": 419,
+    "name": "Roseslottet",
+    "category": "museum",
+    "latitude": 59.979776,
+    "longitude": 10.6761921,
+    "bydelId": 14
+  },
+  {
+    "id": 420,
+    "name": "Manglerud gård",
+    "category": "landemerke",
+    "latitude": 59.8961029,
+    "longitude": 10.8120949,
+    "bydelId": 16
+  },
+  {
+    "id": 421,
+    "name": "Rolf Hofmo",
+    "category": "landemerke",
+    "latitude": 59.8931224,
+    "longitude": 10.7771725,
+    "bydelId": 12
+  },
+  {
+    "id": 422,
+    "name": "Sjømannsskolen",
+    "category": "landemerke",
+    "latitude": 59.897428,
+    "longitude": 10.7581219,
+    "bydelId": 6
+  },
+  {
+    "id": 423,
+    "name": "Instituto Italiano De Cultura",
+    "category": "kultur",
+    "latitude": 59.9189377,
+    "longitude": 10.7219416,
+    "bydelId": 2
+  },
+  {
+    "id": 424,
+    "name": "Edvard Munch \"The Scream\"",
+    "category": "landemerke",
+    "latitude": 59.9004662,
+    "longitude": 10.7717488,
+    "bydelId": 12
+  },
+  {
+    "id": 425,
+    "name": "Utøya - 22 July",
+    "category": "landemerke",
+    "latitude": 59.8932773,
+    "longitude": 10.7832979,
+    "bydelId": 12
+  },
+  {
+    "id": 426,
+    "name": "RESTAURANT OLYMPEN",
+    "category": "landemerke",
+    "latitude": 59.9122885,
+    "longitude": 10.7643695,
+    "bydelId": 6
+  },
+  {
+    "id": 427,
+    "name": "GRØNLAND ASYL",
+    "category": "landemerke",
+    "latitude": 59.9128343,
+    "longitude": 10.7624955,
+    "bydelId": 6
+  },
+  {
+    "id": 428,
+    "name": "GASSVERKET",
+    "category": "landemerke",
+    "latitude": 59.9157966,
+    "longitude": 10.7567194,
+    "bydelId": 13
+  },
+  {
+    "id": 429,
+    "name": "HENRIK WERGELAND 1808-1845",
+    "category": "landemerke",
+    "latitude": 59.9201244,
+    "longitude": 10.747058,
+    "bydelId": 15
+  },
+  {
+    "id": 430,
+    "name": "HOLLÆNDER GAARDEN",
+    "category": "landemerke",
+    "latitude": 59.9136136,
+    "longitude": 10.7358006,
+    "bydelId": 13
+  },
+  {
+    "id": 431,
+    "name": "Byens Andre Rådhus",
+    "category": "landemerke",
+    "latitude": 59.9090863,
+    "longitude": 10.7445251,
+    "bydelId": 13
+  },
+  {
+    "id": 432,
+    "name": "John Colletts plass",
+    "category": "park",
+    "latitude": 59.9404666,
+    "longitude": 10.7293808,
+    "bydelId": 4
+  },
+  {
+    "id": 433,
+    "name": "Arvid Storsveen",
+    "category": "landemerke",
+    "latitude": 59.9395721,
+    "longitude": 10.7278398,
+    "bydelId": 4
+  },
+  {
+    "id": 434,
+    "name": "Acoustic sculpture",
+    "category": "landemerke",
+    "latitude": 59.9156,
+    "longitude": 10.7230532,
+    "bydelId": 13
+  },
+  {
+    "id": 435,
+    "name": "Paradox Museum",
+    "category": "museum",
+    "latitude": 59.9143419,
+    "longitude": 10.7392184,
+    "bydelId": 13
+  },
+  {
+    "id": 436,
+    "name": "Børsteveien drivhus",
+    "category": "park",
+    "latitude": 59.9335146,
+    "longitude": 10.7936943,
+    "bydelId": 3
+  },
+  {
+    "id": 437,
+    "name": "Sofienbergprosjektet",
+    "category": "kultur",
+    "latitude": 59.9223079,
+    "longitude": 10.7660013,
+    "bydelId": 10
+  },
+  {
+    "id": 438,
+    "name": "Edderkoppen scene",
+    "category": "kultur",
+    "latitude": 59.9182583,
+    "longitude": 10.7396307,
+    "bydelId": 15
+  },
+  {
+    "id": 439,
+    "name": "Eivind Berggrav",
+    "category": "landemerke",
+    "latitude": 59.9173446,
+    "longitude": 10.7425488,
+    "bydelId": 15
+  },
+  {
+    "id": 440,
+    "name": "VEIDERISTNINGER FRA STEINALDEREN CA. 5000 ÅR GAMLE",
+    "category": "landemerke",
+    "latitude": 59.8973589,
+    "longitude": 10.759964,
+    "bydelId": 6
+  },
+  {
+    "id": 441,
+    "name": "Alunverket 1737-1815",
+    "category": "landemerke",
+    "latitude": 59.9018341,
+    "longitude": 10.7674132,
+    "bydelId": 6
+  },
+  {
+    "id": 442,
+    "name": "Halvor Blindern Tombstone",
+    "category": "landemerke",
+    "latitude": 59.9365704,
+    "longitude": 10.7226659,
+    "bydelId": 4
+  },
+  {
+    "id": 443,
+    "name": "Teater Manu",
+    "category": "kultur",
+    "latitude": 59.9275064,
+    "longitude": 10.7651055,
+    "bydelId": 8
+  },
+  {
+    "id": 444,
+    "name": "Portinnramning 2 (Bogstadleiren)",
+    "category": "landemerke",
+    "latitude": 59.9621239,
+    "longitude": 10.6423742,
+    "bydelId": 5
+  },
+  {
+    "id": 445,
+    "name": "Tøyen Kolera Kirkegård",
+    "category": "landemerke",
+    "latitude": 59.9199544,
+    "longitude": 10.7675543,
+    "bydelId": 10
+  },
+  {
+    "id": 446,
+    "name": "Svenska Margaretakyrkan",
+    "category": "landemerke",
+    "latitude": 59.9169848,
+    "longitude": 10.7468921,
+    "bydelId": 15
+  },
+  {
+    "id": 447,
+    "name": "Eldorado Varietetheater",
+    "category": "landemerke",
+    "latitude": 59.9139192,
+    "longitude": 10.7477911,
+    "bydelId": 15
+  },
+  {
+    "id": 448,
+    "name": "Forvalterbolig for Hovedarsenalet",
+    "category": "landemerke",
+    "latitude": 59.9048639,
+    "longitude": 10.7404178,
+    "bydelId": 13
+  },
+  {
+    "id": 449,
+    "name": "Hoved corps de garde",
+    "category": "landemerke",
+    "latitude": 59.906824,
+    "longitude": 10.7373722,
+    "bydelId": 13
+  },
+  {
+    "id": 450,
+    "name": "Kronprinsens kruttårn",
+    "category": "landemerke",
+    "latitude": 59.9078883,
+    "longitude": 10.7387204,
+    "bydelId": 13
+  },
+  {
+    "id": 451,
+    "name": "Arteleribygningen",
+    "category": "landemerke",
+    "latitude": 59.9085503,
+    "longitude": 10.7371472,
+    "bydelId": 13
+  },
+  {
+    "id": 452,
+    "name": "Gullhaug bru",
+    "category": "landemerke",
+    "latitude": 59.9498668,
+    "longitude": 10.7647714,
+    "bydelId": 4
+  },
+  {
+    "id": 453,
+    "name": "Norsk Farmasihistorisk Museum",
+    "category": "museum",
+    "latitude": 59.9059697,
+    "longitude": 10.6868921,
+    "bydelId": 2
+  },
+  {
+    "id": 454,
+    "name": "Kristine Bonnevie",
+    "category": "landemerke",
+    "latitude": 59.9382186,
+    "longitude": 10.7220226,
+    "bydelId": 4
+  },
+  {
+    "id": 455,
+    "name": "Niels Henrik Abel 1802–1829",
+    "category": "landemerke",
+    "latitude": 59.9397985,
+    "longitude": 10.7228194,
+    "bydelId": 4
+  },
+  {
+    "id": 456,
+    "name": "Vestre Aker Kirke",
+    "category": "landemerke",
+    "latitude": 59.9367003,
+    "longitude": 10.7289122,
+    "bydelId": 15
+  },
+  {
+    "id": 457,
+    "name": "Ullvin",
+    "category": "landemerke",
+    "latitude": 59.9370623,
+    "longitude": 10.7318166,
+    "bydelId": 15
+  },
+  {
+    "id": 458,
+    "name": "Ullevål sykehus",
+    "category": "landemerke",
+    "latitude": 59.9378154,
+    "longitude": 10.7414224,
+    "bydelId": 15
+  },
+  {
+    "id": 459,
+    "name": "Fagerborg kirke",
+    "category": "landemerke",
+    "latitude": 59.9272202,
+    "longitude": 10.7293737,
+    "bydelId": 15
+  },
+  {
+    "id": 460,
+    "name": "Untuned Bell",
+    "category": "landemerke",
+    "latitude": 59.9108438,
+    "longitude": 10.7323093,
+    "bydelId": 13
+  },
+  {
+    "id": 461,
+    "name": "Vestbanestasjonen",
+    "category": "landemerke",
+    "latitude": 59.9115478,
+    "longitude": 10.7305974,
+    "bydelId": 2
+  },
+  {
+    "id": 462,
+    "name": "Festsalen",
+    "category": "landemerke",
+    "latitude": 59.9303653,
+    "longitude": 10.7608753,
+    "bydelId": 8
+  },
+  {
+    "id": 463,
+    "name": "Bulletinen",
+    "category": "landemerke",
+    "latitude": 59.9119659,
+    "longitude": 10.7348994,
+    "bydelId": 13
+  },
+  {
+    "id": 464,
+    "name": "Akers Mek. Verksted",
+    "category": "landemerke",
+    "latitude": 59.9107933,
+    "longitude": 10.7271491,
+    "bydelId": 2
+  },
+  {
+    "id": 465,
+    "name": "Akers Mek. Verksted",
+    "category": "landemerke",
+    "latitude": 59.9108182,
+    "longitude": 10.7255458,
+    "bydelId": 2
+  },
+  {
+    "id": 466,
+    "name": "GA SITT LIV FOR NORGE",
+    "category": "landemerke",
+    "latitude": 59.9092172,
+    "longitude": 10.7205198,
+    "bydelId": 2
+  },
+  {
+    "id": 467,
+    "name": "Kongen",
+    "category": "landemerke",
+    "latitude": 59.9095767,
+    "longitude": 10.7021767,
+    "bydelId": 2
+  },
+  {
+    "id": 468,
+    "name": "Judith",
+    "category": "landemerke",
+    "latitude": 59.9146861,
+    "longitude": 10.6980674,
+    "bydelId": 2
+  },
+  {
+    "id": 469,
+    "name": "Frognerkilen Fabrikk anno 1873",
+    "category": "landemerke",
+    "latitude": 59.9190028,
+    "longitude": 10.6849475,
+    "bydelId": 9
+  },
+  {
+    "id": 470,
+    "name": "Framgården",
+    "category": "landemerke",
+    "latitude": 59.915452,
+    "longitude": 10.7140067,
+    "bydelId": 2
+  },
+  {
+    "id": 471,
+    "name": "bombeangrep",
+    "category": "landemerke",
+    "latitude": 59.915109,
+    "longitude": 10.7287661,
+    "bydelId": 13
+  },
+  {
+    "id": 472,
+    "name": "Ingeniørenes Hus",
+    "category": "landemerke",
+    "latitude": 59.9140522,
+    "longitude": 10.7269278,
+    "bydelId": 13
+  },
+  {
+    "id": 473,
+    "name": "Wehrmacht-bunkeren",
+    "category": "landemerke",
+    "latitude": 59.9137206,
+    "longitude": 10.7204501,
+    "bydelId": 2
+  },
+  {
+    "id": 474,
+    "name": "OLAV V 1903-1991",
+    "category": "landemerke",
+    "latitude": 59.9077029,
+    "longitude": 10.6952591,
+    "bydelId": 2
+  },
+  {
+    "id": 475,
+    "name": "Dronningen",
+    "category": "landemerke",
+    "latitude": 59.9081021,
+    "longitude": 10.6980744,
+    "bydelId": 2
+  },
+  {
+    "id": 476,
+    "name": "Bygdøy kulturmiljø",
+    "category": "landemerke",
+    "latitude": 59.9117646,
+    "longitude": 10.680314,
+    "bydelId": 2
+  },
+  {
+    "id": 477,
+    "name": "Edvard Munchs atelier",
+    "category": "landemerke",
+    "latitude": 59.9291439,
+    "longitude": 10.6703165,
+    "bydelId": 9
+  },
+  {
+    "id": 478,
+    "name": "1940-1945 GUD SIGNE VART BYRE FEDRELAND",
+    "category": "landemerke",
+    "latitude": 59.9528454,
+    "longitude": 10.7505681,
+    "bydelId": 4
+  },
+  {
+    "id": 479,
+    "name": "Ole Paus",
+    "category": "landemerke",
+    "latitude": 59.9339858,
+    "longitude": 10.6979803,
+    "bydelId": 9
+  },
+  {
+    "id": 480,
+    "name": "Theodor Haagaas",
+    "category": "landemerke",
+    "latitude": 59.9317216,
+    "longitude": 10.7012899,
+    "bydelId": 2
+  },
+  {
+    "id": 481,
+    "name": "OSL contemporary",
+    "category": "museum",
+    "latitude": 59.9172525,
+    "longitude": 10.7139984,
+    "bydelId": 2
+  },
+  {
+    "id": 482,
+    "name": "Norsk Folkemuseum",
+    "category": "park",
+    "latitude": 59.9075006,
+    "longitude": 10.6867447,
+    "bydelId": 2
+  },
+  {
+    "id": 483,
+    "name": "Løkken Frognæs",
+    "category": "landemerke",
+    "latitude": 59.9133236,
+    "longitude": 10.7052662,
+    "bydelId": 2
+  },
+  {
+    "id": 484,
+    "name": "Bergehus",
+    "category": "landemerke",
+    "latitude": 59.9168994,
+    "longitude": 10.6935346,
+    "bydelId": 2
+  },
+  {
+    "id": 485,
+    "name": "5-MILA",
+    "category": "landemerke",
+    "latitude": 59.929731,
+    "longitude": 10.7137802,
+    "bydelId": 2
+  },
+  {
+    "id": 486,
+    "name": "Kloden Teater - Pilotscenen",
+    "category": "kultur",
+    "latitude": 59.928103,
+    "longitude": 10.8194263,
+    "bydelId": 3
+  },
+  {
+    "id": 487,
+    "name": "Gallery Skriverstuen",
+    "category": "museum",
+    "latitude": 59.9173491,
+    "longitude": 10.6582336,
+    "bydelId": 9
+  },
+  {
+    "id": 488,
+    "name": "SKOKS - Skeivt Kunst- og Kultursenter",
+    "category": "kultur",
+    "latitude": 59.9119516,
+    "longitude": 10.7648622,
+    "bydelId": 6
+  },
+  {
+    "id": 489,
+    "name": "SKRIK AV EDVARD MUNCH",
+    "category": "landemerke",
+    "latitude": 59.9003936,
+    "longitude": 10.7694551,
+    "bydelId": 12
+  },
+  {
+    "id": 490,
+    "name": "Kulturhagen",
+    "category": "kultur",
+    "latitude": 59.8271896,
+    "longitude": 10.4242704,
+    "bydelId": null
+  },
+  {
+    "id": 491,
+    "name": "Riksteatret",
+    "category": "kultur",
+    "latitude": 59.9505821,
+    "longitude": 10.7655622,
+    "bydelId": 4
+  },
+  {
+    "id": 492,
+    "name": "Biermannsgården",
+    "category": "kultur",
+    "latitude": 59.931562,
+    "longitude": 10.7547941,
+    "bydelId": 8
+  },
+  {
+    "id": 493,
+    "name": "Sofienbergparken",
+    "category": "park",
+    "latitude": 59.9231337,
+    "longitude": 10.7642447,
+    "bydelId": 10
+  },
+  {
+    "id": 494,
+    "name": "Olaf Ryes plass",
+    "category": "park",
+    "latitude": 59.922882,
+    "longitude": 10.7582595,
+    "bydelId": 8
+  },
+  {
+    "id": 495,
+    "name": "Birkelunden",
+    "category": "park",
+    "latitude": 59.9263442,
+    "longitude": 10.7601249,
+    "bydelId": 8
+  },
+  {
+    "id": 496,
+    "name": "St. Hanshaugen",
+    "category": "park",
+    "latitude": 59.9272613,
+    "longitude": 10.7413809,
+    "bydelId": 15
+  },
+  {
+    "id": 497,
+    "name": "Gråbeinsletta",
+    "category": "park",
+    "latitude": 59.9380095,
+    "longitude": 10.7513541,
+    "bydelId": 8
+  },
+  {
+    "id": 498,
+    "name": "Voldsløkka",
+    "category": "park",
+    "latitude": 59.9448465,
+    "longitude": 10.7539367,
+    "bydelId": 8
+  },
+  {
+    "id": 499,
+    "name": "Botanisk hage",
+    "category": "museum",
+    "latitude": 59.9183655,
+    "longitude": 10.7697494,
+    "bydelId": 10
+  },
+  {
+    "id": 500,
+    "name": "Stensparken",
+    "category": "park",
+    "latitude": 59.9288361,
+    "longitude": 10.7305793,
+    "bydelId": 15
+  },
+  {
+    "id": 501,
+    "name": "Kristparken",
+    "category": "park",
+    "latitude": 59.9175609,
+    "longitude": 10.7486415,
+    "bydelId": 15
+  },
+  {
+    "id": 502,
+    "name": "Frognerparken",
+    "category": "park",
+    "latitude": 59.9266588,
+    "longitude": 10.7016558,
+    "bydelId": 9
+  },
+  {
+    "id": 503,
+    "name": "Vaterlandsparken",
+    "category": "park",
+    "latitude": 59.9130935,
+    "longitude": 10.7571815,
+    "bydelId": 13
+  },
+  {
+    "id": 504,
+    "name": "Myrerjordet",
+    "category": "park",
+    "latitude": 59.9597514,
+    "longitude": 10.7917815,
+    "bydelId": 4
+  },
+  {
+    "id": 505,
+    "name": "Nationaltheatret",
+    "category": "kultur",
+    "latitude": 59.9143659,
+    "longitude": 10.7342544,
+    "bydelId": 13
+  },
+  {
+    "id": 506,
+    "name": "Myraløkka",
+    "category": "park",
+    "latitude": 59.9353539,
+    "longitude": 10.7584636,
+    "bydelId": 8
+  },
+  {
+    "id": 507,
+    "name": "Iladalen park",
+    "category": "park",
+    "latitude": 59.9315341,
+    "longitude": 10.7522715,
+    "bydelId": 8
+  },
+  {
+    "id": 508,
+    "name": "Tøyenparken",
+    "category": "park",
+    "latitude": 59.9199631,
+    "longitude": 10.7782718,
+    "bydelId": 10
+  },
+  {
+    "id": 509,
+    "name": "Kampen park",
+    "category": "park",
+    "latitude": 59.9153809,
+    "longitude": 10.7803186,
+    "bydelId": 6
+  },
+  {
+    "id": 510,
+    "name": "Klosterenga",
+    "category": "park",
+    "latitude": 59.9082718,
+    "longitude": 10.7762704,
+    "bydelId": 6
+  },
+  {
+    "id": 511,
+    "name": "Høybråtenparken",
+    "category": "park",
+    "latitude": 59.9452641,
+    "longitude": 10.9336133,
+    "bydelId": 17
+  },
+  {
+    "id": 512,
+    "name": "Havnabakken",
+    "category": "park",
+    "latitude": 59.9568405,
+    "longitude": 10.7529898,
+    "bydelId": 4
+  },
+  {
+    "id": 513,
+    "name": "Disenjordet",
+    "category": "park",
+    "latitude": 59.9461532,
+    "longitude": 10.7889233,
+    "bydelId": 4
+  },
+  {
+    "id": 514,
+    "name": "Frøyas have",
+    "category": "park",
+    "latitude": 59.915734,
+    "longitude": 10.696708,
+    "bydelId": 2
+  },
+  {
+    "id": 515,
+    "name": "Skarpsnoparken",
+    "category": "park",
+    "latitude": 59.9148671,
+    "longitude": 10.7003823,
+    "bydelId": 2
+  },
+  {
+    "id": 516,
+    "name": "Oslo Spektrum",
+    "category": "kultur",
+    "latitude": 59.9129872,
+    "longitude": 10.7547197,
+    "bydelId": 13
+  },
+  {
+    "id": 517,
+    "name": "Paléhaven",
+    "category": "park",
+    "latitude": 59.9101218,
+    "longitude": 10.750433,
+    "bydelId": 13
+  },
+  {
+    "id": 518,
+    "name": "Hvalstad Aktivitetspark",
+    "category": "park",
+    "latitude": 59.8611041,
+    "longitude": 10.4644068,
+    "bydelId": null
+  },
+  {
+    "id": 519,
+    "name": "Asker museum",
+    "category": "museum",
+    "latitude": 59.853197,
+    "longitude": 10.4550709,
+    "bydelId": null
+  },
+  {
+    "id": 520,
+    "name": "Oslo rådhus",
+    "category": "landemerke",
+    "latitude": 59.9120494,
+    "longitude": 10.7336915,
+    "bydelId": 13
+  },
+  {
+    "id": 521,
+    "name": "Hallénparken",
+    "category": "park",
+    "latitude": 59.9309849,
+    "longitude": 10.7633772,
+    "bydelId": 8
+  },
+  {
+    "id": 522,
+    "name": "Schous plass",
+    "category": "park",
+    "latitude": 59.920571,
+    "longitude": 10.7602118,
+    "bydelId": 10
+  },
+  {
+    "id": 523,
+    "name": "Torshov kirkepark",
+    "category": "park",
+    "latitude": 59.9381371,
+    "longitude": 10.7732151,
+    "bydelId": 8
+  },
+  {
+    "id": 524,
+    "name": "Rodes plass",
+    "category": "park",
+    "latitude": 59.9237748,
+    "longitude": 10.7676811,
+    "bydelId": 10
+  },
+  {
+    "id": 525,
+    "name": "Vikingskipshuset",
+    "category": "museum",
+    "latitude": 59.9048373,
+    "longitude": 10.6844777,
+    "bydelId": 2
+  },
+  {
+    "id": 526,
+    "name": "Amaldus Nielsens plass",
+    "category": "park",
+    "latitude": 59.9242378,
+    "longitude": 10.7137249,
+    "bydelId": 2
+  },
+  {
+    "id": 527,
+    "name": "Uranienborgparken",
+    "category": "park",
+    "latitude": 59.9217792,
+    "longitude": 10.7213185,
+    "bydelId": 2
+  },
+  {
+    "id": 528,
+    "name": "Høyenhallparken",
+    "category": "park",
+    "latitude": 59.9037527,
+    "longitude": 10.8081563,
+    "bydelId": 6
+  },
+  {
+    "id": 529,
+    "name": "Vigelandmuseet",
+    "category": "museum",
+    "latitude": 59.9228701,
+    "longitude": 10.700061,
+    "bydelId": 2
+  },
+  {
+    "id": 530,
+    "name": "Hydroparken",
+    "category": "park",
+    "latitude": 59.9145185,
+    "longitude": 10.7159888,
+    "bydelId": 2
+  },
+  {
+    "id": 531,
+    "name": "Riddervolds plass",
+    "category": "park",
+    "latitude": 59.9193147,
+    "longitude": 10.7192305,
+    "bydelId": 2
+  },
+  {
+    "id": 532,
+    "name": "Langaardsløkken",
+    "category": "park",
+    "latitude": 59.9231468,
+    "longitude": 10.7155558,
+    "bydelId": 2
+  },
+  {
+    "id": 533,
+    "name": "Historisk museum",
+    "category": "museum",
+    "latitude": 59.916783,
+    "longitude": 10.7355402,
+    "bydelId": 13
+  },
+  {
+    "id": 534,
+    "name": "Middelalderparken",
+    "category": "park",
+    "latitude": 59.9041747,
+    "longitude": 10.7636594,
+    "bydelId": 6
+  },
+  {
+    "id": 535,
+    "name": "Svartdalsparken",
+    "category": "park",
+    "latitude": 59.9041668,
+    "longitude": 10.7928922,
+    "bydelId": 6
+  },
+  {
+    "id": 536,
+    "name": "Palmehuset",
+    "category": "museum",
+    "latitude": 59.9177635,
+    "longitude": 10.7713798,
+    "bydelId": 10
+  },
+  {
+    "id": 537,
+    "name": "Grev Wedels plass",
+    "category": "park",
+    "latitude": 59.9073454,
+    "longitude": 10.7427782,
+    "bydelId": 13
+  },
+  {
+    "id": 538,
+    "name": "Øverland Arboret",
+    "category": "park",
+    "latitude": 59.9299032,
+    "longitude": 10.5578943,
+    "bydelId": null
+  },
+  {
+    "id": 539,
+    "name": "Rudolf Nilsens plass",
+    "category": "park",
+    "latitude": 59.9161516,
+    "longitude": 10.7653078,
+    "bydelId": 6
+  },
+  {
+    "id": 540,
+    "name": "Henie Onstad kunstsenter",
+    "category": "museum",
+    "latitude": 59.8888023,
+    "longitude": 10.5529699,
+    "bydelId": null
+  },
+  {
+    "id": 541,
+    "name": "Henie Onstad Kunstpark",
+    "category": "park",
+    "latitude": 59.8899692,
+    "longitude": 10.5540465,
+    "bydelId": null
+  },
+  {
+    "id": 542,
+    "name": "Kulturkirken Jakob",
+    "category": "kultur",
+    "latitude": 59.9181502,
+    "longitude": 10.7544189,
+    "bydelId": 10
+  },
+  {
+    "id": 543,
+    "name": "Skøyenparken",
+    "category": "park",
+    "latitude": 59.9263002,
+    "longitude": 10.6887409,
+    "bydelId": 2
+  },
+  {
+    "id": 544,
+    "name": "Njårdhallen håndball",
+    "category": "landemerke",
+    "latitude": 59.9405505,
+    "longitude": 10.6712917,
+    "bydelId": 9
+  },
+  {
+    "id": 545,
+    "name": "Forsvarsmuseet",
+    "category": "museum",
+    "latitude": 59.904511,
+    "longitude": 10.7408879,
+    "bydelId": 13
+  },
+  {
+    "id": 546,
+    "name": "Muselunden",
+    "category": "park",
+    "latitude": 59.9398924,
+    "longitude": 10.7856759,
+    "bydelId": 4
+  },
+  {
+    "id": 547,
+    "name": "Vålerenga park",
+    "category": "park",
+    "latitude": 59.9069589,
+    "longitude": 10.787363,
+    "bydelId": 6
+  },
+  {
+    "id": 548,
+    "name": "Grünerhagen",
+    "category": "park",
+    "latitude": 59.9218156,
+    "longitude": 10.7551358,
+    "bydelId": 13
+  },
+  {
+    "id": 549,
+    "name": "Slependen kalkovn",
+    "category": "landemerke",
+    "latitude": 59.886664,
+    "longitude": 10.5019625,
+    "bydelId": null
+  },
+  {
+    "id": 550,
+    "name": "Godalsparken",
+    "category": "park",
+    "latitude": 59.9465609,
+    "longitude": 10.7531581,
+    "bydelId": 4
+  },
+  {
+    "id": 551,
+    "name": "Linderud gård",
+    "category": "museum",
+    "latitude": 59.9418905,
+    "longitude": 10.8337805,
+    "bydelId": 3
+  },
+  {
+    "id": 552,
+    "name": "Bjerkedalen park",
+    "category": "park",
+    "latitude": 59.9387728,
+    "longitude": 10.8211542,
+    "bydelId": 3
+  },
+  {
+    "id": 553,
+    "name": "Ankerhagen",
+    "category": "park",
+    "latitude": 59.9130449,
+    "longitude": 10.7210258,
+    "bydelId": 2
+  },
+  {
+    "id": 554,
+    "name": "Ibsenmuseet",
+    "category": "museum",
+    "latitude": 59.9150305,
+    "longitude": 10.7270455,
+    "bydelId": 2
+  },
+  {
+    "id": 555,
+    "name": "Sommerfrydparken",
+    "category": "park",
+    "latitude": 59.9116193,
+    "longitude": 10.7247276,
+    "bydelId": 2
+  },
+  {
+    "id": 556,
+    "name": "Latter",
+    "category": "kultur",
+    "latitude": 59.9108663,
+    "longitude": 10.7264687,
+    "bydelId": 2
+  },
+  {
+    "id": 557,
+    "name": "Skillebekkparken",
+    "category": "park",
+    "latitude": 59.9125635,
+    "longitude": 10.711405,
+    "bydelId": 2
+  },
+  {
+    "id": 558,
+    "name": "Vøyenvollen",
+    "category": "park",
+    "latitude": 59.9344306,
+    "longitude": 10.7545542,
+    "bydelId": 8
+  },
+  {
+    "id": 559,
+    "name": "Sverre Enevolds plass",
+    "category": "park",
+    "latitude": 59.9547542,
+    "longitude": 10.7879001,
+    "bydelId": 4
+  },
+  {
+    "id": 560,
+    "name": "Steinhoggermuseet",
+    "category": "museum",
+    "latitude": 59.9588842,
+    "longitude": 10.8823645,
+    "bydelId": 1
+  },
+  {
+    "id": 561,
+    "name": "Villa Furulund",
+    "category": "museum",
+    "latitude": 59.9264225,
+    "longitude": 10.780076,
+    "bydelId": 10
+  },
+  {
+    "id": 562,
+    "name": "Sinsenparken",
+    "category": "park",
+    "latitude": 59.933244,
+    "longitude": 10.7858839,
+    "bydelId": 10
+  },
+  {
+    "id": 563,
+    "name": "Sommerfrydhagen",
+    "category": "park",
+    "latitude": 59.9117375,
+    "longitude": 10.7763375,
+    "bydelId": 6
+  },
+  {
+    "id": 564,
+    "name": "Minneparken",
+    "category": "park",
+    "latitude": 59.9061608,
+    "longitude": 10.7688379,
+    "bydelId": 6
+  },
+  {
+    "id": 565,
+    "name": "Ladegården",
+    "category": "museum",
+    "latitude": 59.906189,
+    "longitude": 10.7676265,
+    "bydelId": 6
+  },
+  {
+    "id": 566,
+    "name": "Universitetshagen",
+    "category": "park",
+    "latitude": 59.915645,
+    "longitude": 10.7355104,
+    "bydelId": 13
+  },
+  {
+    "id": 567,
+    "name": "Halfdan Kjerulfs plass",
+    "category": "park",
+    "latitude": 59.9176255,
+    "longitude": 10.7352758,
+    "bydelId": 13
+  },
+  {
+    "id": 568,
+    "name": "Jødisk museum",
+    "category": "museum",
+    "latitude": 59.916338,
+    "longitude": 10.7554205,
+    "bydelId": 15
+  },
+  {
+    "id": 569,
+    "name": "Hønse-Lovisas hus",
+    "category": "museum",
+    "latitude": 59.9308077,
+    "longitude": 10.7576913,
+    "bydelId": 8
+  },
+  {
+    "id": 570,
+    "name": "Arvid Storsveens plass",
+    "category": "park",
+    "latitude": 59.9395186,
+    "longitude": 10.7274697,
+    "bydelId": 4
+  },
+  {
+    "id": 571,
+    "name": "Idioten",
+    "category": "park",
+    "latitude": 59.930982,
+    "longitude": 10.7375351,
+    "bydelId": 15
+  },
+  {
+    "id": 572,
+    "name": "Museet",
+    "category": "museum",
+    "latitude": 59.9386693,
+    "longitude": 10.7407212,
+    "bydelId": 15
+  },
+  {
+    "id": 573,
+    "name": "Harald Hals park",
+    "category": "park",
+    "latitude": 59.9445669,
+    "longitude": 10.7351944,
+    "bydelId": 4
+  },
+  {
+    "id": 574,
+    "name": "Ekebergparken",
+    "category": "museum",
+    "latitude": 59.8985988,
+    "longitude": 10.7596367,
+    "bydelId": 6
+  },
+  {
+    "id": 575,
+    "name": "Jenny Braatens plass",
+    "category": "park",
+    "latitude": 59.9281037,
+    "longitude": 10.7781616,
+    "bydelId": 10
+  },
+  {
+    "id": 576,
+    "name": "Kunstnernes hus",
+    "category": "museum",
+    "latitude": 59.9195707,
+    "longitude": 10.730827,
+    "bydelId": 2
+  },
+  {
+    "id": 577,
+    "name": "Billedhoggerparken",
+    "category": "park",
+    "latitude": 59.9258272,
+    "longitude": 10.7800374,
+    "bydelId": 10
+  },
+  {
+    "id": 578,
+    "name": "Vækerøparken",
+    "category": "park",
+    "latitude": 59.9142868,
+    "longitude": 10.6539168,
+    "bydelId": 9
+  },
+  {
+    "id": 579,
+    "name": "Hovseterdalen",
+    "category": "park",
+    "latitude": 59.9502657,
+    "longitude": 10.6489076,
+    "bydelId": 5
+  },
+  {
+    "id": 580,
+    "name": "Krakabøla",
+    "category": "park",
+    "latitude": 59.9056336,
+    "longitude": 10.769866,
+    "bydelId": 6
+  },
+  {
+    "id": 581,
+    "name": "Sverre Refstads plass",
+    "category": "park",
+    "latitude": 59.9341008,
+    "longitude": 10.8210114,
+    "bydelId": 3
+  },
+  {
+    "id": 582,
+    "name": "Grorudparken",
+    "category": "park",
+    "latitude": 59.9576274,
+    "longitude": 10.8769471,
+    "bydelId": 1
+  },
+  {
+    "id": 583,
+    "name": "Peer Gynt-parken",
+    "category": "park",
+    "latitude": 59.9318908,
+    "longitude": 10.7922886,
+    "bydelId": 10
+  },
+  {
+    "id": 584,
+    "name": "Dronning Astrids park",
+    "category": "park",
+    "latitude": 59.9257176,
+    "longitude": 10.7235305,
+    "bydelId": 2
+  },
+  {
+    "id": 585,
+    "name": "Nansenparken",
+    "category": "park",
+    "latitude": 59.8966167,
+    "longitude": 10.6171593,
+    "bydelId": null
+  },
+  {
+    "id": 586,
+    "name": "Jordal park",
+    "category": "park",
+    "latitude": 59.9099212,
+    "longitude": 10.7845496,
+    "bydelId": 6
+  },
+  {
+    "id": 587,
+    "name": "Normannsparken",
+    "category": "park",
+    "latitude": 59.9138917,
+    "longitude": 10.7834273,
+    "bydelId": 6
+  },
+  {
+    "id": 588,
+    "name": "Kværnerparken",
+    "category": "park",
+    "latitude": 59.9026336,
+    "longitude": 10.7931936,
+    "bydelId": 6
+  },
+  {
+    "id": 589,
+    "name": "Dronning Sonjas kunststall",
+    "category": "museum",
+    "latitude": 59.9161665,
+    "longitude": 10.7234474,
+    "bydelId": 13
+  },
+  {
+    "id": 590,
+    "name": "Madserud gård",
+    "category": "landemerke",
+    "latitude": 59.9235763,
+    "longitude": 10.6943656,
+    "bydelId": 9
+  },
+  {
+    "id": 591,
+    "name": "Norsk Folkemuseum",
+    "category": "museum",
+    "latitude": 59.9068344,
+    "longitude": 10.6830416,
+    "bydelId": 2
+  },
+  {
+    "id": 592,
+    "name": "Bygdøy kongsgård",
+    "category": "park",
+    "latitude": 59.9093403,
+    "longitude": 10.676799,
+    "bydelId": 2
+  },
+  {
+    "id": 593,
+    "name": "Fotavtrykket nabolagspark",
+    "category": "park",
+    "latitude": 59.9676451,
+    "longitude": 10.8975281,
+    "bydelId": 1
+  },
+  {
+    "id": 594,
+    "name": "Hengebrua over Bjørnsjøhelvete",
+    "category": "landemerke",
+    "latitude": 60.040205,
+    "longitude": 10.6992368,
+    "bydelId": 14
+  },
+  {
+    "id": 595,
+    "name": "Bjølsenparken",
+    "category": "park",
+    "latitude": 59.9408248,
+    "longitude": 10.7560038,
+    "bydelId": 8
+  },
+  {
+    "id": 596,
+    "name": "Lystslottet Oscarshall",
+    "category": "museum",
+    "latitude": 59.9102658,
+    "longitude": 10.6922559,
+    "bydelId": 2
+  },
+  {
+    "id": 597,
+    "name": "Kolsåsparken",
+    "category": "park",
+    "latitude": 59.9138784,
+    "longitude": 10.5063141,
+    "bydelId": null
+  },
+  {
+    "id": 598,
+    "name": "Krokvoldparken",
+    "category": "park",
+    "latitude": 59.9079679,
+    "longitude": 10.5891149,
+    "bydelId": null
+  },
+  {
+    "id": 599,
+    "name": "Holmliaparken",
+    "category": "park",
+    "latitude": 59.8343409,
+    "longitude": 10.7934168,
+    "bydelId": 11
+  },
+  {
+    "id": 600,
+    "name": "Mølleparken",
+    "category": "park",
+    "latitude": 60.0551696,
+    "longitude": 10.8821558,
+    "bydelId": null
+  },
+  {
+    "id": 601,
+    "name": "Furuset kulturpark",
+    "category": "park",
+    "latitude": 59.942774,
+    "longitude": 10.8898642,
+    "bydelId": 7
+  },
+  {
+    "id": 602,
+    "name": "Havnajordet",
+    "category": "park",
+    "latitude": 59.9602757,
+    "longitude": 10.7545247,
+    "bydelId": 4
+  },
+  {
+    "id": 603,
+    "name": "Verdensparken",
+    "category": "park",
+    "latitude": 59.9448352,
+    "longitude": 10.8959638,
+    "bydelId": 7
+  },
+  {
+    "id": 604,
+    "name": "Etterstadparken",
+    "category": "park",
+    "latitude": 59.9101256,
+    "longitude": 10.7992181,
+    "bydelId": 6
+  },
+  {
+    "id": 605,
+    "name": "Lunden",
+    "category": "park",
+    "latitude": 59.9152592,
+    "longitude": 10.8225667,
+    "bydelId": 3
+  },
+  {
+    "id": 606,
+    "name": "Hansemyrparken",
+    "category": "park",
+    "latitude": 59.9639303,
+    "longitude": 10.7602128,
+    "bydelId": 4
+  },
+  {
+    "id": 607,
+    "name": "Det Gule Huset",
+    "category": "museum",
+    "latitude": 59.855258,
+    "longitude": 10.4911871,
+    "bydelId": null
+  },
+  {
+    "id": 608,
+    "name": "Losæter",
+    "category": "park",
+    "latitude": 59.9024807,
+    "longitude": 10.7587975,
+    "bydelId": 6
+  },
+  {
+    "id": 609,
+    "name": "Juterudåsen Park",
+    "category": "park",
+    "latitude": 59.8841467,
+    "longitude": 10.4969041,
+    "bydelId": null
+  },
+  {
+    "id": 610,
+    "name": "Jongsvingen lekeplass",
+    "category": "park",
+    "latitude": 59.8882816,
+    "longitude": 10.5110771,
+    "bydelId": null
+  },
+  {
+    "id": 611,
+    "name": "Langbygningen",
+    "category": "museum",
+    "latitude": 59.8283,
+    "longitude": 10.7680235,
+    "bydelId": 11
+  },
+  {
+    "id": 612,
+    "name": "Stabekkparken",
+    "category": "park",
+    "latitude": 59.9096868,
+    "longitude": 10.6106592,
+    "bydelId": null
+  },
+  {
+    "id": 613,
+    "name": "Vestre Grefsen gård",
+    "category": "landemerke",
+    "latitude": 59.9523274,
+    "longitude": 10.7869783,
+    "bydelId": 4
+  },
+  {
+    "id": 614,
+    "name": "Villa Stenersen",
+    "category": "museum",
+    "latitude": 59.9392625,
+    "longitude": 10.69867,
+    "bydelId": 5
+  },
+  {
+    "id": 615,
+    "name": "Bogstad gård",
+    "category": "museum",
+    "latitude": 59.9723949,
+    "longitude": 10.6274604,
+    "bydelId": 14
+  },
+  {
+    "id": 616,
+    "name": "Smestadparken",
+    "category": "park",
+    "latitude": 59.9400091,
+    "longitude": 10.6853578,
+    "bydelId": 5
+  },
+  {
+    "id": 617,
+    "name": "Gardeparken",
+    "category": "park",
+    "latitude": 59.9421643,
+    "longitude": 10.6621204,
+    "bydelId": 5
+  },
+  {
+    "id": 618,
+    "name": "Munchs Ekely",
+    "category": "museum",
+    "latitude": 59.929222,
+    "longitude": 10.670263,
+    "bydelId": 9
+  },
+  {
+    "id": 619,
+    "name": "Nordre Lindeberg gård",
+    "category": "landemerke",
+    "latitude": 59.9373013,
+    "longitude": 10.8853106,
+    "bydelId": 7
+  },
+  {
+    "id": 620,
+    "name": "Maritimparken",
+    "category": "park",
+    "latitude": 59.9192286,
+    "longitude": 10.6703802,
+    "bydelId": 9
+  },
+  {
+    "id": 621,
+    "name": "Blokkajordet",
+    "category": "park",
+    "latitude": 59.9242719,
+    "longitude": 10.650639,
+    "bydelId": 9
+  },
+  {
+    "id": 622,
+    "name": "Indre Oslofjord",
+    "category": "park",
+    "latitude": 59.9190992,
+    "longitude": 10.7715001,
+    "bydelId": 10
+  },
+  {
+    "id": 623,
+    "name": "Linderud gruver",
+    "category": "landemerke",
+    "latitude": 59.9728578,
+    "longitude": 10.8388397,
+    "bydelId": 14
+  },
+  {
+    "id": 624,
+    "name": "Veitvetparken",
+    "category": "park",
+    "latitude": 59.9415711,
+    "longitude": 10.8484369,
+    "bydelId": 3
+  },
+  {
+    "id": 625,
+    "name": "Museet",
+    "category": "museum",
+    "latitude": 59.9519325,
+    "longitude": 10.7234542,
+    "bydelId": 4
+  },
+  {
+    "id": 626,
+    "name": "Torshovparken",
+    "category": "park",
+    "latitude": 59.9352966,
+    "longitude": 10.7709795,
+    "bydelId": 8
+  },
+  {
+    "id": 627,
+    "name": "Hauketo skysstasjon",
+    "category": "museum",
+    "latitude": 59.8477013,
+    "longitude": 10.8051723,
+    "bydelId": 11
+  },
+  {
+    "id": 628,
+    "name": "Smedstuaparken",
+    "category": "park",
+    "latitude": 59.9538654,
+    "longitude": 10.9150567,
+    "bydelId": 14
+  },
+  {
+    "id": 629,
+    "name": "Galgeberg park",
+    "category": "park",
+    "latitude": 59.907134,
+    "longitude": 10.7784045,
+    "bydelId": 6
+  },
+  {
+    "id": 630,
+    "name": "Stabekkslottet",
+    "category": "landemerke",
+    "latitude": 59.9161485,
+    "longitude": 10.595151,
+    "bydelId": null
+  },
+  {
+    "id": 631,
+    "name": "Øvre park",
+    "category": "park",
+    "latitude": 59.9027221,
+    "longitude": 10.8099546,
+    "bydelId": 16
+  },
+  {
+    "id": 632,
+    "name": "Bülow Hanssens plass",
+    "category": "park",
+    "latitude": 59.9269837,
+    "longitude": 10.775787,
+    "bydelId": 10
+  },
+  {
+    "id": 633,
+    "name": "Bjerkelunden",
+    "category": "park",
+    "latitude": 59.9243503,
+    "longitude": 10.6001842,
+    "bydelId": null
+  },
+  {
+    "id": 634,
+    "name": "Strandparken",
+    "category": "park",
+    "latitude": 59.8999424,
+    "longitude": 10.5953346,
+    "bydelId": null
+  },
+  {
+    "id": 635,
+    "name": "Lekeplassen",
+    "category": "park",
+    "latitude": 59.9543545,
+    "longitude": 10.727733,
+    "bydelId": 4
+  },
+  {
+    "id": 636,
+    "name": "Dalen",
+    "category": "park",
+    "latitude": 59.9529984,
+    "longitude": 10.7248364,
+    "bydelId": 4
+  },
+  {
+    "id": 637,
+    "name": "Park vest",
+    "category": "park",
+    "latitude": 59.9492922,
+    "longitude": 10.7647387,
+    "bydelId": 4
+  },
+  {
+    "id": 638,
+    "name": "Henriette Wegner Pavilion",
+    "category": "museum",
+    "latitude": 59.923213,
+    "longitude": 10.7051069,
+    "bydelId": 2
+  },
+  {
+    "id": 639,
+    "name": "Akvarellen",
+    "category": "museum",
+    "latitude": 59.9604698,
+    "longitude": 10.4900607,
+    "bydelId": null
+  },
+  {
+    "id": 640,
+    "name": "Bygger'n aktivitetspark",
+    "category": "park",
+    "latitude": 59.9492807,
+    "longitude": 10.9207744,
+    "bydelId": 17
+  },
+  {
+    "id": 641,
+    "name": "Børshagen",
+    "category": "park",
+    "latitude": 59.9091952,
+    "longitude": 10.7481365,
+    "bydelId": 13
+  },
+  {
+    "id": 642,
+    "name": "Harald Hårdrådes plass",
+    "category": "park",
+    "latitude": 59.9075395,
+    "longitude": 10.7726768,
+    "bydelId": 6
+  },
+  {
+    "id": 643,
+    "name": "Agnes Thorsens plass",
+    "category": "park",
+    "latitude": 59.8605559,
+    "longitude": 10.7954958,
+    "bydelId": 12
+  },
+  {
+    "id": 644,
+    "name": "Liaparken",
+    "category": "park",
+    "latitude": 59.9453144,
+    "longitude": 10.7961018,
+    "bydelId": 4
+  },
+  {
+    "id": 645,
+    "name": "Josefines park",
+    "category": "park",
+    "latitude": 59.9234735,
+    "longitude": 10.7265985,
+    "bydelId": 2
+  },
+  {
+    "id": 646,
+    "name": "Rollparken",
+    "category": "park",
+    "latitude": 59.9334767,
+    "longitude": 10.7618913,
+    "bydelId": 8
+  },
+  {
+    "id": 647,
+    "name": "Dumpa",
+    "category": "park",
+    "latitude": 59.8885887,
+    "longitude": 10.5131634,
+    "bydelId": null
+  },
+  {
+    "id": 648,
+    "name": "Vestparken",
+    "category": "park",
+    "latitude": 59.9197365,
+    "longitude": 10.9498825,
+    "bydelId": 17
+  },
+  {
+    "id": 649,
+    "name": "Humlebyparken",
+    "category": "park",
+    "latitude": 59.9697244,
+    "longitude": 10.8969835,
+    "bydelId": 1
+  },
+  {
+    "id": 650,
+    "name": "Åsly park",
+    "category": "park",
+    "latitude": 59.9660696,
+    "longitude": 10.6465387,
+    "bydelId": 5
+  },
+  {
+    "id": 651,
+    "name": "Fontenen i Vigelandsanlegget",
+    "category": "landemerke",
+    "latitude": 59.9269027,
+    "longitude": 10.7012078,
+    "bydelId": 9
+  },
+  {
+    "id": 652,
+    "name": "Sollerudparken",
+    "category": "park",
+    "latitude": 59.9128244,
+    "longitude": 10.6456969,
+    "bydelId": 9
+  },
+  {
+    "id": 653,
+    "name": "Den engelske hagen",
+    "category": "park",
+    "latitude": 59.9013628,
+    "longitude": 10.690821,
+    "bydelId": 2
+  },
+  {
+    "id": 654,
+    "name": "Gydaveien park",
+    "category": "park",
+    "latitude": 59.8225708,
+    "longitude": 10.8122742,
+    "bydelId": 11
+  },
+  {
+    "id": 655,
+    "name": "Gydatunet park",
+    "category": "park",
+    "latitude": 59.8224658,
+    "longitude": 10.8139221,
+    "bydelId": 11
+  },
+  {
+    "id": 656,
+    "name": "Kunstpark",
+    "category": "park",
+    "latitude": 59.9398949,
+    "longitude": 10.5013684,
+    "bydelId": null
+  },
+  {
+    "id": 657,
+    "name": "Kunstpark",
+    "category": "park",
+    "latitude": 59.9417456,
+    "longitude": 10.5006637,
+    "bydelId": null
+  },
+  {
+    "id": 658,
+    "name": "Nedre foss park",
+    "category": "park",
+    "latitude": 59.9219184,
+    "longitude": 10.7535945,
+    "bydelId": 13
+  },
+  {
+    "id": 659,
+    "name": "Voksenenga nærmiljøhage",
+    "category": "park",
+    "latitude": 59.9567573,
+    "longitude": 10.6474676,
+    "bydelId": 5
+  },
+  {
+    "id": 660,
+    "name": "Munchmuseet",
+    "category": "museum",
+    "latitude": 59.9057241,
+    "longitude": 10.7552547,
+    "bydelId": 13
+  },
+  {
+    "id": 661,
+    "name": "Kontraskjæret",
+    "category": "park",
+    "latitude": 59.9102255,
+    "longitude": 10.7365085,
+    "bydelId": 13
+  },
+  {
+    "id": 662,
+    "name": "Tiedemannsparken",
+    "category": "park",
+    "latitude": 59.9182982,
+    "longitude": 10.7871747,
+    "bydelId": 10
+  },
+  {
+    "id": 663,
+    "name": "Ekeberg Rideskole og Husdyrpark",
+    "category": "landemerke",
+    "latitude": 59.8922981,
+    "longitude": 10.7750405,
+    "bydelId": 12
+  },
+  {
+    "id": 664,
+    "name": "Elgsletta",
+    "category": "park",
+    "latitude": 59.9159013,
+    "longitude": 10.7612474,
+    "bydelId": 6
+  },
+  {
+    "id": 665,
+    "name": "Festningsplassen",
+    "category": "park",
+    "latitude": 59.9050958,
+    "longitude": 10.7398028,
+    "bydelId": 13
+  },
+  {
+    "id": 666,
+    "name": "Damplassen",
+    "category": "park",
+    "latitude": 59.9435042,
+    "longitude": 10.7337656,
+    "bydelId": 4
+  },
+  {
+    "id": 667,
+    "name": "Gården",
+    "category": "park",
+    "latitude": 59.8870798,
+    "longitude": 10.4973345,
+    "bydelId": null
+  },
+  {
+    "id": 668,
+    "name": "Stålverksparken",
+    "category": "park",
+    "latitude": 59.9172532,
+    "longitude": 10.7908527,
+    "bydelId": 10
+  },
+  {
+    "id": 669,
+    "name": "Tjuvholmen skulpturpark",
+    "category": "park",
+    "latitude": 59.9066543,
+    "longitude": 10.7220319,
+    "bydelId": 13
+  },
+  {
+    "id": 670,
+    "name": "Ola Narr Hundepark",
+    "category": "park",
+    "latitude": 59.9219205,
+    "longitude": 10.7789128,
+    "bydelId": 10
+  },
+  {
+    "id": 671,
+    "name": "Kommandør T.I. Øgrims plass",
+    "category": "park",
+    "latitude": 59.9173749,
+    "longitude": 10.7428622,
+    "bydelId": 15
+  },
+  {
+    "id": 672,
+    "name": "Søråsen",
+    "category": "park",
+    "latitude": 59.9125061,
+    "longitude": 10.5811873,
+    "bydelId": null
+  },
+  {
+    "id": 673,
+    "name": "Gartnerløkka",
+    "category": "park",
+    "latitude": 59.9134052,
+    "longitude": 10.7672495,
+    "bydelId": 6
+  },
+  {
+    "id": 674,
+    "name": "Myhreskogen",
+    "category": "park",
+    "latitude": 59.9013354,
+    "longitude": 10.8207847,
+    "bydelId": 16
+  },
+  {
+    "id": 675,
+    "name": "Frydenbergparken",
+    "category": "park",
+    "latitude": 59.9286774,
+    "longitude": 10.7890942,
+    "bydelId": 10
+  },
+  {
+    "id": 676,
+    "name": "Generasjonsparken",
+    "category": "park",
+    "latitude": 59.8096591,
+    "longitude": 10.801957,
+    "bydelId": 11
+  },
+  {
+    "id": 677,
+    "name": "Nedre Ås",
+    "category": "park",
+    "latitude": 59.8869287,
+    "longitude": 10.4953243,
+    "bydelId": null
+  },
+  {
+    "id": 678,
+    "name": "Askertun",
+    "category": "park",
+    "latitude": 59.8421588,
+    "longitude": 10.4354564,
+    "bydelId": null
+  },
+  {
+    "id": 679,
+    "name": "Benkowparken",
+    "category": "park",
+    "latitude": 59.9080946,
+    "longitude": 10.6042766,
+    "bydelId": null
+  },
+  {
+    "id": 680,
+    "name": "Lille Jacob Park",
+    "category": "park",
+    "latitude": 59.9315184,
+    "longitude": 10.7255722,
+    "bydelId": 15
+  },
+  {
+    "id": 681,
+    "name": "Kullebund gård",
+    "category": "park",
+    "latitude": 59.8108847,
+    "longitude": 10.8045549,
+    "bydelId": 11
+  },
+  {
+    "id": 682,
+    "name": "Kock-haven",
+    "category": "park",
+    "latitude": 59.8779825,
+    "longitude": 10.7592774,
+    "bydelId": 12
+  },
+  {
+    "id": 683,
+    "name": "Vulkan arena",
+    "category": "kultur",
+    "latitude": 59.922424,
+    "longitude": 10.7510915,
+    "bydelId": 10
+  },
+  {
+    "id": 684,
+    "name": "Knud Øyens vei park",
+    "category": "park",
+    "latitude": 59.8509212,
+    "longitude": 10.7928372,
+    "bydelId": 12
+  },
+  {
+    "id": 685,
+    "name": "Nedre Vakås vels lekeplass",
+    "category": "park",
+    "latitude": 59.8515754,
+    "longitude": 10.4722247,
+    "bydelId": null
+  },
+  {
+    "id": 686,
+    "name": "Østmarka boligsameie fellespark",
+    "category": "park",
+    "latitude": 59.9329762,
+    "longitude": 10.9126137,
+    "bydelId": 7
+  },
+  {
+    "id": 687,
+    "name": "Rugdeberget park",
+    "category": "park",
+    "latitude": 59.8416775,
+    "longitude": 10.812606,
+    "bydelId": 11
+  },
+  {
+    "id": 688,
+    "name": "Snippen lekepark",
+    "category": "park",
+    "latitude": 59.9156395,
+    "longitude": 10.7698524,
+    "bydelId": 6
+  },
+  {
+    "id": 689,
+    "name": "Et fint sted",
+    "category": "park",
+    "latitude": 59.9273114,
+    "longitude": 10.7801505,
+    "bydelId": 10
+  },
+  {
+    "id": 690,
+    "name": "Kaare Røddes plass",
+    "category": "park",
+    "latitude": 59.9202652,
+    "longitude": 10.7851755,
+    "bydelId": 10
+  },
+  {
+    "id": 691,
+    "name": "Sommerroparken",
+    "category": "park",
+    "latitude": 59.9149518,
+    "longitude": 10.7187583,
+    "bydelId": 2
+  },
+  {
+    "id": 692,
+    "name": "M314 Alta",
+    "category": "museum",
+    "latitude": 59.9090741,
+    "longitude": 10.7343226,
+    "bydelId": 13
+  },
+  {
+    "id": 693,
+    "name": "Kvinneklinikkparken",
+    "category": "park",
+    "latitude": 59.9207922,
+    "longitude": 10.7392213,
+    "bydelId": 15
+  },
+  {
+    "id": 694,
+    "name": "Schübelers gate friområde",
+    "category": "park",
+    "latitude": 59.9151046,
+    "longitude": 10.7714951,
+    "bydelId": 6
+  },
+  {
+    "id": 695,
+    "name": "Bærums Verks Mølle",
+    "category": "landemerke",
+    "latitude": 59.9487415,
+    "longitude": 10.5011342,
+    "bydelId": null
+  },
+  {
+    "id": 696,
+    "name": "Monolitten",
+    "category": "landemerke",
+    "latitude": 59.9276742,
+    "longitude": 10.6988972,
+    "bydelId": 9
+  },
+  {
+    "id": 697,
+    "name": "Operahuset i Oslo",
+    "category": "landemerke",
+    "latitude": 59.9074842,
+    "longitude": 10.7526811,
+    "bydelId": 6
+  },
+  {
+    "id": 698,
+    "name": "Gamlehagen",
+    "category": "park",
+    "latitude": 59.9176257,
+    "longitude": 10.7703601,
+    "bydelId": 10
+  },
+  {
+    "id": 699,
+    "name": "Blindern Studenthage",
+    "category": "park",
+    "latitude": 59.9389204,
+    "longitude": 10.7180032,
+    "bydelId": 4
+  },
+  {
+    "id": 700,
+    "name": "Trettenparken",
+    "category": "park",
+    "latitude": 59.9090984,
+    "longitude": 10.7198732,
+    "bydelId": 2
+  },
+  {
+    "id": 701,
+    "name": "Gastenparken",
+    "category": "park",
+    "latitude": 59.9046045,
+    "longitude": 10.737969,
+    "bydelId": 13
+  },
+  {
+    "id": 702,
+    "name": "Pocketparken",
+    "category": "park",
+    "latitude": 59.9095474,
+    "longitude": 10.7219479,
+    "bydelId": 2
+  },
+  {
+    "id": 703,
+    "name": "Galleri Vanntårnet",
+    "category": "museum",
+    "latitude": 59.85716,
+    "longitude": 10.660869,
+    "bydelId": null
+  },
+  {
+    "id": 704,
+    "name": "Eidsvolls plass",
+    "category": "park",
+    "latitude": 59.9133293,
+    "longitude": 10.7389982,
+    "bydelId": 13
+  },
+  {
+    "id": 705,
+    "name": "Studenterlunden",
+    "category": "park",
+    "latitude": 59.9145976,
+    "longitude": 10.7344119,
+    "bydelId": 13
+  },
+  {
+    "id": 706,
+    "name": "Lilleakerparken",
+    "category": "park",
+    "latitude": 59.9209719,
+    "longitude": 10.6354195,
+    "bydelId": 9
+  },
+  {
+    "id": 707,
+    "name": "D/S Alfen",
+    "category": "landemerke",
+    "latitude": 59.9096171,
+    "longitude": 10.7274832,
+    "bydelId": 2
+  },
+  {
+    "id": 708,
+    "name": "Temahagen",
+    "category": "park",
+    "latitude": 59.9169341,
+    "longitude": 10.7725758,
+    "bydelId": 10
+  },
+  {
+    "id": 709,
+    "name": "Eplehagen",
+    "category": "park",
+    "latitude": 59.937888,
+    "longitude": 10.7719349,
+    "bydelId": 8
+  },
+  {
+    "id": 710,
+    "name": "Marienlystparken",
+    "category": "park",
+    "latitude": 59.9335523,
+    "longitude": 10.7224609,
+    "bydelId": 15
+  },
+  {
+    "id": 711,
+    "name": "Freiaparken",
+    "category": "park",
+    "latitude": 59.9252551,
+    "longitude": 10.76487,
+    "bydelId": 10
+  },
+  {
+    "id": 712,
+    "name": "Kirsten Hansteens plass",
+    "category": "park",
+    "latitude": 59.9276113,
+    "longitude": 10.7666133,
+    "bydelId": 10
+  },
+  {
+    "id": 713,
+    "name": "Munkeparken",
+    "category": "park",
+    "latitude": 59.9083041,
+    "longitude": 10.7690013,
+    "bydelId": 6
+  },
+  {
+    "id": 714,
+    "name": "Hospitalhagen",
+    "category": "park",
+    "latitude": 59.9026599,
+    "longitude": 10.769132,
+    "bydelId": 6
+  },
+  {
+    "id": 715,
+    "name": "Løkkehagen",
+    "category": "park",
+    "latitude": 59.9349906,
+    "longitude": 10.8008193,
+    "bydelId": 3
+  },
+  {
+    "id": 716,
+    "name": "Inger Munchs brygge",
+    "category": "park",
+    "latitude": 59.9048227,
+    "longitude": 10.7541972,
+    "bydelId": 6
+  },
+  {
+    "id": 717,
+    "name": "Norde Bondi Gård",
+    "category": "park",
+    "latitude": 59.8297501,
+    "longitude": 10.4369662,
+    "bydelId": null
+  },
+  {
+    "id": 718,
+    "name": "Sentralparken Sørenga",
+    "category": "park",
+    "latitude": 59.902727,
+    "longitude": 10.7549876,
+    "bydelId": 6
+  },
+  {
+    "id": 719,
+    "name": "Villa Paus",
+    "category": "landemerke",
+    "latitude": 59.905641,
+    "longitude": 10.6945325,
+    "bydelId": 2
+  },
+  {
+    "id": 720,
+    "name": "Tjuvtitten",
+    "category": "landemerke",
+    "latitude": 59.9070102,
+    "longitude": 10.7206181,
+    "bydelId": 2
+  },
+  {
+    "id": 721,
+    "name": "Lommeparken",
+    "category": "park",
+    "latitude": 59.9146055,
+    "longitude": 10.76037,
+    "bydelId": 6
+  },
+  {
+    "id": 722,
+    "name": "Kronprinsesse Märthas plass",
+    "category": "park",
+    "latitude": 59.9122108,
+    "longitude": 10.7328361,
+    "bydelId": 13
+  },
+  {
+    "id": 723,
+    "name": "Lysthuset",
+    "category": "landemerke",
+    "latitude": 59.9704139,
+    "longitude": 10.6259238,
+    "bydelId": 14
+  },
+  {
+    "id": 724,
+    "name": "Godalsparken",
+    "category": "park",
+    "latitude": 59.9458988,
+    "longitude": 10.7553116,
+    "bydelId": 4
+  },
+  {
+    "id": 725,
+    "name": "Håkons gate nabolagspark",
+    "category": "park",
+    "latitude": 59.9102561,
+    "longitude": 10.7769864,
+    "bydelId": 6
+  },
+  {
+    "id": 726,
+    "name": "Marie Jørstads hage",
+    "category": "park",
+    "latitude": 59.920827,
+    "longitude": 10.7144275,
+    "bydelId": 2
+  },
+  {
+    "id": 727,
+    "name": "Skilpaddeparken",
+    "category": "park",
+    "latitude": 59.8466256,
+    "longitude": 10.8264558,
+    "bydelId": 11
+  },
+  {
+    "id": 728,
+    "name": "Malerhaugparken",
+    "category": "park",
+    "latitude": 59.9113904,
+    "longitude": 10.7926229,
+    "bydelId": 6
+  },
+  {
+    "id": 729,
+    "name": "Cuba",
+    "category": "park",
+    "latitude": 59.8733607,
+    "longitude": 10.8158949,
+    "bydelId": 12
+  },
+  {
+    "id": 730,
+    "name": "Lambertseter skole - Atrium",
+    "category": "kultur",
+    "latitude": 59.871799,
+    "longitude": 10.81645,
+    "bydelId": 12
+  },
+  {
+    "id": 731,
+    "name": "Torgkvartalet Bakgård",
+    "category": "park",
+    "latitude": 59.9356298,
+    "longitude": 10.826968,
+    "bydelId": 3
+  },
+  {
+    "id": 732,
+    "name": "Rolf Hofmos park",
+    "category": "park",
+    "latitude": 59.9124513,
+    "longitude": 10.7875704,
+    "bydelId": 6
+  },
+  {
+    "id": 733,
+    "name": "Bakerenga",
+    "category": "park",
+    "latitude": 59.9030877,
+    "longitude": 10.7773338,
+    "bydelId": 6
+  },
+  {
+    "id": 734,
+    "name": "Ulven T Park",
+    "category": "park",
+    "latitude": 59.9263596,
+    "longitude": 10.8094419,
+    "bydelId": 3
+  },
+  {
+    "id": 735,
+    "name": "TRYKKOKEREN Kunstlaboratorium",
+    "category": "museum",
+    "latitude": 59.9264468,
+    "longitude": 10.8082121,
+    "bydelId": 3
+  },
+  {
+    "id": 736,
+    "name": "Biblioteksparken",
+    "category": "park",
+    "latitude": 59.9142857,
+    "longitude": 10.791766,
+    "bydelId": 6
+  },
+  {
+    "id": 737,
+    "name": "Wehrmacht bunkeren",
+    "category": "museum",
+    "latitude": 59.9138039,
+    "longitude": 10.7202108,
+    "bydelId": 2
+  },
+  {
+    "id": 738,
+    "name": "Rommensletta skulpturpark",
+    "category": "park",
+    "latitude": 59.9551251,
+    "longitude": 10.9080268,
+    "bydelId": 14
+  },
+  {
+    "id": 739,
+    "name": "Østre parkdrag",
+    "category": "park",
+    "latitude": 59.9157525,
+    "longitude": 10.7921738,
+    "bydelId": 6
+  },
+  {
+    "id": 740,
+    "name": "Sørøy-lottenes park",
+    "category": "park",
+    "latitude": 59.933409,
+    "longitude": 10.7924738,
+    "bydelId": 3
+  },
+  {
+    "id": 741,
+    "name": "Bærum Kunsthall",
+    "category": "museum",
+    "latitude": 59.8999186,
+    "longitude": 10.6227646,
+    "bydelId": 9
+  },
+  {
+    "id": 742,
+    "name": "H3 Arena",
+    "category": "kultur",
+    "latitude": 59.9010437,
+    "longitude": 10.6228292,
+    "bydelId": 9
+  },
+  {
+    "id": 743,
+    "name": "Søsterlunden",
+    "category": "park",
+    "latitude": 59.9245688,
+    "longitude": 10.8637633,
+    "bydelId": 7
+  }
 ]
