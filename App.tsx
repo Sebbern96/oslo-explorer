@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from "react-native-webview";
 import { buildMapHtml } from "./utils/mapHtml";
 import { useGameLoop } from "./hooks/useGameLoop";
@@ -26,6 +27,11 @@ function xpProgress(xp: number): { percent: number; label: string } {
 }
 
 export default function App() {
+  return <SafeAreaProvider><AppInner /></SafeAreaProvider>;
+}
+
+function AppInner() {
+  const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
@@ -96,20 +102,20 @@ export default function App() {
       />
 
       {notification && (
-        <Animated.View style={[styles.notification, { opacity: notifOpacity }]}>
+        <Animated.View style={[styles.notification, { opacity: notifOpacity, top: insets.top + 10 }]}>
           <Text style={styles.notifEyebrow}>NYTT STED OPPDAGET</Text>
           <Text style={styles.notifName}>{notification.name}</Text>
           <Text style={styles.notifXp}>+{notification.xpGain} XP</Text>
         </Animated.View>
       )}
 
-      <View style={styles.topButtons}>
+      <View style={[styles.topButtons, { top: insets.top + 10 }]}>
         <TouchableOpacity style={styles.iconBtn} onPress={() => setProfileVisible(true)}>
           <Text style={styles.iconBtnText}>👤</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.hud}>
+      <View style={[styles.hud, { bottom: insets.bottom + 10 }]}>
         <View style={styles.hudHeader}>
           <Text style={styles.hudLvlLabel}>NIVÅ</Text>
           <Text style={styles.hudLvl}>{level}</Text>
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
 
   notification: {
     position: "absolute",
-    top: 60,
+    top: 0,
     left: 24,
     right: 24,
     backgroundColor: "rgba(8,8,20,0.96)",
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
 
   hud: {
     position: "absolute",
-    bottom: 44,
+    bottom: 0,
     left: 24,
     right: 24,
     backgroundColor: "rgba(8,8,20,0.92)",
@@ -260,7 +266,7 @@ const styles = StyleSheet.create({
 
   topButtons: {
     position: "absolute",
-    top: 60,
+    top: 0,
     right: 24,
     flexDirection: "row",
     gap: 10,
