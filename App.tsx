@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { WebView } from "react-native-webview";
 import { buildMapHtml } from "./utils/mapHtml";
 import { useGameLoop } from "./hooks/useGameLoop";
+import { ProfileModal } from "./components/ProfileModal";
 import locationsData from "./data/locations.json";
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
@@ -26,6 +27,7 @@ export default function App() {
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
+  const [profileVisible, setProfileVisible] = useState(false);
 
   function showNotification(name: string, xpGain: number) {
     setNotification({ name, xpGain });
@@ -37,11 +39,12 @@ export default function App() {
     ]).start(() => setNotification(null));
   }
 
-  const { discoveredCount, xp, onMapReady, onMapUnload } = useGameLoop({
+  const { xp, tilesCount, discoveredPOIIds, onMapReady, onMapUnload } = useGameLoop({
     webViewRef,
     showNotification,
   });
 
+  const discoveredCount = discoveredPOIIds.length;
   const level = computeLevel(xp);
   const { percent, label: xpLabel } = xpProgress(xp);
 
@@ -70,6 +73,10 @@ export default function App() {
         </Animated.View>
       )}
 
+      <TouchableOpacity style={styles.profileBtn} onPress={() => setProfileVisible(true)}>
+        <Text style={styles.profileBtnText}>👤</Text>
+      </TouchableOpacity>
+
       <View style={styles.hud}>
         <View style={styles.hudHeader}>
           <Text style={styles.hudLvlLabel}>NIVÅ</Text>
@@ -91,6 +98,14 @@ export default function App() {
           </View>
         </View>
       </View>
+
+      <ProfileModal
+        visible={profileVisible}
+        onClose={() => setProfileVisible(false)}
+        xp={xp}
+        tilesCount={tilesCount}
+        discoveredPOIIds={discoveredPOIIds}
+      />
     </View>
   );
 }
@@ -192,4 +207,23 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   hudStatDivider: { width: 1, height: 32, backgroundColor: "rgba(255,255,255,0.08)" },
+
+  profileBtn: {
+    position: "absolute",
+    top: 60,
+    right: 24,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "rgba(8,8,20,0.92)",
+    borderWidth: 1,
+    borderColor: "rgba(74,158,255,0.3)",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#4a9eff",
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  profileBtnText: { fontSize: 20 },
 });

@@ -36,8 +36,9 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
   });
   const mapReadyRef = useRef(false);
   const lastPosRef = useRef<{ latitude: number; longitude: number } | null>(null);
-  const [discoveredCount, setDiscoveredCount] = useState(0);
   const [xp, setXp] = useState(0);
+  const [tilesCount, setTilesCount] = useState(0);
+  const [discoveredPOIIds, setDiscoveredPOIIds] = useState<number[]>([]);
 
   function send(msg: object) {
     if (!mapReadyRef.current) return;
@@ -79,7 +80,8 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
       stateRef.current.visitedKeys = new Set(savedKeys);
       stateRef.current.discoveredPOIs = savedPOIs;
       stateRef.current.xp = savedXp;
-      setDiscoveredCount(savedPOIs.length);
+      setTilesCount(savedKeys.length);
+      setDiscoveredPOIIds(savedPOIs);
       setXp(savedXp);
 
       subscription = await Location.watchPositionAsync(
@@ -100,6 +102,7 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
             fsSave(TILES_URI, [...stateRef.current.visitedKeys]);
             fsSave(XP_URI, stateRef.current.xp);
             send({ type: "tile", key });
+            setTilesCount(stateRef.current.visitedKeys.size);
             setXp(stateRef.current.xp);
           }
 
@@ -119,7 +122,7 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
             });
             fsSave(POIS_URI, stateRef.current.discoveredPOIs);
             fsSave(XP_URI, stateRef.current.xp);
-            setDiscoveredCount(stateRef.current.discoveredPOIs.length);
+            setDiscoveredPOIIds([...stateRef.current.discoveredPOIs]);
             setXp(stateRef.current.xp);
           }
         }
@@ -130,5 +133,5 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
     return () => { subscription?.remove(); };
   }, []);
 
-  return { discoveredCount, xp, send, onMapReady, onMapUnload };
+  return { xp, tilesCount, discoveredPOIIds, onMapReady, onMapUnload };
 }
