@@ -85,12 +85,18 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [ ] **Auto-upload on discovery** — call `uploadProgress` after each tile/POI save (currently only on sign-in)
 - [ ] **Supabase table** — create `user_progress` table in Supabase dashboard if not done
 
-### Stage 8 — Remaining features ⬜
-- [ ] **Haptic feedback** — vibrate on POI discovery (`expo-haptics`)
-- [ ] **Leaderboard** — query `user_progress` ordered by XP, show top players
-- [ ] **Profile improvements** — per-bydel completion breakdown in profile modal
-- [ ] **UI details** — safe-area insets (replace hardcoded `top: 60`, `bottom: 44`)
-- [ ] **Sharing** — share screenshot of explored map or summary card
+### Stage 8 — Map & gameplay polish ⬜
+- [ ] **Hide undiscovered markers under fog** — only show `?` markers in already-revealed tiles; fixes clutter and preserves mystery
+- [ ] **Smaller reveal radius** — reduce from `TILE_SIZE * 0.5` to `TILE_SIZE * 0.35` for tighter reveals
+- [ ] **Zoom level** — increase default map zoom 15 → 16 for street-level feel
+- [x] **POI tap sheet** — tap any marker to see name, category, discovered status
+- [x] **UI details** — safe-area insets
+- [ ] **Haptic feedback** — vibrate on POI discovery (`expo-haptics`) — low priority
+
+### Stage 9 — Social & progression ⬜
+- [ ] **Global leaderboard** — query `user_progress` ordered by XP desc; needs `username` column in Supabase; show in `LeaderboardModal`
+- [ ] **Achievements** — milestone unlocks (first discovery, 10 tiles, all museums, all bydeler etc.); store unlocked IDs in Supabase; show in profile modal
+- [ ] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter — build after global leaderboard
 
 ---
 
@@ -113,28 +119,17 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~90% complete** — core gameplay, UI, bydel system, profile, and auth all done. Remaining: haptics, leaderboard, safe-area polish.
+**~80% complete** — core gameplay, UI, bydel system, profile, auth, and POI tapping done. Next: map polish, leaderboard, achievements, friends.
 
 ---
 
 ## Next actions
 
-1. **Create Supabase table** — in Supabase dashboard, run:
-   ```sql
-   create table user_progress (
-     user_id uuid primary key references auth.users,
-     visited_keys text[],
-     discovered_poi_ids int[],
-     xp int,
-     updated_at timestamptz
-   );
-   alter table user_progress enable row level security;
-   create policy "own row" on user_progress using (auth.uid() = user_id);
-   ```
-2. **Auto-upload on discovery** — in `hooks/useGameLoop.ts`, after `fsSave(XP_URI, ...)` calls, invoke an `onProgress` callback so `App.tsx` can call `uploadProgress` (or pass `uploadProgress` into the hook)
-3. **Haptic feedback** — `npx expo install expo-haptics`, call `Haptics.notificationAsync(NotificationFeedbackType.Success)` inside `showNotification` in `App.tsx`
-4. **Safe-area insets** — replace `top: 60` and `bottom: 44` with `useSafeAreaInsets()` from `react-native-safe-area-context`
-5. **Leaderboard** — query `user_progress` ordered by `xp desc`, display in a new `LeaderboardModal`
+1. **Hide undiscovered markers under fog** — in `mapHtml.ts`, on marker creation check if the POI's tile key is in `visitedKeys`; if not, set `visible: false`. On `state` and `tile` messages, show/hide markers as tiles are revealed.
+2. **Radius + zoom** — in `mapHtml.ts` change `TILE_SIZE * 0.5` → `TILE_SIZE * 0.35` and default zoom `15` → `16`
+3. **Global leaderboard** — add `username` text column to `user_progress` in Supabase; collect username on sign-up; build `LeaderboardModal` querying top 20 by XP
+4. **Achievements** — define milestone list in code; check on each XP/tile/POI update; persist unlocked IDs to Supabase; show in profile modal
+5. **Friends** — `friendships` table (user_id, friend_id); add/remove friends by username; filter leaderboard by friends
 
 ---
 

@@ -12,6 +12,8 @@ const DARK_STYLE = JSON.stringify([
   { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#4a7aaa" }] },
   { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#1e2038" }] },
   { featureType: "transit", elementType: "geometry", stylers: [{ color: "#383862" }] },
+  { featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }] },
+  { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
   { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#404070" }] },
   { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#a0a0d0" }] },
 ]);
@@ -107,7 +109,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 59.9139, lng: 10.7522 },
-    zoom: 15,
+    zoom: 16,
     styles: DARK_STYLE,
     disableDefaultUI: true,
     gestureHandling: 'greedy',
@@ -133,7 +135,7 @@ function initMap() {
 function tileCircle(iLat, iLng) {
   const centerLat = (iLat + 0.5) * TILE_SIZE;
   const centerLng = (iLng + 0.5) * TILE_SIZE;
-  const rLat = TILE_SIZE * 0.5;
+  const rLat = TILE_SIZE * 0.35;
   const lngScale = 1 / Math.cos(centerLat * Math.PI / 180);
   const N = 32;
   return Array.from({ length: N }, (_, i) => {
@@ -161,12 +163,24 @@ function buildFog() {
   });
 }
 
+function poiTileKey(poi) {
+  return Math.floor(poi.latitude / TILE_SIZE) + '_' + Math.floor(poi.longitude / TILE_SIZE);
+}
+
+function updateMarkerVisibility() {
+  Object.values(poiMarkers).forEach(({ marker, poi, discovered }) => {
+    if (discovered) return;
+    marker.setVisible(visitedKeys.has(poiTileKey(poi)));
+  });
+}
+
 function buildPOIMarkers() {
   POI_DATA.forEach(poi => {
     const catColor = CATEGORY_COLORS[poi.category] || '#5050a0';
     const marker = new google.maps.Marker({
       position: { lat: poi.latitude, lng: poi.longitude },
       map,
+      visible: false,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 9,
@@ -177,6 +191,11 @@ function buildPOIMarkers() {
       },
       label: { text: '?', color: catColor, fontWeight: 'bold', fontSize: '13px' },
       zIndex: 10,
+    });
+    marker.addListener('click', () => {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'poi_tap', poiId: poi.id }));
+      }
     });
     poiMarkers[poi.id] = { marker, poi, discovered: false };
   });
@@ -202,6 +221,7 @@ function revealPOI(poiId) {
     fontSize: '12px',
   });
   entry.marker.setZIndex(20);
+  entry.marker.setVisible(true);
 }
 
 function updatePlayer(lat, lng) {
@@ -220,12 +240,14 @@ function handle(msg) {
     discoveredPOIs = msg.discoveredPOIs;
     buildFog();
     discoveredPOIs.forEach(revealPOI);
+    updateMarkerVisibility();
     if (msg.latitude) updatePlayer(msg.latitude, msg.longitude);
   } else if (msg.type === 'position') {
     updatePlayer(msg.latitude, msg.longitude);
   } else if (msg.type === 'tile') {
     visitedKeys.add(msg.key);
     buildFog();
+    updateMarkerVisibility();
   } else if (msg.type === 'poi') {
     revealPOI(msg.poiId);
   }

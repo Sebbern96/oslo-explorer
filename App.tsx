@@ -7,6 +7,7 @@ import { useGameLoop } from "./hooks/useGameLoop";
 import { useAuth } from "./hooks/useAuth";
 import { ProfileModal } from "./components/ProfileModal";
 import { AuthModal } from "./components/AuthModal";
+import { POIDetailSheet } from "./components/POIDetailSheet";
 import locationsData from "./data/locations.json";
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
@@ -36,6 +37,7 @@ function AppInner() {
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
+  const [selectedPOIId, setSelectedPOIId] = useState<number | null>(null);
   const { session, loading, signIn, signUp, signOut, fetchCloudProgress, uploadProgress } = useAuth();
   // loading prevents flashing the auth gate before Supabase resolves the stored session
 
@@ -94,6 +96,7 @@ function AppInner() {
         onMessage={(e) => {
           const msg = JSON.parse(e.nativeEvent.data);
           if (msg.type === "ready") onMapReady();
+          else if (msg.type === "poi_tap") setSelectedPOIId(msg.poiId);
         }}
         scrollEnabled={false}
         bounces={false}
@@ -154,6 +157,12 @@ function AppInner() {
         onSignIn={handleSignIn}
         onSignUp={signUp}
         mandatory
+      />
+
+      <POIDetailSheet
+        poi={locationsData.find(p => p.id === selectedPOIId) ?? null}
+        discovered={discoveredPOIIds.includes(selectedPOIId!)}
+        onClose={() => setSelectedPOIId(null)}
       />
     </View>
   );
