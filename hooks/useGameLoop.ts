@@ -137,5 +137,35 @@ export function useGameLoop({ webViewRef, showNotification }: Props) {
     return () => { subscription?.remove(); };
   }, []);
 
-  return { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload };
+  function getProgress() {
+    return {
+      visitedKeys: [...stateRef.current.visitedKeys],
+      discoveredPOIIds: [...stateRef.current.discoveredPOIs],
+      xp: stateRef.current.xp,
+    };
+  }
+
+  async function loadProgress(p: { visitedKeys: string[]; discoveredPOIIds: number[]; xp: number }) {
+    stateRef.current.visitedKeys = new Set(p.visitedKeys);
+    stateRef.current.discoveredPOIs = p.discoveredPOIIds;
+    stateRef.current.xp = p.xp;
+    fsSave(TILES_URI, p.visitedKeys);
+    fsSave(POIS_URI, p.discoveredPOIIds);
+    fsSave(XP_URI, p.xp);
+    setTilesCount(p.visitedKeys.length);
+    setDiscoveredPOIIds(p.discoveredPOIIds);
+    setXp(p.xp);
+    // Re-sync the WebView with merged state
+    const pos = lastPosRef.current;
+    webViewRef.current?.injectJavaScript(
+      `window.handleMessage(${JSON.stringify({
+        type: 'state',
+        visitedKeys: p.visitedKeys,
+        discoveredPOIs: p.discoveredPOIIds,
+        ...(pos ?? {}),
+      })}); true;`
+    );
+  }
+
+  return { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress };
 }

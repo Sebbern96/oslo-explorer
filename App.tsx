@@ -3,7 +3,9 @@ import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native
 import { WebView } from "react-native-webview";
 import { buildMapHtml } from "./utils/mapHtml";
 import { useGameLoop } from "./hooks/useGameLoop";
+import { useAuth } from "./hooks/useAuth";
 import { ProfileModal } from "./components/ProfileModal";
+import { AuthModal } from "./components/AuthModal";
 import locationsData from "./data/locations.json";
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
@@ -28,6 +30,8 @@ export default function App() {
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
+  const [authVisible, setAuthVisible] = useState(false);
+  const { session, signIn, signUp, signOut, fetchCloudProgress, uploadProgress } = useAuth();
 
   function showNotification(name: string, xpGain: number) {
     setNotification({ name, xpGain });
@@ -39,10 +43,29 @@ export default function App() {
     ]).start(() => setNotification(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload } = useGameLoop({
+  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress } = useGameLoop({
     webViewRef,
     showNotification,
   });
+
+  async function handleSignIn(email: string, password: string) {
+    await signIn(email, password);
+    const cloud = await fetchCloudProgress();
+    if (cloud) {
+      const local = getProgress();
+      const merged = {
+        visitedKeys: [...new Set([...local.visitedKeys, ...cloud.visitedKeys])],
+        discoveredPOIIds: [...new Set([...local.discoveredPOIIds, ...cloud.discoveredPOIIds])],
+        xp: Math.max(local.xp, cloud.xp),
+      };
+      await loadProgress(merged);
+      await uploadProgress(merged);
+    }
+  }
+
+  async function handleSignOut() {
+    await signOut();
+  }
 
   const level = computeLevel(xp);
   const { percent, label: xpLabel } = xpProgress(xp);
@@ -79,9 +102,14 @@ export default function App() {
         </Animated.View>
       )}
 
-      <TouchableOpacity style={styles.profileBtn} onPress={() => setProfileVisible(true)}>
-        <Text style={styles.profileBtnText}>👤</Text>
-      </TouchableOpacity>
+      <View style={styles.topButtons}>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setAuthVisible(true)}>
+          <Text style={styles.iconBtnText}>{session ? '☁️' : '🔑'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setProfileVisible(true)}>
+          <Text style={styles.iconBtnText}>👤</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.hud}>
         <View style={styles.hudHeader}>
@@ -112,6 +140,15 @@ export default function App() {
         xp={xp}
         tilesCount={tilesCount}
         discoveredPOIIds={discoveredPOIIds}
+        userEmail={session?.user.email ?? null}
+        onSignOut={handleSignOut}
+      />
+
+      <AuthModal
+        visible={authVisible}
+        onClose={() => setAuthVisible(false)}
+        onSignIn={handleSignIn}
+        onSignUp={signUp}
       />
     </View>
   );
@@ -222,10 +259,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  profileBtn: {
+  topButtons: {
     position: "absolute",
     top: 60,
     right: 24,
+    flexDirection: "row",
+    gap: 10,
+  },
+  iconBtn: {
     width: 44,
     height: 44,
     borderRadius: 22,
@@ -239,5 +280,5 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 0 },
   },
-  profileBtnText: { fontSize: 20 },
+  iconBtnText: { fontSize: 20 },
 });

@@ -32,9 +32,11 @@ interface Props {
   xp: number;
   tilesCount: number;
   discoveredPOIIds: number[];
+  userEmail: string | null;
+  onSignOut: () => void;
 }
 
-export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIIds }: Props) {
+export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIIds, userEmail, onSignOut }: Props) {
   const level = computeLevel(xp);
   const { percent, label: xpLabel } = xpProgress(xp);
   const totalPOIs = locationsData.length;
@@ -54,6 +56,17 @@ export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIId
           </TouchableOpacity>
 
           <Text style={styles.screenTitle}>PROFIL</Text>
+
+          {userEmail ? (
+            <View style={styles.accountRow}>
+              <Text style={styles.accountEmail}>☁️ {userEmail}</Text>
+              <TouchableOpacity onPress={onSignOut}>
+                <Text style={styles.signOutText}>Logg ut</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <Text style={styles.notSignedIn}>🔑 Ikke logget inn — fremgang lagres lokalt</Text>
+          )}
 
           <View style={styles.levelBadge}>
             <Text style={styles.levelNumber}>{level}</Text>
@@ -227,4 +240,15 @@ const styles = StyleSheet.create({
   },
   catBarFill: { height: 6, backgroundColor: "#4a9eff", borderRadius: 3 },
   catCount: { color: "#555877", fontSize: 11, fontWeight: "600", width: 30, textAlign: "right" },
+
+  accountRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+    paddingHorizontal: 4,
+  },
+  accountEmail: { color: "#aaaacc", fontSize: 12 },
+  signOutText: { color: "#ef4444", fontSize: 12, fontWeight: "600" },
+  notSignedIn: { color: "#444466", fontSize: 12, textAlign: "center", marginBottom: 16 },
 });

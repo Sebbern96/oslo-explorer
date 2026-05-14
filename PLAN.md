@@ -23,7 +23,10 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 | `hooks/useGameLoop.ts` | GPS tracking, tile/POI detection, XP, persistence, bydel detection |
 | `utils/mapHtml.ts` | Builds the full Google Maps JS HTML string |
 | `utils/geo.ts` | Point-in-polygon + nearest-centroid fallback for bydel detection |
-| `components/ProfileModal.tsx` | Slide-up profile sheet with stats and category breakdown |
+| `hooks/useAuth.ts` | Supabase auth — signIn/signUp/signOut, cloud progress fetch/upload |
+| `utils/supabase.ts` | Supabase client with AsyncStorage session persistence |
+| `components/AuthModal.tsx` | Sign in / sign up modal |
+| `components/ProfileModal.tsx` | Slide-up profile sheet with stats, category breakdown, account row |
 | `data/locations.json` | 743 POIs with id, name, category, lat, lng, bydelId |
 | `data/bydeler_runtime.json` | 17 Oslo bydeler with simplified polygons for runtime PIP |
 | `data/bydeler.json` | Full-resolution bydel polygons (script use only, not bundled in app) |
@@ -71,12 +74,23 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [x] Game loop extracted to `hooks/useGameLoop.ts`
 - [x] `App.tsx` is ~160 lines of pure UI
 
-### Stage 7 — Remaining features ⬜
+### Stage 7 — Authentication & cloud sync ✅
+- [x] Supabase project set up (`bfdtuxibqynjcxbxyglp.supabase.co`)
+- [x] `utils/supabase.ts` — client with AsyncStorage session persistence
+- [x] `hooks/useAuth.ts` — signIn, signUp, signOut, fetchCloudProgress, uploadProgress
+- [x] `components/AuthModal.tsx` — email/password modal, sign in / sign up toggle, Norwegian UI
+- [x] `components/ProfileModal.tsx` — shows email + "Logg ut" when signed in, hint when not
+- [x] Auth button (🔑/☁️) in top-right alongside profile button
+- [x] Progress merge on login: union of tile keys/POI IDs, max XP
+- [ ] **Auto-upload on discovery** — call `uploadProgress` after each tile/POI save (currently only on sign-in)
+- [ ] **Supabase table** — create `user_progress` table in Supabase dashboard if not done
+
+### Stage 8 — Remaining features ⬜
 - [ ] **Haptic feedback** — vibrate on POI discovery (`expo-haptics`)
-- [ ] **Sharing** — share screenshot of explored map or summary card
-- [ ] **Leaderboard** — compare progress with friends (needs backend or third-party)
+- [ ] **Leaderboard** — query `user_progress` ordered by XP, show top players
 - [ ] **Profile improvements** — per-bydel completion breakdown in profile modal
 - [ ] **UI details** — safe-area insets (replace hardcoded `top: 60`, `bottom: 44`)
+- [ ] **Sharing** — share screenshot of explored map or summary card
 
 ---
 
@@ -92,20 +106,35 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [x] Custom location testing works in simulator
 - [ ] Haptic on POI discovery
 - [ ] Sharing flow
+- [x] Sign in / sign up (Supabase)
+- [x] Cloud progress sync on login
 
 ---
 
 ## Progress
 
-**~85% complete** — core gameplay loop, UI, bydel system, and profile all done. Remaining items are enhancements (haptics, sharing).
+**~90% complete** — core gameplay, UI, bydel system, profile, and auth all done. Remaining: haptics, leaderboard, safe-area polish.
 
 ---
 
 ## Next actions
 
-1. **Haptic feedback** — `npx expo install expo-haptics`, call `Haptics.notificationAsync(NotificationFeedbackType.Success)` inside `showNotification` in `App.tsx`
-2. **Safe-area insets** — replace `top: 60` and `bottom: 44` with `useSafeAreaInsets()` from `react-native-safe-area-context` (already a transitive dependency via Expo)
-3. **Per-bydel breakdown in profile** — group discovered POIs by bydelId, show completion per bydel in a scrollable list
+1. **Create Supabase table** — in Supabase dashboard, run:
+   ```sql
+   create table user_progress (
+     user_id uuid primary key references auth.users,
+     visited_keys text[],
+     discovered_poi_ids int[],
+     xp int,
+     updated_at timestamptz
+   );
+   alter table user_progress enable row level security;
+   create policy "own row" on user_progress using (auth.uid() = user_id);
+   ```
+2. **Auto-upload on discovery** — in `hooks/useGameLoop.ts`, after `fsSave(XP_URI, ...)` calls, invoke an `onProgress` callback so `App.tsx` can call `uploadProgress` (or pass `uploadProgress` into the hook)
+3. **Haptic feedback** — `npx expo install expo-haptics`, call `Haptics.notificationAsync(NotificationFeedbackType.Success)` inside `showNotification` in `App.tsx`
+4. **Safe-area insets** — replace `top: 60` and `bottom: 44` with `useSafeAreaInsets()` from `react-native-safe-area-context`
+5. **Leaderboard** — query `user_progress` ordered by `xp desc`, display in a new `LeaderboardModal`
 
 ---
 
