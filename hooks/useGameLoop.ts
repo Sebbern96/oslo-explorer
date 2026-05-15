@@ -128,6 +128,20 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
       setUnlockedAchievementIds(mergedAchievements);
       setXp(mergedXp);
 
+      // If the map loaded before disk/cloud data was ready, re-sync now
+      if (mapReadyRef.current) {
+        const pos = lastPosRef.current;
+        webViewRef.current?.injectJavaScript(
+          `window.handleMessage(${JSON.stringify({
+            type: 'state',
+            visitedKeys: mergedKeys,
+            discoveredPOIs: mergedPOIs,
+            visitedPOIs: mergedVisited,
+            ...(pos ?? {}),
+          })}); true;`
+        );
+      }
+
       subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.BestForNavigation },
         (pos) => {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Oslo Explorer">
+  <trk>
+    <name>Oslo Walk — Operaen til Grünerløkka</name>
+    <trkseg>
+      <!-- Stand still at Operaen for 60s — time to log in -->
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:00Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:10Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:20Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:30Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:40Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:00:50Z</time></trkpt>
+      <trkpt lat="59.9065" lon="10.7529"><time>2026-01-01T10:01:00Z</time></trkpt>
+      <!-- Start walking -->
+      <trkpt lat="59.9068" lon="10.7520"><time>2026-01-01T10:01:15Z</time></trkpt>
+      <trkpt lat="59.9071" lon="10.7510"><time>2026-01-01T10:01:30Z</time></trkpt>
+      <!-- Munch-museet -->
+      <trkpt lat="59.9074" lon="10.7500"><time>2026-01-01T10:01:45Z</time></trkpt>
+      <trkpt lat="59.9077" lon="10.7490"><time>2026-01-01T10:02:00Z</time></trkpt>
+      <!-- Deichmanske bibliotek -->
+      <trkpt lat="59.9080" lon="10.7478"><time>2026-01-01T10:02:15Z</time></trkpt>
+      <trkpt lat="59.9083" lon="10.7465"><time>2026-01-01T10:02:30Z</time></trkpt>
+      <trkpt lat="59.9086" lon="10.7450"><time>2026-01-01T10:02:45Z</time></trkpt>
+      <!-- Akershus festning -->
+      <trkpt lat="59.9085" lon="10.7435"><time>2026-01-01T10:03:00Z</time></trkpt>
+      <trkpt lat="59.9088" lon="10.7420"><time>2026-01-01T10:03:15Z</time></trkpt>
+      <trkpt lat="59.9091" lon="10.7408"><time>2026-01-01T10:03:30Z</time></trkpt>
+      <!-- Aker Brygge / Rådhuset -->
+      <trkpt lat="59.9095" lon="10.7390"><time>2026-01-01T10:03:45Z</time></trkpt>
+      <trkpt lat="59.9100" lon="10.7370"><time>2026-01-01T10:04:00Z</time></trkpt>
+      <trkpt lat="59.9105" lon="10.7355"><time>2026-01-01T10:04:15Z</time></trkpt>
+      <!-- Rådhuset -->
+      <trkpt lat="59.9113" lon="10.7334"><time>2026-01-01T10:04:30Z</time></trkpt>
+      <trkpt lat="59.9116" lon="10.7345"><time>2026-01-01T10:04:45Z</time></trkpt>
+      <trkpt lat="59.9119" lon="10.7358"><time>2026-01-01T10:05:00Z</time></trkpt>
+      <!-- Karl Johans gate -->
+      <trkpt lat="59.9122" lon="10.7370"><time>2026-01-01T10:05:15Z</time></trkpt>
+      <trkpt lat="59.9125" lon="10.7380"><time>2026-01-01T10:05:30Z</time></trkpt>
+      <!-- Stortinget -->
+      <trkpt lat="59.9127" lon="10.7390"><time>2026-01-01T10:05:45Z</time></trkpt>
+      <trkpt lat="59.9130" lon="10.7400"><time>2026-01-01T10:06:00Z</time></trkpt>
+      <!-- Nationaltheatret -->
+      <trkpt lat="59.9133" lon="10.7389"><time>2026-01-01T10:06:15Z</time></trkpt>
+      <trkpt lat="59.9138" lon="10.7375"><time>2026-01-01T10:06:30Z</time></trkpt>
+      <!-- Slottet -->
+      <trkpt lat="59.9148" lon="10.7320"><time>2026-01-01T10:06:45Z</time></trkpt>
+      <trkpt lat="59.9155" lon="10.7300"><time>2026-01-01T10:07:00Z</time></trkpt>
+      <trkpt lat="59.9162" lon="10.7285"><time>2026-01-01T10:07:15Z</time></trkpt>
+      <trkpt lat="59.9168" lon="10.7274"><time>2026-01-01T10:07:30Z</time></trkpt>
+      <!-- Turn back east -->
+      <trkpt lat="59.9165" lon="10.7300"><time>2026-01-01T10:07:45Z</time></trkpt>
+      <trkpt lat="59.9162" lon="10.7330"><time>2026-01-01T10:08:00Z</time></trkpt>
+      <trkpt lat="59.9160" lon="10.7360"><time>2026-01-01T10:08:15Z</time></trkpt>
+      <trkpt lat="59.9158" lon="10.7390"><time>2026-01-01T10:08:30Z</time></trkpt>
+      <!-- Universitetsgata -->
+      <trkpt lat="59.9158" lon="10.7420"><time>2026-01-01T10:08:45Z</time></trkpt>
+      <trkpt lat="59.9160" lon="10.7450"><time>2026-01-01T10:09:00Z</time></trkpt>
+      <!-- Youngs torget -->
+      <trkpt lat="59.9162" lon="10.7480"><time>2026-01-01T10:09:15Z</time></trkpt>
+      <trkpt lat="59.9168" lon="10.7490"><time>2026-01-01T10:09:30Z</time></trkpt>
+      <!-- Akerselva nord -->
+      <trkpt lat="59.9175" lon="10.7500"><time>2026-01-01T10:09:45Z</time></trkpt>
+      <trkpt lat="59.9182" lon="10.7510"><time>2026-01-01T10:10:00Z</time></trkpt>
+      <!-- Mathallen / Vulkan -->
+      <trkpt lat="59.9190" lon="10.7520"><time>2026-01-01T10:10:15Z</time></trkpt>
+      <trkpt lat="59.9198" lon="10.7530"><time>2026-01-01T10:10:30Z</time></trkpt>
+      <!-- Grünerløkka -->
+      <trkpt lat="59.9205" lon="10.7540"><time>2026-01-01T10:10:45Z</time></trkpt>
+      <trkpt lat="59.9212" lon="10.7548"><time>2026-01-01T10:11:00Z</time></trkpt>
+      <trkpt lat="59.9220" lon="10.7550"><time>2026-01-01T10:11:15Z</time></trkpt>
+      <!-- Blå / Olaf Ryes plass -->
+      <trkpt lat="59.9225" lon="10.7558"><time>2026-01-01T10:11:30Z</time></trkpt>
+      <trkpt lat="59.9230" lon="10.7565"><time>2026-01-01T10:11:45Z</time></trkpt>
+      <trkpt lat="59.9235" lon="10.7555"><time>2026-01-01T10:12:00Z</time></trkpt>
+      <trkpt lat="59.9238" lon="10.7545"><time>2026-01-01T10:12:15Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
