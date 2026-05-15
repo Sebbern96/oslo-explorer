@@ -50,6 +50,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
   });
   const mapReadyRef = useRef(false);
   const lastPosRef = useRef<{ latitude: number; longitude: number } | null>(null);
+  const [initialMapState, setInitialMapState] = useState<{ visitedKeys: string[]; discoveredPOIs: number[]; visitedPOIs: number[] } | null>(null);
   const [xp, setXp] = useState(0);
   const [tilesCount, setTilesCount] = useState(0);
   const [discoveredPOIIds, setDiscoveredPOIIds] = useState<number[]>([]);
@@ -86,9 +87,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
     let subscription: Location.LocationSubscription | null = null;
 
     async function init() {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") return;
-
+      // Step 1: disk reads (fast)
       const [savedKeys, savedPOIs, savedVisited, savedAchievements, savedXp] = await Promise.all([
         fsRead<string[]>(TILES_URI, []),
         fsRead<number[]>(POIS_URI, []),
@@ -103,19 +102,24 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
       let mergedAchievements = savedAchievements;
       let mergedXp = savedXp;
 
-      const cloud = await fetchCloudProgress?.();
-      if (cloud) {
-        mergedKeys = [...new Set([...savedKeys, ...cloud.visitedKeys])];
-        mergedPOIs = [...new Set([...savedPOIs, ...cloud.discoveredPOIIds])];
-        mergedVisited = [...new Set([...savedVisited, ...cloud.visitedPOIIds])];
-        mergedAchievements = [...new Set([...savedAchievements, ...cloud.unlockedAchievementIds])];
-        mergedXp = Math.max(savedXp, cloud.xp);
-        fsSave(TILES_URI, mergedKeys);
-        fsSave(POIS_URI, mergedPOIs);
-        fsSave(VISITED_URI, mergedVisited);
-        fsSave(ACHIEVEMENTS_URI, mergedAchievements);
-        fsSave(XP_URI, mergedXp);
-      }
+      // Step 2: cloud merge with 3s timeout — must complete before HTML is built
+      // so tile keys are embedded in the WebView source (avoids injectJavaScript on cold launch)
+      try {
+        const timeout = new Promise<null>(resolve => setTimeout(() => resolve(null), 3000));
+        const cloud = await Promise.race([fetchCloudProgress?.() ?? Promise.resolve(null), timeout]);
+        if (cloud) {
+          mergedKeys = [...new Set([...savedKeys, ...cloud.visitedKeys])];
+          mergedPOIs = [...new Set([...savedPOIs, ...cloud.discoveredPOIIds])];
+          mergedVisited = [...new Set([...savedVisited, ...cloud.visitedPOIIds])];
+          mergedAchievements = [...new Set([...savedAchievements, ...cloud.unlockedAchievementIds])];
+          mergedXp = Math.max(savedXp, cloud.xp);
+          fsSave(TILES_URI, mergedKeys);
+          fsSave(POIS_URI, mergedPOIs);
+          fsSave(VISITED_URI, mergedVisited);
+          fsSave(ACHIEVEMENTS_URI, mergedAchievements);
+          fsSave(XP_URI, mergedXp);
+        }
+      } catch { /* proceed with disk data */ }
 
       stateRef.current.visitedKeys = new Set(mergedKeys);
       stateRef.current.discoveredPOIs = mergedPOIs;
@@ -127,28 +131,23 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
       setVisitedPOIIds(mergedVisited);
       setUnlockedAchievementIds(mergedAchievements);
       setXp(mergedXp);
+      // Step 3: trigger WebView render — HTML now has full merged state embedded
+      setInitialMapState({ visitedKeys: mergedKeys, discoveredPOIs: mergedPOIs, visitedPOIs: mergedVisited });
 
-      // If the map loaded before disk/cloud data was ready, re-sync now
-      if (mapReadyRef.current) {
-        const pos = lastPosRef.current;
-        webViewRef.current?.injectJavaScript(
-          `window.handleMessage(${JSON.stringify({
-            type: 'state',
-            visitedKeys: mergedKeys,
-            discoveredPOIs: mergedPOIs,
-            visitedPOIs: mergedVisited,
-            ...(pos ?? {}),
-          })}); true;`
-        );
-      }
+      // Step 4: location permission (map is already rendering while user responds)
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") return;
 
+      // Step 5: start tracking
       subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.BestForNavigation },
         (pos) => {
           const { latitude, longitude } = pos.coords;
 
           lastPosRef.current = { latitude, longitude };
+
           send({ type: "position", latitude, longitude });
+
           setCurrentBydel(findBydel(latitude, longitude, bydelerData));
 
           const iLat = Math.floor(latitude / TILE_SIZE);
@@ -295,5 +294,5 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
     );
   }
 
-  return { xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress, markVisited };
+  return { xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, currentBydel, initialMapState, onMapReady, onMapUnload, getProgress, loadProgress, markVisited };
 }

@@ -18,7 +18,16 @@ const DARK_STYLE = JSON.stringify([
   { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#a0a0d0" }] },
 ]);
 
-export function buildMapHtml(apiKey: string, poisJson: string): string {
+export interface InitialMapState {
+  visitedKeys: string[];
+  discoveredPOIs: number[];
+  visitedPOIs: number[];
+}
+
+export function buildMapHtml(apiKey: string, poisJson: string, initialState?: InitialMapState): string {
+  const initKeys = initialState?.visitedKeys ?? [];
+  const initDiscovered = initialState?.discoveredPOIs ?? [];
+  const initVisited = initialState?.visitedPOIs ?? [];
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -78,9 +87,9 @@ const CATEGORY_COLORS = {
 let map, fogPolygon, PlayerOverlayClass, playerOverlay;
 const poiMarkers = {};
 let playerPos = null;
-let visitedKeys = new Set();
-let discoveredPOIs = [];
-let visitedPOIs = [];
+let visitedKeys = new Set(${JSON.stringify(initKeys)});
+let discoveredPOIs = ${JSON.stringify(initDiscovered)};
+let visitedPOIs = ${JSON.stringify(initVisited)};
 const queue = [];
 let mapReady = false;
 
@@ -123,6 +132,9 @@ function initMap() {
 
   buildFog();
   buildPOIMarkers();
+  discoveredPOIs.forEach(revealPOI);
+  visitedPOIs.forEach(visitPOI);
+  updateMarkerVisibility();
 
   mapReady = true;
   queue.forEach(handle);

@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.oslo-explorer"
+      "bundleIdentifier": "com.sebastianbismo.osloexplorer"
     },
     "android": {
       "adaptiveIcon": {

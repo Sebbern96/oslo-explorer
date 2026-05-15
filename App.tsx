@@ -17,7 +17,7 @@ SplashScreen.preventAutoHideAsync();
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
 const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
-const MAP_HTML = buildMapHtml(API_KEY, JSON.stringify(locationsData));
+const POIS_JSON = JSON.stringify(locationsData);
 
 function computeLevel(xp: number): number {
   return 1 + LEVEL_THRESHOLDS.filter(t => xp >= t).length;
@@ -129,13 +129,21 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
     ]).start(() => setAchievement(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, currentBydel, onMapReady, onMapUnload, markVisited } = useGameLoop({
+  const [mapHtml, setMapHtml] = useState<string | null>(null);
+
+  const { xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, currentBydel, initialMapState, onMapReady, onMapUnload, markVisited } = useGameLoop({
     webViewRef,
     showNotification,
     onAchievementUnlocked: showAchievement,
     fetchCloudProgress,
     onProgressChange: (progress) => { uploadProgress(progress); },
   });
+
+  useEffect(() => {
+    if (initialMapState && !mapHtml) {
+      setMapHtml(buildMapHtml(API_KEY, POIS_JSON, initialMapState));
+    }
+  }, [initialMapState]);
 
   async function handleSignOut() {
     await signOut();
@@ -153,21 +161,23 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
 
   return (
     <View style={styles.container}>
-      <WebView
-        ref={webViewRef}
-        source={{ html: MAP_HTML }}
-        style={styles.map}
-        onLoadStart={onMapUnload}
-        onMessage={(e) => {
-          const msg = JSON.parse(e.nativeEvent.data);
-          if (msg.type === "ready") onMapReady();
-          else if (msg.type === "poi_tap") setSelectedPOIId(msg.poiId);
-        }}
-        scrollEnabled={false}
-        bounces={false}
-        javaScriptEnabled
-        domStorageEnabled
-      />
+      {mapHtml && (
+        <WebView
+          ref={webViewRef}
+          source={{ html: mapHtml }}
+          style={styles.map}
+          onLoadStart={onMapUnload}
+          onMessage={(e) => {
+            const msg = JSON.parse(e.nativeEvent.data);
+            if (msg.type === "ready") onMapReady();
+            else if (msg.type === "poi_tap") setSelectedPOIId(msg.poiId);
+          }}
+          scrollEnabled={false}
+          bounces={false}
+          javaScriptEnabled
+          domStorageEnabled
+        />
+      )}
 
       {notification && (
         <Animated.View style={[styles.notification, { opacity: notifOpacity, top: insets.top + 10 }]}>

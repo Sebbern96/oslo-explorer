@@ -127,7 +127,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~90% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, redesigned profile, and friends system done. Next: Stage 10 (comments, photos, friends feed) and styling.
+**~93% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, redesigned profile, friends system, and Space Grotesk styling done. Next: Stage 10 (comments, photos, friends feed).
 
 ---
 
@@ -137,8 +137,15 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 2. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
 3. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
 4. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
-5. **Styling / typography** — Space Grotesk font, HUD polish, login screen background
-6. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
+5. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
+
+---
+
+## ✅ Fixed bug — Dark map on first login
+
+**Root cause:** `injectJavaScript` silently fails on WKWebView cold launch, so state sent via `onMapReady` never reached the WebView's JS context.
+
+**Fix:** State is now embedded directly in the WebView HTML source (`buildMapHtml` accepts `InitialMapState`). The WebView only renders after disk + cloud data is merged (cloud has a 3s timeout), so `initMap` runs with the correct `visitedKeys`/`discoveredPOIs`/`visitedPOIs` already set — no `injectJavaScript` needed for initial state. `onMapReady` still sends a full state resync as a safety net for mid-session WebView reloads.
 
 ---
 
