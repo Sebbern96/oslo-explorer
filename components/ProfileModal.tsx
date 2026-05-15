@@ -1,17 +1,10 @@
+import { useState } from "react";
 import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import locationsData from "../data/locations.json";
+import bydelerData from "../data/bydeler_runtime.json";
+import { ACHIEVEMENTS } from "../data/achievements";
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
-
-const CATEGORY_META: Record<string, { label: string; emoji: string }> = {
-  landemerke: { label: "Landemerke", emoji: "🏛" },
-  museum:     { label: "Museum",     emoji: "🏺" },
-  park:       { label: "Park",       emoji: "🌳" },
-  kultur:     { label: "Kultur",     emoji: "🎭" },
-  mat_drikke: { label: "Mat & Drikke", emoji: "🍽" },
-  restaurant: { label: "Restaurant", emoji: "🍴" },
-  bar:        { label: "Bar",        emoji: "🍺" },
-};
 
 function computeLevel(xp: number) {
   return 1 + LEVEL_THRESHOLDS.filter(t => xp >= t).length;
@@ -26,26 +19,35 @@ function xpProgress(xp: number) {
   return { percent, label: `${xp} / ${next} XP` };
 }
 
+type Tab = 'oversikt' | 'lokasjoner' | 'prestasjoner';
+
 interface Props {
   visible: boolean;
   onClose: () => void;
   xp: number;
   tilesCount: number;
   discoveredPOIIds: number[];
+  visitedPOIIds: number[];
+  unlockedAchievementIds: string[];
   userEmail: string | null;
   onSignOut: () => void;
 }
 
-export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIIds, userEmail, onSignOut }: Props) {
+export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, userEmail, onSignOut }: Props) {
+  const [tab, setTab] = useState<Tab>('oversikt');
   const level = computeLevel(xp);
   const { percent, label: xpLabel } = xpProgress(xp);
-  const totalPOIs = locationsData.length;
 
-  const categoryStats = Object.entries(CATEGORY_META).map(([key, meta]) => {
-    const total = locationsData.filter(p => p.category === key).length;
-    const found = locationsData.filter(p => p.category === key && discoveredPOIIds.includes(p.id)).length;
-    return { key, ...meta, total, found };
-  });
+  const bydelStats = (bydelerData as any[])
+    .map(bydel => {
+      const bydelPOIs = locationsData.filter((p: any) => p.bydelId === bydel.id);
+      if (bydelPOIs.length === 0) return null;
+      const discovered = bydelPOIs.filter(p => discoveredPOIIds.includes(p.id)).length;
+      const visited = bydelPOIs.filter(p => visitedPOIIds.includes(p.id)).length;
+      return { id: bydel.id, name: bydel.name, total: bydelPOIs.length, discovered, visited };
+    })
+    .filter(Boolean)
+    .sort((a: any, b: any) => b.discovered - a.discovered) as { id: number; name: string; total: number; discovered: number; visited: number }[];
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
@@ -57,52 +59,90 @@ export function ProfileModal({ visible, onClose, xp, tilesCount, discoveredPOIId
 
           <Text style={styles.screenTitle}>PROFIL</Text>
 
-          {userEmail ? (
-            <View style={styles.accountRow}>
-              <Text style={styles.accountEmail}>☁️ {userEmail}</Text>
-              <TouchableOpacity onPress={onSignOut}>
-                <Text style={styles.signOutText}>Logg ut</Text>
+          <View style={styles.tabBar}>
+            {(['oversikt', 'lokasjoner', 'prestasjoner'] as Tab[]).map(t => (
+              <TouchableOpacity key={t} style={[styles.tab, tab === t && styles.tabActive]} onPress={() => setTab(t)}>
+                <Text style={[styles.tabText, tab === t && styles.tabTextActive]}>
+                  {t === 'oversikt' ? 'OVERSIKT' : t === 'lokasjoner' ? 'LOKASJONER' : 'PRESTASJONER'}
+                </Text>
               </TouchableOpacity>
-            </View>
-          ) : (
-            <Text style={styles.notSignedIn}>🔑 Ikke logget inn — fremgang lagres lokalt</Text>
+            ))}
+          </View>
+
+          {tab === 'oversikt' && (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {userEmail ? (
+                <View style={styles.accountRow}>
+                  <Text style={styles.accountEmail}>☁️ {userEmail}</Text>
+                  <TouchableOpacity onPress={onSignOut}>
+                    <Text style={styles.signOutText}>Logg ut</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <Text style={styles.notSignedIn}>🔑 Ikke logget inn — fremgang lagres lokalt</Text>
+              )}
+
+              <View style={styles.levelBadge}>
+                <Text style={styles.levelNumber}>{level}</Text>
+                <Text style={styles.levelLabel}>NIVÅ</Text>
+              </View>
+              <View style={styles.xpTrack}>
+                <View style={[styles.xpFill, { width: `${percent}%` as any }]} />
+              </View>
+              <Text style={styles.xpLabel}>{xpLabel}</Text>
+
+              <View style={styles.statsGrid}>
+                <StatBox value={xp} label="Total XP" />
+                <StatBox value={discoveredPOIIds.length} label="Oppdaget" />
+                <StatBox value={visitedPOIIds.length} label="Besøkt" />
+                <StatBox value={unlockedAchievementIds.length} label={`Prestasjoner av ${ACHIEVEMENTS.length}`} />
+              </View>
+            </ScrollView>
           )}
 
-          <View style={styles.levelBadge}>
-            <Text style={styles.levelNumber}>{level}</Text>
-            <Text style={styles.levelLabel}>NIVÅ</Text>
-          </View>
-
-          <View style={styles.xpTrack}>
-            <View style={[styles.xpFill, { width: `${percent}%` as any }]} />
-          </View>
-          <Text style={styles.xpLabel}>{xpLabel}</Text>
-
-          <View style={styles.statsGrid}>
-            <StatBox value={xp} label="Total XP" />
-            <StatBox value={tilesCount} label="Fliser utforsket" />
-            <StatBox value={discoveredPOIIds.length} label="Steder funnet" />
-            <StatBox value={totalPOIs - discoveredPOIIds.length} label="Gjenstår" />
-          </View>
-
-          <Text style={styles.sectionTitle}>KATEGORIER</Text>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {categoryStats.map(cat => (
-              <View key={cat.key} style={styles.catRow}>
-                <Text style={styles.catEmoji}>{cat.emoji}</Text>
-                <Text style={styles.catLabel}>{cat.label}</Text>
-                <View style={styles.catBarTrack}>
-                  <View
-                    style={[
-                      styles.catBarFill,
-                      { width: cat.total > 0 ? `${Math.round((cat.found / cat.total) * 100)}%` as any : "0%" },
-                    ]}
-                  />
-                </View>
-                <Text style={styles.catCount}>{cat.found}/{cat.total}</Text>
+          {tab === 'lokasjoner' && (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.bydelSummary}>
+                <Text style={styles.bydelSummaryValue}>{tilesCount}</Text>
+                <Text style={styles.bydelSummaryLabel}>fliser utforsket totalt</Text>
               </View>
-            ))}
-          </ScrollView>
+              {bydelStats.map(b => (
+                <View key={b.id} style={styles.bydelCard}>
+                  <View style={styles.bydelHeader}>
+                    <Text style={styles.bydelName}>{b.name}</Text>
+                    <Text style={styles.bydelCount}>{b.discovered}/{b.total}</Text>
+                  </View>
+                  <View style={styles.barTrack}>
+                    <View style={[styles.barFill, { width: b.total > 0 ? `${Math.round((b.discovered / b.total) * 100)}%` as any : '0%' }]} />
+                  </View>
+                  <View style={styles.bydelFooter}>
+                    <Text style={styles.bydelVisited}>✓ {b.visited} besøkt</Text>
+                    <Text style={styles.bydelRemaining}>{b.total - b.discovered} gjenstår</Text>
+                  </View>
+                </View>
+              ))}
+            </ScrollView>
+          )}
+
+          {tab === 'prestasjoner' && (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={styles.achievementMeta}>
+                {unlockedAchievementIds.length} av {ACHIEVEMENTS.length} låst opp
+              </Text>
+              <View style={styles.achievementGrid}>
+                {ACHIEVEMENTS.map(a => {
+                  const unlocked = unlockedAchievementIds.includes(a.id);
+                  return (
+                    <View key={a.id} style={[styles.achievementCard, !unlocked && styles.achievementLocked]}>
+                      <Text style={styles.achievementEmoji}>{unlocked ? a.emoji : '🔒'}</Text>
+                      <Text style={[styles.achievementName, !unlocked && styles.achievementLockedText]}>{a.name}</Text>
+                      <Text style={styles.achievementDesc}>{a.description}</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          )}
         </View>
       </View>
     </Modal>
@@ -135,7 +175,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 24,
     paddingBottom: 48,
-    maxHeight: "85%",
+    maxHeight: "90%",
     shadowColor: "#4a9eff",
     shadowOpacity: 0.3,
     shadowRadius: 24,
@@ -157,8 +197,44 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     letterSpacing: 2,
     textAlign: "center",
+    marginBottom: 16,
+  },
+
+  // Tabs
+  tabBar: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.07)",
     marginBottom: 20,
   },
+  tab: {
+    flex: 1,
+    paddingBottom: 12,
+    alignItems: "center",
+  },
+  tabActive: {
+    borderBottomWidth: 2,
+    borderBottomColor: "#4a9eff",
+  },
+  tabText: {
+    color: "#444466",
+    fontSize: 9,
+    fontWeight: "700",
+    letterSpacing: 1.2,
+  },
+  tabTextActive: { color: "#4a9eff" },
+
+  // Oversikt
+  accountRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+    paddingHorizontal: 4,
+  },
+  accountEmail: { color: "#aaaacc", fontSize: 12 },
+  signOutText: { color: "#ef4444", fontSize: 12, fontWeight: "600" },
+  notSignedIn: { color: "#444466", fontSize: 12, textAlign: "center", marginBottom: 16 },
 
   levelBadge: {
     alignSelf: "center",
@@ -199,7 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-    marginBottom: 28,
+    marginBottom: 16,
   },
   statBox: {
     flex: 1,
@@ -215,40 +291,78 @@ const styles = StyleSheet.create({
   statValue: { color: "#ffffff", fontSize: 24, fontWeight: "700" },
   statLabel: { color: "#4466aa", fontSize: 10, fontWeight: "600", marginTop: 4, textAlign: "center", letterSpacing: 0.3 },
 
-  sectionTitle: {
-    color: "#4466bb",
-    fontSize: 10,
-    fontWeight: "700",
-    letterSpacing: 2,
-    marginBottom: 14,
-  },
-
-  catRow: {
-    flexDirection: "row",
+  // Lokasjoner
+  bydelSummary: {
     alignItems: "center",
-    marginBottom: 12,
-    gap: 10,
+    marginBottom: 20,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.07)",
   },
-  catEmoji: { fontSize: 16, width: 24 },
-  catLabel: { color: "#aaaacc", fontSize: 12, fontWeight: "600", width: 100 },
-  catBarTrack: {
-    flex: 1,
-    height: 6,
+  bydelSummaryValue: { color: "#4a9eff", fontSize: 32, fontWeight: "800" },
+  bydelSummaryLabel: { color: "#444466", fontSize: 11, fontWeight: "600", letterSpacing: 0.5 },
+
+  bydelCard: {
+    backgroundColor: "rgba(255,255,255,0.03)",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.07)",
+    padding: 14,
+    marginBottom: 10,
+  },
+  bydelHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  bydelName: { color: "#ffffff", fontSize: 13, fontWeight: "700" },
+  bydelCount: { color: "#4a9eff", fontSize: 12, fontWeight: "700" },
+  barTrack: {
+    height: 5,
     backgroundColor: "rgba(255,255,255,0.07)",
     borderRadius: 3,
     overflow: "hidden",
+    marginBottom: 8,
   },
-  catBarFill: { height: 6, backgroundColor: "#4a9eff", borderRadius: 3 },
-  catCount: { color: "#555877", fontSize: 11, fontWeight: "600", width: 30, textAlign: "right" },
-
-  accountRow: {
+  barFill: { height: 5, backgroundColor: "#4a9eff", borderRadius: 3 },
+  bydelFooter: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 16,
-    paddingHorizontal: 4,
   },
-  accountEmail: { color: "#aaaacc", fontSize: 12 },
-  signOutText: { color: "#ef4444", fontSize: 12, fontWeight: "600" },
-  notSignedIn: { color: "#444466", fontSize: 12, textAlign: "center", marginBottom: 16 },
+  bydelVisited: { color: "#22c55e", fontSize: 10, fontWeight: "600" },
+  bydelRemaining: { color: "#444466", fontSize: 10, fontWeight: "600" },
+
+  // Prestasjoner
+  achievementMeta: {
+    color: "#555877",
+    fontSize: 11,
+    textAlign: "center",
+    marginBottom: 16,
+    fontWeight: "600",
+  },
+  achievementGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginBottom: 16,
+  },
+  achievementCard: {
+    width: "47%",
+    backgroundColor: "rgba(74,158,255,0.08)",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(74,158,255,0.25)",
+    padding: 12,
+    alignItems: "center",
+    gap: 4,
+  },
+  achievementLocked: {
+    backgroundColor: "rgba(255,255,255,0.03)",
+    borderColor: "rgba(255,255,255,0.06)",
+  },
+  achievementEmoji: { fontSize: 24 },
+  achievementName: { color: "#ffffff", fontSize: 11, fontWeight: "700", textAlign: "center" },
+  achievementLockedText: { color: "#444466" },
+  achievementDesc: { color: "#444466", fontSize: 10, textAlign: "center", lineHeight: 14 },
 });

@@ -78,6 +78,8 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
   const notifOpacity = useRef(new Animated.Value(0)).current;
+  const [achievement, setAchievement] = useState<{ name: string; emoji: string } | null>(null);
+  const achievementOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
   const [leaderboardVisible, setLeaderboardVisible] = useState(false);
   const [selectedPOIId, setSelectedPOIId] = useState<number | null>(null);
@@ -92,9 +94,20 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
     ]).start(() => setNotification(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, visitedPOIIds, currentBydel, onMapReady, onMapUnload, markVisited } = useGameLoop({
+  function showAchievement(name: string, emoji: string) {
+    setAchievement({ name, emoji });
+    achievementOpacity.setValue(0);
+    Animated.sequence([
+      Animated.timing(achievementOpacity, { toValue: 1, duration: 300, useNativeDriver: true }),
+      Animated.delay(2500),
+      Animated.timing(achievementOpacity, { toValue: 0, duration: 400, useNativeDriver: true }),
+    ]).start(() => setAchievement(null));
+  }
+
+  const { xp, tilesCount, discoveredPOIIds, visitedPOIIds, unlockedAchievementIds, currentBydel, onMapReady, onMapUnload, markVisited } = useGameLoop({
     webViewRef,
     showNotification,
+    onAchievementUnlocked: showAchievement,
     fetchCloudProgress,
     onProgressChange: (progress) => { uploadProgress(progress); },
   });
@@ -139,6 +152,13 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
         </Animated.View>
       )}
 
+      {achievement && (
+        <Animated.View style={[styles.achievementNotif, { opacity: achievementOpacity, top: insets.top + 10 }]}>
+          <Text style={styles.notifEyebrow}>PRESTASJON LÅST OPP</Text>
+          <Text style={styles.notifName}>{achievement.emoji} {achievement.name}</Text>
+        </Animated.View>
+      )}
+
       <View style={[styles.topButtons, { top: insets.top + 10 }]}>
         <TouchableOpacity style={styles.iconBtn} onPress={() => setLeaderboardVisible(true)}>
           <Text style={styles.iconBtnText}>🏆</Text>
@@ -177,6 +197,8 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
         xp={xp}
         tilesCount={tilesCount}
         discoveredPOIIds={discoveredPOIIds}
+        visitedPOIIds={visitedPOIIds}
+        unlockedAchievementIds={unlockedAchievementIds}
         userEmail={userEmail}
         onSignOut={handleSignOut}
       />
@@ -216,6 +238,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     alignItems: "center",
     shadowColor: "#f4b942",
+    shadowOpacity: 0.55,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  achievementNotif: {
+    position: "absolute",
+    left: 24,
+    right: 24,
+    backgroundColor: "rgba(8,8,20,0.96)",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#22c55e",
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    alignItems: "center",
+    shadowColor: "#22c55e",
     shadowOpacity: 0.55,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 0 },

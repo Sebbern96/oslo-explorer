@@ -7,6 +7,7 @@ export interface Progress {
   visitedKeys: string[];
   discoveredPOIIds: number[];
   visitedPOIIds: number[];
+  unlockedAchievementIds: string[];
   xp: number;
 }
 
@@ -47,6 +48,7 @@ export function useAuth() {
         visited_keys: [],
         discovered_poi_ids: [],
         visited_poi_ids: [],
+        unlocked_achievement_ids: [],
         xp: 0,
         updated_at: new Date().toISOString(),
       });
@@ -63,7 +65,7 @@ export function useAuth() {
     if (!session) return null;
     const { data, error } = await supabase
       .from('user_progress')
-      .select('visited_keys, discovered_poi_ids, visited_poi_ids, xp, username')
+      .select('visited_keys, discovered_poi_ids, visited_poi_ids, unlocked_achievement_ids, xp, username')
       .eq('user_id', session.user.id)
       .single();
     if (error || !data) return null;
@@ -75,6 +77,7 @@ export function useAuth() {
       visitedKeys: data.visited_keys ?? [],
       discoveredPOIIds: data.discovered_poi_ids ?? [],
       visitedPOIIds: data.visited_poi_ids ?? [],
+      unlockedAchievementIds: data.unlocked_achievement_ids ?? [],
       xp: data.xp ?? 0,
     };
   }
@@ -87,6 +90,7 @@ export function useAuth() {
       visited_keys: progress.visitedKeys,
       discovered_poi_ids: progress.discoveredPOIIds,
       visited_poi_ids: progress.visitedPOIIds,
+      unlocked_achievement_ids: progress.unlockedAchievementIds,
       xp: progress.xp,
       updated_at: new Date().toISOString(),
     });

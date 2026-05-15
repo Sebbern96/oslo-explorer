@@ -101,7 +101,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [ ] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter
 
 ### Stage 10 — POI engagement 💡
-- [ ] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
+- [x] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
 - [ ] **POI comments** — Logged-in users can leave a short text comment on any opened POI. `poi_comments` table (user_id, poi_id, text, created_at). Show comments list in the POI detail sheet with username + timestamp.
 - [ ] **POI photos** — Take or pick a photo of a POI from the detail sheet using `expo-image-picker` (camera). Upload to Supabase Storage. Show thumbnail(s) in the POI detail sheet. Requires `npx expo install expo-image-picker` (verify New Architecture compatibility).
 - [ ] **Friends feed** — Chronological activity feed showing what friends have done: discovered a POI, visited a place, left a comment, uploaded a photo. `feed_events` table (user_id, type, poi_id, created_at). Shown in a new Feed modal/screen accessible from the HUD.
