@@ -97,7 +97,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 ### Stage 9 — Social & progression 🔄
 - [x] **Global leaderboard** — `LeaderboardModal` with top 20 by XP, medals for top 3, highlights current user
 - [x] **Username on sign-up** — collected in AuthModal, stored in Supabase via uploadProgress
-- [ ] **Achievements** — milestone unlocks (first discovery, 10 tiles, all museums, all bydeler etc.); store unlocked IDs in Supabase; show in profile modal
+- [x] **Achievements** — 13 milestone unlocks across tiles, discoveries, visits and levels; green toast on unlock; shown in Prestasjoner tab in profile; synced to Supabase
 - [ ] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter
 
 ### Stage 10 — POI engagement 💡
@@ -127,20 +127,19 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~75% complete** — core gameplay, UI, bydel system, profile, auth, map polish, POI tapping, and leaderboard done. Next: achievements, friends, then Stage 10 POI engagement (visited state, comments, photos, friends feed).
+**~85% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, and redesigned profile done. Next: friends system, then Stage 10 (comments, photos, friends feed).
 
 ---
 
 ## Next actions
 
-1. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`; delete test user in Supabase dashboard + delete app on simulator to test fresh sign-up flow with username
-2. **Achievements** — define milestone list in code (first POI, 10/50/100 tiles, all museums, visit every bydel etc.); check on each XP/tile/POI update; persist unlocked IDs to Supabase; show in profile modal
-3. **Friends** — `friendships` table (user_id, friend_id); add/remove friends by username; filter leaderboard by friends
-4. **"Vært her" visited state** — add "Jeg var her" button to POI detail sheet; separate `visited_poi_ids` in Supabase; distinct marker style for visited vs. discovered
-5. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
-6. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
-7. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
-8. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
+1. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
+2. **Friends** — `friendships` table (user_id, friend_id); add/remove friends by username; filter leaderboard by friends
+3. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
+4. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
+5. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
+6. **Styling / typography** — Space Grotesk font, HUD polish, login screen background
+7. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
 
 ---
 
