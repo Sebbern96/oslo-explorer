@@ -183,7 +183,18 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
     fsSave(XP_URI, stateRef.current.xp);
     setVisitedPOIIds([...stateRef.current.visitedPOIs]);
     setXp(stateRef.current.xp);
-    send({ type: 'poi_visited', poiId });
+    setTimeout(() => {
+      const pos = lastPosRef.current;
+      webViewRef.current?.injectJavaScript(
+        `window.handleMessage(${JSON.stringify({
+          type: 'state',
+          visitedKeys: [...stateRef.current.visitedKeys],
+          discoveredPOIs: stateRef.current.discoveredPOIs,
+          visitedPOIs: stateRef.current.visitedPOIs,
+          ...(pos ?? {}),
+        })}); true;`
+      );
+    }, 350);
     onProgressChange?.({
       visitedKeys: [...stateRef.current.visitedKeys],
       discoveredPOIIds: stateRef.current.discoveredPOIs,

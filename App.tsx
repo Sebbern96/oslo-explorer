@@ -185,7 +185,7 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
         poi={locationsData.find(p => p.id === selectedPOIId) ?? null}
         discovered={discoveredPOIIds.includes(selectedPOIId!)}
         visited={visitedPOIIds.includes(selectedPOIId!)}
-        onMarkVisited={() => { if (selectedPOIId != null) markVisited(selectedPOIId); }}
+        onMarkVisited={() => { if (selectedPOIId != null) { markVisited(selectedPOIId); setSelectedPOIId(null); } }}
         onClose={() => setSelectedPOIId(null)}
       />
 
