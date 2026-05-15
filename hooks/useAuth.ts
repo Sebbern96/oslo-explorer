@@ -143,5 +143,24 @@ export function useAuth() {
     return (data ?? []).map((d: any) => ({ username: d.username, xp: d.xp, userId: d.user_id }));
   }
 
-  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard };
+  async function fetchComments(poiId: number): Promise<{ id: string; username: string; text: string; created_at: string }[]> {
+    const { data } = await supabase
+      .from('poi_comments')
+      .select('id, username, text, created_at')
+      .eq('poi_id', poiId)
+      .order('created_at', { ascending: true });
+    return data ?? [];
+  }
+
+  async function postComment(poiId: number, text: string): Promise<void> {
+    if (!session) return;
+    await supabase.from('poi_comments').insert({
+      user_id: session.user.id,
+      poi_id: poiId,
+      username: username ?? 'Anonym',
+      text: text.trim(),
+    });
+  }
+
+  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchComments, postComment };
 }
