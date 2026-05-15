@@ -105,5 +105,43 @@ export function useAuth() {
     return data ?? [];
   }
 
-  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard };
+  async function addFriend(friendUsername: string): Promise<{ error: string | null }> {
+    if (!session) return { error: 'Ikke logget inn' };
+    const { data: target, error: lookupErr } = await supabase
+      .from('user_progress')
+      .select('user_id, username')
+      .eq('username', friendUsername)
+      .single();
+    if (lookupErr || !target) return { error: 'Fant ikke brukeren' };
+    if (target.user_id === session.user.id) return { error: 'Du kan ikke legge til deg selv' };
+    const { error } = await supabase.from('friendships').insert({ user_id: session.user.id, friend_id: target.user_id });
+    if (error) {
+      if (error.code === '23505') return { error: 'Allerede venner' };
+      return { error: 'Noe gikk galt' };
+    }
+    return { error: null };
+  }
+
+  async function removeFriend(friendUserId: string): Promise<void> {
+    if (!session) return;
+    await supabase.from('friendships').delete().eq('user_id', session.user.id).eq('friend_id', friendUserId);
+  }
+
+  async function fetchFriendsLeaderboard(): Promise<{ username: string; xp: number; userId: string }[]> {
+    if (!session) return [];
+    const { data: friendships } = await supabase
+      .from('friendships')
+      .select('friend_id')
+      .eq('user_id', session.user.id);
+    const friendIds = (friendships ?? []).map((f: any) => f.friend_id);
+    const allIds = [session.user.id, ...friendIds];
+    const { data } = await supabase
+      .from('user_progress')
+      .select('user_id, username, xp')
+      .in('user_id', allIds)
+      .order('xp', { ascending: false });
+    return (data ?? []).map((d: any) => ({ username: d.username, xp: d.xp, userId: d.user_id }));
+  }
+
+  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard };
 }

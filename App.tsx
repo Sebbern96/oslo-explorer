@@ -33,7 +33,7 @@ export default function App() {
 }
 
 function AppInner() {
-  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard } = useAuth();
+  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard } = useAuth();
 
   if (loading) {
     return <View style={styles.container} />;
@@ -55,11 +55,15 @@ function AppInner() {
   return (
     <GameScreen
       username={username}
+      userEmail={session.user.email ?? null}
+      userId={session.user.id}
       signOut={signOut}
       fetchCloudProgress={fetchCloudProgress}
       uploadProgress={uploadProgress}
       fetchLeaderboard={fetchLeaderboard}
-      userEmail={session.user.email ?? null}
+      addFriend={addFriend}
+      removeFriend={removeFriend}
+      fetchFriendsLeaderboard={fetchFriendsLeaderboard}
     />
   );
 }
@@ -67,13 +71,17 @@ function AppInner() {
 interface GameScreenProps {
   username: string | null;
   userEmail: string | null;
+  userId: string;
   signOut: () => Promise<void>;
   fetchCloudProgress: () => Promise<import('./hooks/useAuth').Progress | null>;
   uploadProgress: (p: import('./hooks/useAuth').Progress) => Promise<void>;
   fetchLeaderboard: () => Promise<{ username: string; xp: number }[]>;
+  addFriend: (username: string) => Promise<{ error: string | null }>;
+  removeFriend: (userId: string) => Promise<void>;
+  fetchFriendsLeaderboard: () => Promise<{ username: string; xp: number; userId: string }[]>;
 }
 
-function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard }: GameScreenProps) {
+function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard }: GameScreenProps) {
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
@@ -215,7 +223,11 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
         visible={leaderboardVisible}
         onClose={() => setLeaderboardVisible(false)}
         currentUsername={username}
+        currentUserId={userId}
         fetchLeaderboard={fetchLeaderboard}
+        fetchFriendsLeaderboard={fetchFriendsLeaderboard}
+        addFriend={addFriend}
+        removeFriend={removeFriend}
       />
     </View>
   );
