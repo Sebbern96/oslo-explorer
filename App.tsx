@@ -33,6 +33,47 @@ export default function App() {
 }
 
 function AppInner() {
+  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard } = useAuth();
+
+  if (loading) {
+    return <View style={styles.container} />;
+  }
+
+  if (!session) {
+    return (
+      <AuthModal
+        visible
+        standalone
+        onClose={() => {}}
+        onSignIn={(email, password) => signIn(email, password)}
+        onSignUp={(email, password, name) => signUp(email, password, name)}
+        mandatory
+      />
+    );
+  }
+
+  return (
+    <GameScreen
+      username={username}
+      signOut={signOut}
+      fetchCloudProgress={fetchCloudProgress}
+      uploadProgress={uploadProgress}
+      fetchLeaderboard={fetchLeaderboard}
+      userEmail={session.user.email ?? null}
+    />
+  );
+}
+
+interface GameScreenProps {
+  username: string | null;
+  userEmail: string | null;
+  signOut: () => Promise<void>;
+  fetchCloudProgress: () => Promise<import('./hooks/useAuth').Progress | null>;
+  uploadProgress: (p: import('./hooks/useAuth').Progress) => Promise<void>;
+  fetchLeaderboard: () => Promise<{ username: string; xp: number }[]>;
+}
+
+function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard }: GameScreenProps) {
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
@@ -40,8 +81,6 @@ function AppInner() {
   const [profileVisible, setProfileVisible] = useState(false);
   const [leaderboardVisible, setLeaderboardVisible] = useState(false);
   const [selectedPOIId, setSelectedPOIId] = useState<number | null>(null);
-  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard } = useAuth();
-  // loading prevents flashing the auth gate before Supabase resolves the stored session
 
   function showNotification(name: string, xpGain: number) {
     setNotification({ name, xpGain });
@@ -53,30 +92,12 @@ function AppInner() {
     ]).start(() => setNotification(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress } = useGameLoop({
+  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload } = useGameLoop({
     webViewRef,
     showNotification,
+    fetchCloudProgress,
     onProgressChange: (progress) => { uploadProgress(progress); },
   });
-
-  async function handleSignIn(email: string, password: string) {
-    await signIn(email, password);
-    const cloud = await fetchCloudProgress();
-    if (cloud) {
-      const local = getProgress();
-      const merged = {
-        visitedKeys: [...new Set([...local.visitedKeys, ...cloud.visitedKeys])],
-        discoveredPOIIds: [...new Set([...local.discoveredPOIIds, ...cloud.discoveredPOIIds])],
-        xp: Math.max(local.xp, cloud.xp),
-      };
-      await loadProgress(merged);
-      await uploadProgress(merged);
-    }
-  }
-
-  async function handleSignUp(email: string, password: string, name: string) {
-    await signUp(email, password, name);
-  }
 
   async function handleSignOut() {
     await signOut();
@@ -156,16 +177,8 @@ function AppInner() {
         xp={xp}
         tilesCount={tilesCount}
         discoveredPOIIds={discoveredPOIIds}
-        userEmail={session?.user.email ?? null}
+        userEmail={userEmail}
         onSignOut={handleSignOut}
-      />
-
-      <AuthModal
-        visible={!session && !loading}
-        onClose={() => {}}
-        onSignIn={handleSignIn}
-        onSignUp={handleSignUp}
-        mandatory
       />
 
       <POIDetailSheet

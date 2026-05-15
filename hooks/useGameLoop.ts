@@ -29,9 +29,10 @@ interface Props {
   webViewRef: React.RefObject<WebView | null>;
   showNotification: (name: string, xpGain: number) => void;
   onProgressChange?: (progress: { visitedKeys: string[]; discoveredPOIIds: number[]; xp: number }) => void;
+  fetchCloudProgress?: () => Promise<{ visitedKeys: string[]; discoveredPOIIds: number[]; xp: number } | null>;
 }
 
-export function useGameLoop({ webViewRef, showNotification, onProgressChange }: Props) {
+export function useGameLoop({ webViewRef, showNotification, onProgressChange, fetchCloudProgress }: Props) {
   const stateRef = useRef({
     visitedKeys: new Set<string>(),
     discoveredPOIs: [] as number[],
@@ -81,12 +82,26 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange }: 
         fsRead<number>(XP_URI, 0),
       ]);
 
-      stateRef.current.visitedKeys = new Set(savedKeys);
-      stateRef.current.discoveredPOIs = savedPOIs;
-      stateRef.current.xp = savedXp;
-      setTilesCount(savedKeys.length);
-      setDiscoveredPOIIds(savedPOIs);
-      setXp(savedXp);
+      let mergedKeys = savedKeys;
+      let mergedPOIs = savedPOIs;
+      let mergedXp = savedXp;
+
+      const cloud = await fetchCloudProgress?.();
+      if (cloud) {
+        mergedKeys = [...new Set([...savedKeys, ...cloud.visitedKeys])];
+        mergedPOIs = [...new Set([...savedPOIs, ...cloud.discoveredPOIIds])];
+        mergedXp = Math.max(savedXp, cloud.xp);
+        fsSave(TILES_URI, mergedKeys);
+        fsSave(POIS_URI, mergedPOIs);
+        fsSave(XP_URI, mergedXp);
+      }
+
+      stateRef.current.visitedKeys = new Set(mergedKeys);
+      stateRef.current.discoveredPOIs = mergedPOIs;
+      stateRef.current.xp = mergedXp;
+      setTilesCount(mergedKeys.length);
+      setDiscoveredPOIIds(mergedPOIs);
+      setXp(mergedXp);
 
       subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.BestForNavigation },

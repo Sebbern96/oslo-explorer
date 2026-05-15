@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
   visible: boolean;
@@ -17,9 +18,10 @@ interface Props {
   onSignIn: (email: string, password: string) => Promise<void>;
   onSignUp: (email: string, password: string, username: string) => Promise<void>;
   mandatory?: boolean;
+  standalone?: boolean;
 }
 
-export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: Props) {
+export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory, standalone }: Props) {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,85 +60,178 @@ export function AuthModal({ visible, onClose, onSignIn, onSignUp, mandatory }: P
     onClose();
   }
 
+  function toggleMode() {
+    setMode(m => m === 'signin' ? 'signup' : 'signin');
+    setError(null);
+    setSuccess(null);
+  }
+
+  const form = (
+    <>
+      <Text style={styles.formTitle}>
+        {mode === 'signin' ? 'LOGG INN' : 'OPPRETT KONTO'}
+      </Text>
+
+      {mode === 'signup' && (
+        <TextInput
+          style={styles.input}
+          placeholder="Brukernavn"
+          placeholderTextColor="#444466"
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      )}
+      <TextInput
+        style={styles.input}
+        placeholder="E-post"
+        placeholderTextColor="#444466"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+        keyboardType="email-address"
+        autoCorrect={false}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Passord"
+        placeholderTextColor="#444466"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+
+      {error && <Text style={styles.error}>{error}</Text>}
+      {success && <Text style={styles.successText}>{success}</Text>}
+
+      <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} disabled={loading}>
+        {loading
+          ? <ActivityIndicator color="#fff" />
+          : <Text style={styles.submitBtnText}>
+              {mode === 'signin' ? 'Logg inn' : 'Opprett konto'}
+            </Text>
+        }
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={toggleMode}>
+        <Text style={styles.toggle}>
+          {mode === 'signin' ? 'Ingen konto? Opprett en' : 'Har du allerede en konto? Logg inn'}
+        </Text>
+      </TouchableOpacity>
+    </>
+  );
+
+  if (standalone) {
+    return (
+      <SafeAreaView style={styles.screen}>
+        <KeyboardAvoidingView
+          style={styles.screenInner}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+          <View style={styles.hero}>
+            <Text style={styles.heroEyebrow}>OSLO EXPLORER</Text>
+            <Text style={styles.heroTitle}>{'Utforsk Oslo.\nAvdekk kartet.'}</Text>
+            <Text style={styles.heroSub}>Logg inn for å lagre fremgangen din og konkurrere på rangeringslisten.</Text>
+          </View>
+
+          <View style={styles.formCard}>
+            {form}
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  }
+
+  const sheetContent = (
+    <View style={styles.sheet}>
+      {!mandatory && (
+        <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
+          <Text style={styles.closeBtnText}>✕</Text>
+        </TouchableOpacity>
+      )}
+      <Text style={styles.sheetTitle}>
+        {mode === 'signin' ? 'LOGG INN' : 'OPPRETT KONTO'}
+      </Text>
+      <Text style={styles.sheetSubtitle}>
+        {mode === 'signin'
+          ? 'Logg inn for å synkronisere fremgang og konkurrere på rangeringslisten.'
+          : 'Opprett en konto for å lagre fremgangen din i skyen.'}
+      </Text>
+      {form}
+    </View>
+  );
+
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={handleClose}>
       <KeyboardAvoidingView
         style={styles.backdrop}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <View style={styles.sheet}>
-          {!mandatory && (
-            <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
-              <Text style={styles.closeBtnText}>✕</Text>
-            </TouchableOpacity>
-          )}
-
-          <Text style={styles.title}>
-            {mode === 'signin' ? 'LOGG INN' : 'OPPRETT KONTO'}
-          </Text>
-          <Text style={styles.subtitle}>
-            {mode === 'signin'
-              ? 'Logg inn for å synkronisere fremgang og konkurrere på rangeringslisten.'
-              : 'Opprett en konto for å lagre fremgangen din i skyen.'}
-          </Text>
-
-          {mode === 'signup' && (
-            <TextInput
-              style={styles.input}
-              placeholder="Brukernavn"
-              placeholderTextColor="#444466"
-              value={username}
-              onChangeText={setUsername}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          )}
-
-          <TextInput
-            style={styles.input}
-            placeholder="E-post"
-            placeholderTextColor="#444466"
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-            keyboardType="email-address"
-            autoCorrect={false}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Passord"
-            placeholderTextColor="#444466"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-
-          {error && <Text style={styles.error}>{error}</Text>}
-          {success && <Text style={styles.successText}>{success}</Text>}
-
-          <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} disabled={loading}>
-            {loading
-              ? <ActivityIndicator color="#fff" />
-              : <Text style={styles.submitBtnText}>
-                  {mode === 'signin' ? 'Logg inn' : 'Opprett konto'}
-                </Text>
-            }
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => { setMode(m => m === 'signin' ? 'signup' : 'signin'); setError(null); setSuccess(null); }}
-          >
-            <Text style={styles.toggle}>
-              {mode === 'signin' ? 'Ingen konto? Opprett en' : 'Har du allerede en konto? Logg inn'}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        {sheetContent}
       </KeyboardAvoidingView>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  // --- Standalone full-screen ---
+  screen: {
+    flex: 1,
+    backgroundColor: '#0a0a14',
+  },
+  screenInner: {
+    flex: 1,
+    paddingHorizontal: 24,
+    justifyContent: 'space-between',
+  },
+  hero: {
+    paddingTop: 48,
+    paddingBottom: 24,
+  },
+  heroEyebrow: {
+    color: '#4a9eff',
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 3,
+    marginBottom: 16,
+  },
+  heroTitle: {
+    color: '#ffffff',
+    fontSize: 36,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+    lineHeight: 42,
+    marginBottom: 16,
+  },
+  heroSub: {
+    color: '#555877',
+    fontSize: 13,
+    lineHeight: 20,
+  },
+  formCard: {
+    backgroundColor: '#0d0d1f',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(74,158,255,0.2)',
+    paddingHorizontal: 20,
+    paddingVertical: 24,
+    marginBottom: 16,
+    shadowColor: '#4a9eff',
+    shadowOpacity: 0.2,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 0 },
+  },
+  formTitle: {
+    color: '#4466bb',
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+
+  // --- Modal sheet ---
   backdrop: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -168,7 +263,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   closeBtnText: { color: '#555877', fontSize: 18, fontWeight: '600' },
-  title: {
+  sheetTitle: {
     color: '#4466bb',
     fontSize: 10,
     fontWeight: '700',
@@ -176,13 +271,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 8,
   },
-  subtitle: {
+  sheetSubtitle: {
     color: '#555877',
     fontSize: 12,
     textAlign: 'center',
     marginBottom: 24,
     lineHeight: 18,
   },
+
+  // --- Shared form elements ---
   input: {
     backgroundColor: 'rgba(255,255,255,0.05)',
     borderWidth: 1,

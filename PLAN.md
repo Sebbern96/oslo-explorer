@@ -100,6 +100,12 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [ ] **Achievements** — milestone unlocks (first discovery, 10 tiles, all museums, all bydeler etc.); store unlocked IDs in Supabase; show in profile modal
 - [ ] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter
 
+### Stage 10 — POI engagement 💡
+- [ ] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
+- [ ] **POI comments** — Logged-in users can leave a short text comment on any opened POI. `poi_comments` table (user_id, poi_id, text, created_at). Show comments list in the POI detail sheet with username + timestamp.
+- [ ] **POI photos** — Take or pick a photo of a POI from the detail sheet using `expo-image-picker` (camera). Upload to Supabase Storage. Show thumbnail(s) in the POI detail sheet. Requires `npx expo install expo-image-picker` (verify New Architecture compatibility).
+- [ ] **Friends feed** — Chronological activity feed showing what friends have done: discovered a POI, visited a place, left a comment, uploaded a photo. `feed_events` table (user_id, type, poi_id, created_at). Shown in a new Feed modal/screen accessible from the HUD.
+
 ---
 
 ## Checklist
@@ -121,7 +127,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~88% complete** — core gameplay, UI, bydel system, profile, auth, map polish, POI tapping, and leaderboard done. Next: achievements, friends, real-device testing.
+**~75% complete** — core gameplay, UI, bydel system, profile, auth, map polish, POI tapping, and leaderboard done. Next: achievements, friends, then Stage 10 POI engagement (visited state, comments, photos, friends feed).
 
 ---
 
@@ -130,7 +136,11 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 1. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`; delete test user in Supabase dashboard + delete app on simulator to test fresh sign-up flow with username
 2. **Achievements** — define milestone list in code (first POI, 10/50/100 tiles, all museums, visit every bydel etc.); check on each XP/tile/POI update; persist unlocked IDs to Supabase; show in profile modal
 3. **Friends** — `friendships` table (user_id, friend_id); add/remove friends by username; filter leaderboard by friends
-4. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
+4. **"Vært her" visited state** — add "Jeg var her" button to POI detail sheet; separate `visited_poi_ids` in Supabase; distinct marker style for visited vs. discovered
+5. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
+6. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
+7. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
+8. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
 
 ---
 
