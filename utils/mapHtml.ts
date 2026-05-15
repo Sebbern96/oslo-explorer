@@ -80,6 +80,7 @@ const poiMarkers = {};
 let playerPos = null;
 let visitedKeys = new Set();
 let discoveredPOIs = [];
+let visitedPOIs = [];
 const queue = [];
 let mapReady = false;
 
@@ -208,7 +209,31 @@ function revealPOI(poiId) {
   const catColor = CATEGORY_COLORS[entry.poi.category] || '#f4b942';
   entry.marker.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
-    scale: 11,
+    scale: 10,
+    fillColor: '#0e0e1e',
+    fillOpacity: 1,
+    strokeColor: catColor,
+    strokeWeight: 2.5,
+  });
+  entry.marker.setLabel({
+    text: entry.poi.name.charAt(0).toUpperCase(),
+    color: catColor,
+    fontWeight: 'bold',
+    fontSize: '12px',
+  });
+  entry.marker.setZIndex(20);
+  entry.marker.setVisible(true);
+}
+
+function visitPOI(poiId) {
+  const entry = poiMarkers[poiId];
+  if (!entry) return;
+  if (!entry.discovered) revealPOI(poiId);
+  entry.visited = true;
+  const catColor = CATEGORY_COLORS[entry.poi.category] || '#f4b942';
+  entry.marker.setIcon({
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 12,
     fillColor: catColor,
     fillOpacity: 1,
     strokeColor: '#ffffff',
@@ -218,10 +243,9 @@ function revealPOI(poiId) {
     text: entry.poi.name.charAt(0).toUpperCase(),
     color: '#ffffff',
     fontWeight: 'bold',
-    fontSize: '12px',
+    fontSize: '13px',
   });
-  entry.marker.setZIndex(20);
-  entry.marker.setVisible(true);
+  entry.marker.setZIndex(30);
 }
 
 function updatePlayer(lat, lng) {
@@ -238,8 +262,10 @@ function handle(msg) {
   if (msg.type === 'state') {
     visitedKeys = new Set(msg.visitedKeys);
     discoveredPOIs = msg.discoveredPOIs;
+    visitedPOIs = msg.visitedPOIs || [];
     buildFog();
     discoveredPOIs.forEach(revealPOI);
+    visitedPOIs.forEach(visitPOI);
     updateMarkerVisibility();
     if (msg.latitude) updatePlayer(msg.latitude, msg.longitude);
   } else if (msg.type === 'position') {
@@ -250,6 +276,8 @@ function handle(msg) {
     updateMarkerVisibility();
   } else if (msg.type === 'poi') {
     revealPOI(msg.poiId);
+  } else if (msg.type === 'poi_visited') {
+    visitPOI(msg.poiId);
   }
 }
 

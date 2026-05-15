@@ -92,7 +92,7 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
     ]).start(() => setNotification(null));
   }
 
-  const { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload } = useGameLoop({
+  const { xp, tilesCount, discoveredPOIIds, visitedPOIIds, currentBydel, onMapReady, onMapUnload, markVisited } = useGameLoop({
     webViewRef,
     showNotification,
     fetchCloudProgress,
@@ -184,6 +184,8 @@ function GameScreen({ username, userEmail, signOut, fetchCloudProgress, uploadPr
       <POIDetailSheet
         poi={locationsData.find(p => p.id === selectedPOIId) ?? null}
         discovered={discoveredPOIIds.includes(selectedPOIId!)}
+        visited={visitedPOIIds.includes(selectedPOIId!)}
+        onMarkVisited={() => { if (selectedPOIId != null) markVisited(selectedPOIId); }}
         onClose={() => setSelectedPOIId(null)}
       />
 

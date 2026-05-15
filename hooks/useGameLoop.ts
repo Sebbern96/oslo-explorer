@@ -9,9 +9,11 @@ import { findBydel, Bydel } from "../utils/geo";
 const TILE_SIZE = 0.005;
 const TILES_URI = FileSystem.documentDirectory + "visitedTiles.json";
 const POIS_URI = FileSystem.documentDirectory + "discoveredPOIs.json";
+const VISITED_URI = FileSystem.documentDirectory + "visitedPOIs.json";
 const XP_URI = FileSystem.documentDirectory + "xp.json";
 const XP_PER_TILE = 10;
 const XP_PER_POI = 50;
+const XP_PER_VISIT = 25;
 
 async function fsRead<T>(uri: string, fallback: T): Promise<T> {
   try {
@@ -28,14 +30,15 @@ function fsSave(uri: string, data: unknown): void {
 interface Props {
   webViewRef: React.RefObject<WebView | null>;
   showNotification: (name: string, xpGain: number) => void;
-  onProgressChange?: (progress: { visitedKeys: string[]; discoveredPOIIds: number[]; xp: number }) => void;
-  fetchCloudProgress?: () => Promise<{ visitedKeys: string[]; discoveredPOIIds: number[]; xp: number } | null>;
+  onProgressChange?: (progress: { visitedKeys: string[]; discoveredPOIIds: number[]; visitedPOIIds: number[]; xp: number }) => void;
+  fetchCloudProgress?: () => Promise<{ visitedKeys: string[]; discoveredPOIIds: number[]; visitedPOIIds: number[]; xp: number } | null>;
 }
 
 export function useGameLoop({ webViewRef, showNotification, onProgressChange, fetchCloudProgress }: Props) {
   const stateRef = useRef({
     visitedKeys: new Set<string>(),
     discoveredPOIs: [] as number[],
+    visitedPOIs: [] as number[],
     xp: 0,
   });
   const mapReadyRef = useRef(false);
@@ -43,6 +46,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
   const [xp, setXp] = useState(0);
   const [tilesCount, setTilesCount] = useState(0);
   const [discoveredPOIIds, setDiscoveredPOIIds] = useState<number[]>([]);
+  const [visitedPOIIds, setVisitedPOIIds] = useState<number[]>([]);
   const [currentBydel, setCurrentBydel] = useState<Bydel | null>(null);
 
   function send(msg: object) {
@@ -76,31 +80,37 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") return;
 
-      const [savedKeys, savedPOIs, savedXp] = await Promise.all([
+      const [savedKeys, savedPOIs, savedVisited, savedXp] = await Promise.all([
         fsRead<string[]>(TILES_URI, []),
         fsRead<number[]>(POIS_URI, []),
+        fsRead<number[]>(VISITED_URI, []),
         fsRead<number>(XP_URI, 0),
       ]);
 
       let mergedKeys = savedKeys;
       let mergedPOIs = savedPOIs;
+      let mergedVisited = savedVisited;
       let mergedXp = savedXp;
 
       const cloud = await fetchCloudProgress?.();
       if (cloud) {
         mergedKeys = [...new Set([...savedKeys, ...cloud.visitedKeys])];
         mergedPOIs = [...new Set([...savedPOIs, ...cloud.discoveredPOIIds])];
+        mergedVisited = [...new Set([...savedVisited, ...cloud.visitedPOIIds])];
         mergedXp = Math.max(savedXp, cloud.xp);
         fsSave(TILES_URI, mergedKeys);
         fsSave(POIS_URI, mergedPOIs);
+        fsSave(VISITED_URI, mergedVisited);
         fsSave(XP_URI, mergedXp);
       }
 
       stateRef.current.visitedKeys = new Set(mergedKeys);
       stateRef.current.discoveredPOIs = mergedPOIs;
+      stateRef.current.visitedPOIs = mergedVisited;
       stateRef.current.xp = mergedXp;
       setTilesCount(mergedKeys.length);
       setDiscoveredPOIIds(mergedPOIs);
+      setVisitedPOIIds(mergedVisited);
       setXp(mergedXp);
 
       subscription = await Location.watchPositionAsync(
@@ -127,6 +137,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
             onProgressChange?.({
               visitedKeys: [...stateRef.current.visitedKeys],
               discoveredPOIIds: stateRef.current.discoveredPOIs,
+              visitedPOIIds: stateRef.current.visitedPOIs,
               xp: stateRef.current.xp,
             });
           }
@@ -152,6 +163,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
             onProgressChange?.({
               visitedKeys: [...stateRef.current.visitedKeys],
               discoveredPOIIds: stateRef.current.discoveredPOIs,
+              visitedPOIIds: stateRef.current.visitedPOIs,
               xp: stateRef.current.xp,
             });
           }
@@ -163,35 +175,56 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, fe
     return () => { subscription?.remove(); };
   }, []);
 
+  function markVisited(poiId: number) {
+    if (stateRef.current.visitedPOIs.includes(poiId)) return;
+    stateRef.current.visitedPOIs.push(poiId);
+    stateRef.current.xp += XP_PER_VISIT;
+    fsSave(VISITED_URI, stateRef.current.visitedPOIs);
+    fsSave(XP_URI, stateRef.current.xp);
+    setVisitedPOIIds([...stateRef.current.visitedPOIs]);
+    setXp(stateRef.current.xp);
+    send({ type: 'poi_visited', poiId });
+    onProgressChange?.({
+      visitedKeys: [...stateRef.current.visitedKeys],
+      discoveredPOIIds: stateRef.current.discoveredPOIs,
+      visitedPOIIds: stateRef.current.visitedPOIs,
+      xp: stateRef.current.xp,
+    });
+  }
+
   function getProgress() {
     return {
       visitedKeys: [...stateRef.current.visitedKeys],
       discoveredPOIIds: [...stateRef.current.discoveredPOIs],
+      visitedPOIIds: [...stateRef.current.visitedPOIs],
       xp: stateRef.current.xp,
     };
   }
 
-  async function loadProgress(p: { visitedKeys: string[]; discoveredPOIIds: number[]; xp: number }) {
+  async function loadProgress(p: { visitedKeys: string[]; discoveredPOIIds: number[]; visitedPOIIds: number[]; xp: number }) {
     stateRef.current.visitedKeys = new Set(p.visitedKeys);
     stateRef.current.discoveredPOIs = p.discoveredPOIIds;
+    stateRef.current.visitedPOIs = p.visitedPOIIds;
     stateRef.current.xp = p.xp;
     fsSave(TILES_URI, p.visitedKeys);
     fsSave(POIS_URI, p.discoveredPOIIds);
+    fsSave(VISITED_URI, p.visitedPOIIds);
     fsSave(XP_URI, p.xp);
     setTilesCount(p.visitedKeys.length);
     setDiscoveredPOIIds(p.discoveredPOIIds);
+    setVisitedPOIIds(p.visitedPOIIds);
     setXp(p.xp);
-    // Re-sync the WebView with merged state
     const pos = lastPosRef.current;
     webViewRef.current?.injectJavaScript(
       `window.handleMessage(${JSON.stringify({
         type: 'state',
         visitedKeys: p.visitedKeys,
         discoveredPOIs: p.discoveredPOIIds,
+        visitedPOIs: p.visitedPOIIds,
         ...(pos ?? {}),
       })}); true;`
     );
   }
 
-  return { xp, tilesCount, discoveredPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress };
+  return { xp, tilesCount, discoveredPOIIds, visitedPOIIds, currentBydel, onMapReady, onMapUnload, getProgress, loadProgress, markVisited };
 }

@@ -21,10 +21,12 @@ interface POI {
 interface Props {
   poi: POI | null;
   discovered: boolean;
+  visited: boolean;
+  onMarkVisited: () => void;
   onClose: () => void;
 }
 
-export function POIDetailSheet({ poi, discovered, onClose }: Props) {
+export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClose }: Props) {
   if (!poi) return null;
   const meta = CATEGORY_META[poi.category] ?? { label: poi.category, emoji: "📍", color: "#5050a0" };
 
@@ -46,11 +48,23 @@ export function POIDetailSheet({ poi, discovered, onClose }: Props) {
             </>
           )}
 
-          {discovered && (
-            <View style={[styles.discoveredBadge, { borderColor: meta.color }]}>
-              <Text style={[styles.discoveredText, { color: meta.color }]}>✓ Oppdaget</Text>
+          {visited ? (
+            <View style={[styles.statusBadge, { borderColor: '#22c55e' }]}>
+              <Text style={[styles.statusText, { color: '#22c55e' }]}>✓ Besøkt</Text>
             </View>
-          )}
+          ) : discovered ? (
+            <>
+              <View style={[styles.statusBadge, { borderColor: meta.color }]}>
+                <Text style={[styles.statusText, { color: meta.color }]}>◎ Oppdaget</Text>
+              </View>
+              <TouchableOpacity
+                style={[styles.visitBtn, { borderColor: meta.color }]}
+                onPress={onMarkVisited}
+              >
+                <Text style={[styles.visitBtnText, { color: meta.color }]}>Jeg var her  +25 XP</Text>
+              </TouchableOpacity>
+            </>
+          ) : null}
 
           <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
             <Text style={styles.closeBtnText}>Lukk</Text>
@@ -109,14 +123,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  discoveredBadge: {
+  statusBadge: {
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 6,
-    marginBottom: 24,
+    marginBottom: 16,
   },
-  discoveredText: { fontSize: 12, fontWeight: "700" },
+  statusText: { fontSize: 12, fontWeight: "700" },
+  visitBtn: {
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    marginBottom: 16,
+  },
+  visitBtnText: { fontSize: 14, fontWeight: "700" },
   closeBtn: {
     marginTop: 8,
     backgroundColor: "rgba(255,255,255,0.06)",

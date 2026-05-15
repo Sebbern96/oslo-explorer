@@ -6,6 +6,7 @@ import { supabase } from '../utils/supabase';
 export interface Progress {
   visitedKeys: string[];
   discoveredPOIIds: number[];
+  visitedPOIIds: number[];
   xp: number;
 }
 
@@ -35,10 +36,21 @@ export function useAuth() {
   }
 
   async function signUp(email: string, password: string, name: string) {
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
     setUsername(name);
     await AsyncStorage.setItem('pending_username', name);
+    if (data.user) {
+      await supabase.from('user_progress').upsert({
+        user_id: data.user.id,
+        username: name,
+        visited_keys: [],
+        discovered_poi_ids: [],
+        visited_poi_ids: [],
+        xp: 0,
+        updated_at: new Date().toISOString(),
+      });
+    }
   }
 
   async function signOut() {
@@ -51,7 +63,7 @@ export function useAuth() {
     if (!session) return null;
     const { data, error } = await supabase
       .from('user_progress')
-      .select('visited_keys, discovered_poi_ids, xp, username')
+      .select('visited_keys, discovered_poi_ids, visited_poi_ids, xp, username')
       .eq('user_id', session.user.id)
       .single();
     if (error || !data) return null;
@@ -62,6 +74,7 @@ export function useAuth() {
     return {
       visitedKeys: data.visited_keys ?? [],
       discoveredPOIIds: data.discovered_poi_ids ?? [],
+      visitedPOIIds: data.visited_poi_ids ?? [],
       xp: data.xp ?? 0,
     };
   }
@@ -73,6 +86,7 @@ export function useAuth() {
       ...(username ? { username } : {}),
       visited_keys: progress.visitedKeys,
       discovered_poi_ids: progress.discoveredPOIIds,
+      visited_poi_ids: progress.visitedPOIIds,
       xp: progress.xp,
       updated_at: new Date().toISOString(),
     });
