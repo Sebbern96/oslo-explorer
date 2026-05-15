@@ -109,16 +109,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   categoryEmoji: { fontSize: 14 },
-  categoryLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 1.5 },
+  categoryLabel: { fontFamily: "SpaceGrotesk_700Bold", fontSize: 10, letterSpacing: 1.5 },
   name: {
     color: "#ffffff",
+    fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 26,
-    fontWeight: "700",
     textAlign: "center",
     marginBottom: 12,
   },
   hint: {
     color: "#555877",
+    fontFamily: "SpaceGrotesk_400Regular",
     fontSize: 13,
     textAlign: "center",
     marginBottom: 20,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginBottom: 16,
   },
-  statusText: { fontSize: 12, fontWeight: "700" },
+  statusText: { fontFamily: "SpaceGrotesk_700Bold", fontSize: 12 },
   visitBtn: {
     borderWidth: 1,
     borderRadius: 12,
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginBottom: 16,
   },
-  visitBtnText: { fontSize: 14, fontWeight: "700" },
+  visitBtnText: { fontFamily: "SpaceGrotesk_700Bold", fontSize: 14 },
   closeBtn: {
     marginTop: 8,
     backgroundColor: "rgba(255,255,255,0.06)",
@@ -146,5 +147,5 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     paddingHorizontal: 48,
   },
-  closeBtnText: { color: "#aaaacc", fontSize: 14, fontWeight: "600" },
+  closeBtnText: { color: "#aaaacc", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 14 },
 });

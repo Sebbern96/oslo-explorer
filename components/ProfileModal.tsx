@@ -190,17 +190,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  closeBtnText: { color: "#555877", fontSize: 18, fontWeight: "600" },
+  closeBtnText: { color: "#555877", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 18 },
   screenTitle: {
     color: "#4466bb",
+    fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 10,
-    fontWeight: "700",
     letterSpacing: 2,
     textAlign: "center",
     marginBottom: 16,
   },
 
-  // Tabs
   tabBar: {
     flexDirection: "row",
     borderBottomWidth: 1,
@@ -218,13 +217,12 @@ const styles = StyleSheet.create({
   },
   tabText: {
     color: "#444466",
+    fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 9,
-    fontWeight: "700",
     letterSpacing: 1.2,
   },
   tabTextActive: { color: "#4a9eff" },
 
-  // Oversikt
   accountRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -232,9 +230,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 4,
   },
-  accountEmail: { color: "#aaaacc", fontSize: 12 },
-  signOutText: { color: "#ef4444", fontSize: 12, fontWeight: "600" },
-  notSignedIn: { color: "#444466", fontSize: 12, textAlign: "center", marginBottom: 16 },
+  accountEmail: { color: "#aaaacc", fontFamily: "SpaceGrotesk_400Regular", fontSize: 12 },
+  signOutText: { color: "#ef4444", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 12 },
+  notSignedIn: { color: "#444466", fontFamily: "SpaceGrotesk_400Regular", fontSize: 12, textAlign: "center", marginBottom: 16 },
 
   levelBadge: {
     alignSelf: "center",
@@ -252,8 +250,8 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 0 },
   },
-  levelNumber: { color: "#4a9eff", fontSize: 36, fontWeight: "800", lineHeight: 40 },
-  levelLabel: { color: "#4466bb", fontSize: 9, fontWeight: "700", letterSpacing: 1.5 },
+  levelNumber: { color: "#4a9eff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 36, lineHeight: 40 },
+  levelLabel: { color: "#4466bb", fontFamily: "SpaceGrotesk_700Bold", fontSize: 9, letterSpacing: 1.5 },
 
   xpTrack: {
     height: 8,
@@ -265,8 +263,8 @@ const styles = StyleSheet.create({
   xpFill: { height: 8, backgroundColor: "#4a9eff", borderRadius: 4 },
   xpLabel: {
     color: "#555877",
+    fontFamily: "SpaceGrotesk_500Medium",
     fontSize: 11,
-    fontWeight: "600",
     textAlign: "right",
     marginBottom: 24,
   },
@@ -288,10 +286,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignItems: "center",
   },
-  statValue: { color: "#ffffff", fontSize: 24, fontWeight: "700" },
-  statLabel: { color: "#4466aa", fontSize: 10, fontWeight: "600", marginTop: 4, textAlign: "center", letterSpacing: 0.3 },
+  statValue: { color: "#ffffff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 24 },
+  statLabel: { color: "#4466aa", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 10, marginTop: 4, textAlign: "center", letterSpacing: 0.3 },
 
-  // Lokasjoner
   bydelSummary: {
     alignItems: "center",
     marginBottom: 20,
@@ -299,8 +296,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "rgba(255,255,255,0.07)",
   },
-  bydelSummaryValue: { color: "#4a9eff", fontSize: 32, fontWeight: "800" },
-  bydelSummaryLabel: { color: "#444466", fontSize: 11, fontWeight: "600", letterSpacing: 0.5 },
+  bydelSummaryValue: { color: "#4a9eff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 32 },
+  bydelSummaryLabel: { color: "#444466", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 11, letterSpacing: 0.5 },
 
   bydelCard: {
     backgroundColor: "rgba(255,255,255,0.03)",
@@ -316,8 +313,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 8,
   },
-  bydelName: { color: "#ffffff", fontSize: 13, fontWeight: "700" },
-  bydelCount: { color: "#4a9eff", fontSize: 12, fontWeight: "700" },
+  bydelName: { color: "#ffffff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 13 },
+  bydelCount: { color: "#4a9eff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 12 },
   barTrack: {
     height: 5,
     backgroundColor: "rgba(255,255,255,0.07)",
@@ -330,16 +327,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  bydelVisited: { color: "#22c55e", fontSize: 10, fontWeight: "600" },
-  bydelRemaining: { color: "#444466", fontSize: 10, fontWeight: "600" },
+  bydelVisited: { color: "#22c55e", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 10 },
+  bydelRemaining: { color: "#444466", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 10 },
 
-  // Prestasjoner
   achievementMeta: {
     color: "#555877",
+    fontFamily: "SpaceGrotesk_500Medium",
     fontSize: 11,
     textAlign: "center",
     marginBottom: 16,
-    fontWeight: "600",
   },
   achievementGrid: {
     flexDirection: "row",
@@ -362,7 +358,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.06)",
   },
   achievementEmoji: { fontSize: 24 },
-  achievementName: { color: "#ffffff", fontSize: 11, fontWeight: "700", textAlign: "center" },
+  achievementName: { color: "#ffffff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 11, textAlign: "center" },
   achievementLockedText: { color: "#444466" },
-  achievementDesc: { color: "#444466", fontSize: 10, textAlign: "center", lineHeight: 14 },
+  achievementDesc: { color: "#444466", fontFamily: "SpaceGrotesk_400Regular", fontSize: 10, textAlign: "center", lineHeight: 14 },
 });

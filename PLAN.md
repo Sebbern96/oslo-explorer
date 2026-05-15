@@ -98,7 +98,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [x] **Global leaderboard** — `LeaderboardModal` with top 20 by XP, medals for top 3, highlights current user
 - [x] **Username on sign-up** — collected in AuthModal, stored in Supabase via uploadProgress
 - [x] **Achievements** — 13 milestone unlocks across tiles, discoveries, visits and levels; green toast on unlock; shown in Prestasjoner tab in profile; synced to Supabase
-- [ ] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter
+- [x] **Friends** — follow by username or invite link; `friendships` table; friends leaderboard filter
 
 ### Stage 10 — POI engagement 💡
 - [x] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
@@ -127,19 +127,18 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~85% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, and redesigned profile done. Next: friends system, then Stage 10 (comments, photos, friends feed).
+**~90% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, redesigned profile, and friends system done. Next: Stage 10 (comments, photos, friends feed) and styling.
 
 ---
 
 ## Next actions
 
 1. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
-2. **Friends** — `friendships` table (user_id, friend_id); add/remove friends by username; filter leaderboard by friends
-3. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
-4. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
-5. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
-6. **Styling / typography** — Space Grotesk font, HUD polish, login screen background
-7. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
+2. **POI comments** — `poi_comments` table; comment input + list in POI detail sheet
+3. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet
+4. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
+5. **Styling / typography** — Space Grotesk font, HUD polish, login screen background
+6. **Haptic feedback** — `npx expo install expo-haptics`, call on POI discovery — low priority
 
 ---
 

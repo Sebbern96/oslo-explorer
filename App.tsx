@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from "react-native-webview";
+import { useFonts, SpaceGrotesk_400Regular, SpaceGrotesk_500Medium, SpaceGrotesk_600SemiBold, SpaceGrotesk_700Bold } from '@expo-google-fonts/space-grotesk';
+import * as SplashScreen from 'expo-splash-screen';
 import { buildMapHtml } from "./utils/mapHtml";
 import { useGameLoop } from "./hooks/useGameLoop";
 import { useAuth } from "./hooks/useAuth";
@@ -10,6 +12,8 @@ import { AuthModal } from "./components/AuthModal";
 import { POIDetailSheet } from "./components/POIDetailSheet";
 import { LeaderboardModal } from "./components/LeaderboardModal";
 import locationsData from "./data/locations.json";
+
+SplashScreen.preventAutoHideAsync();
 
 const LEVEL_THRESHOLDS = [100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
 const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
@@ -29,6 +33,19 @@ function xpProgress(xp: number): { percent: number; label: string } {
 }
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    SpaceGrotesk_400Regular,
+    SpaceGrotesk_500Medium,
+    SpaceGrotesk_600SemiBold,
+    SpaceGrotesk_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
+
   return <SafeAreaProvider><AppInner /></SafeAreaProvider>;
 }
 
@@ -162,7 +179,7 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
 
       {achievement && (
         <Animated.View style={[styles.achievementNotif, { opacity: achievementOpacity, top: insets.top + 10 }]}>
-          <Text style={styles.notifEyebrow}>PRESTASJON LÅST OPP</Text>
+          <Text style={[styles.notifEyebrow, { color: '#22c55e' }]}>PRESTASJON LÅST OPP</Text>
           <Text style={styles.notifName}>{achievement.emoji} {achievement.name}</Text>
         </Animated.View>
       )}
@@ -272,13 +289,13 @@ const styles = StyleSheet.create({
   },
   notifEyebrow: {
     color: "#f4b942",
+    fontFamily: "SpaceGrotesk_600SemiBold",
     fontSize: 10,
-    fontWeight: "700",
     letterSpacing: 1.5,
     marginBottom: 4,
   },
-  notifName: { color: "#ffffff", fontSize: 18, fontWeight: "700" },
-  notifXp: { color: "#4a9eff", fontSize: 13, fontWeight: "600", marginTop: 4 },
+  notifName: { color: "#ffffff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 18 },
+  notifXp: { color: "#4a9eff", fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 13, marginTop: 4 },
 
   hud: {
     position: "absolute",
@@ -303,21 +320,21 @@ const styles = StyleSheet.create({
   },
   hudLvlLabel: {
     color: "#4466bb",
+    fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 10,
-    fontWeight: "700",
     letterSpacing: 1.5,
     marginRight: 6,
   },
   hudLvl: {
     color: "#4a9eff",
-    fontSize: 24,
-    fontWeight: "800",
+    fontFamily: "SpaceGrotesk_700Bold",
+    fontSize: 26,
     marginRight: "auto" as any,
   },
   hudXpLabel: {
     color: "#555877",
+    fontFamily: "SpaceGrotesk_500Medium",
     fontSize: 11,
-    fontWeight: "600",
   },
   xpTrack: {
     height: 6,
@@ -337,10 +354,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   hudStat: { alignItems: "center", flex: 1 },
-  hudStatValue: { color: "#ffffff", fontSize: 20, fontWeight: "700" },
+  hudStatValue: { color: "#ffffff", fontFamily: "SpaceGrotesk_700Bold", fontSize: 20 },
   hudStatLabel: {
     color: "#4466aa",
-    fontSize: 11,
+    fontFamily: "SpaceGrotesk_600SemiBold",
+    fontSize: 10,
     marginTop: 2,
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -348,8 +366,8 @@ const styles = StyleSheet.create({
   hudStatDivider: { width: 1, height: 32, backgroundColor: "rgba(255,255,255,0.08)" },
   hudBydel: {
     color: "#4466bb",
+    fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 10,
-    fontWeight: "700",
     letterSpacing: 1.5,
     marginBottom: 10,
   },
