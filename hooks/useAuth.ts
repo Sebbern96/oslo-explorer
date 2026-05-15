@@ -19,8 +19,16 @@ export function useAuth() {
   useEffect(() => {
     AsyncStorage.getItem('pending_username').then(u => { if (u) setUsername(u); });
 
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       setSession(data.session);
+      if (data.session) {
+        const { data: progress } = await supabase
+          .from('user_progress')
+          .select('username')
+          .eq('user_id', data.session.user.id)
+          .single();
+        if (progress?.username) setUsername(progress.username);
+      }
       setLoading(false);
     });
 
@@ -154,12 +162,13 @@ export function useAuth() {
 
   async function postComment(poiId: number, text: string): Promise<void> {
     if (!session) return;
-    await supabase.from('poi_comments').insert({
+    const { error } = await supabase.from('poi_comments').insert({
       user_id: session.user.id,
       poi_id: poiId,
       username: username ?? 'Anonym',
       text: text.trim(),
     });
+    if (error) throw error;
   }
 
   return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchComments, postComment };

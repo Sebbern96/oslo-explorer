@@ -56,6 +56,7 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentText, setCommentText] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const scrollRef = useRef<ScrollView>(null);
 
   useEffect(() => {
@@ -67,12 +68,18 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
   async function handleSubmit() {
     if (!commentText.trim() || submitting || !poi) return;
     setSubmitting(true);
-    await postComment(poi.id, commentText);
-    setCommentText("");
-    const updated = await fetchComments(poi.id);
-    setComments(updated);
-    setSubmitting(false);
-    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100);
+    setSubmitError(null);
+    try {
+      await postComment(poi.id, commentText);
+      setCommentText("");
+      const updated = await fetchComments(poi.id);
+      setComments(updated);
+      setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100);
+    } catch {
+      setSubmitError("Kunne ikke sende kommentar");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (!poi) return null;
@@ -140,6 +147,9 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
                     ))
                   )}
 
+                  {submitError && (
+                    <Text style={styles.errorText}>{submitError}</Text>
+                  )}
                   <View style={[styles.inputRow, { borderColor: meta.color + "66" }]}>
                     <TextInput
                       style={styles.input}
@@ -148,9 +158,9 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
                       value={commentText}
                       onChangeText={setCommentText}
                       maxLength={200}
-                      multiline
                       returnKeyType="send"
                       onSubmitEditing={handleSubmit}
+                      submitBehavior="submit"
                     />
                     <TouchableOpacity
                       style={[styles.sendBtn, { backgroundColor: meta.color }]}
@@ -319,6 +329,13 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontFamily: "SpaceGrotesk_700Bold",
     fontSize: 16,
+  },
+  errorText: {
+    color: "#ef4444",
+    fontFamily: "SpaceGrotesk_400Regular",
+    fontSize: 12,
+    alignSelf: "flex-start",
+    marginBottom: 6,
   },
   closeBtn: {
     marginHorizontal: 24,
