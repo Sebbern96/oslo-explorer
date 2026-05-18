@@ -47,9 +47,9 @@ interface Props {
   onMarkVisited: () => void;
   onClose: () => void;
   fetchPhotos: (poiId: number) => Promise<string[]>;
-  uploadPhoto: (poiId: number, uri: string) => Promise<void>;
+  uploadPhoto: (poiId: number, uri: string, poiName?: string) => Promise<void>;
   fetchComments: (poiId: number) => Promise<Comment[]>;
-  postComment: (poiId: number, text: string) => Promise<void>;
+  postComment: (poiId: number, text: string, poiName?: string) => Promise<void>;
 }
 
 function formatTime(iso: string): string {
@@ -94,7 +94,7 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
         if (result.canceled || !result.assets[0]) return;
         setUploading(true);
         try {
-          await uploadPhoto(poi.id, result.assets[0].uri);
+          await uploadPhoto(poi.id, result.assets[0].uri, poi.name);
           const updated = await fetchPhotos(poi.id);
           setPhotos(updated);
         } finally {
@@ -109,7 +109,7 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
     setSubmitting(true);
     setSubmitError(null);
     try {
-      await postComment(poi.id, commentText);
+      await postComment(poi.id, commentText, poi.name);
       setCommentText("");
       const updated = await fetchComments(poi.id);
       setComments(updated);

@@ -11,6 +11,7 @@ import { ProfileModal } from "./components/ProfileModal";
 import { AuthModal } from "./components/AuthModal";
 import { POIDetailSheet } from "./components/POIDetailSheet";
 import { LeaderboardModal } from "./components/LeaderboardModal";
+import { FeedModal } from "./components/FeedModal";
 import locationsData from "./data/locations.json";
 
 SplashScreen.preventAutoHideAsync();
@@ -50,7 +51,7 @@ export default function App() {
 }
 
 function AppInner() {
-  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment } = useAuth();
+  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, postFeedEvent, fetchFriendsFeed, fetchPhotos, uploadPhoto, fetchComments, postComment } = useAuth();
 
   if (loading) {
     return <View style={styles.container} />;
@@ -81,6 +82,8 @@ function AppInner() {
       addFriend={addFriend}
       removeFriend={removeFriend}
       fetchFriendsLeaderboard={fetchFriendsLeaderboard}
+      postFeedEvent={postFeedEvent}
+      fetchFriendsFeed={fetchFriendsFeed}
       fetchPhotos={fetchPhotos}
       uploadPhoto={uploadPhoto}
       fetchComments={fetchComments}
@@ -100,13 +103,15 @@ interface GameScreenProps {
   addFriend: (username: string) => Promise<{ error: string | null }>;
   removeFriend: (userId: string) => Promise<void>;
   fetchFriendsLeaderboard: () => Promise<{ username: string; xp: number; userId: string }[]>;
+  postFeedEvent: (type: string, poiId: number, poiName: string) => void;
+  fetchFriendsFeed: () => Promise<{ id: string; username: string | null; type: string; poi_id: number | null; poi_name: string | null; created_at: string }[]>;
   fetchPhotos: (poiId: number) => Promise<string[]>;
-  uploadPhoto: (poiId: number, uri: string) => Promise<void>;
+  uploadPhoto: (poiId: number, uri: string, poiName?: string) => Promise<void>;
   fetchComments: (poiId: number) => Promise<{ id: string; username: string; text: string; created_at: string }[]>;
-  postComment: (poiId: number, text: string) => Promise<void>;
+  postComment: (poiId: number, text: string, poiName?: string) => Promise<void>;
 }
 
-function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment }: GameScreenProps) {
+function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, postFeedEvent, fetchFriendsFeed, fetchPhotos, uploadPhoto, fetchComments, postComment }: GameScreenProps) {
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
@@ -115,6 +120,7 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
   const achievementOpacity = useRef(new Animated.Value(0)).current;
   const [profileVisible, setProfileVisible] = useState(false);
   const [leaderboardVisible, setLeaderboardVisible] = useState(false);
+  const [feedVisible, setFeedVisible] = useState(false);
   const [selectedPOIId, setSelectedPOIId] = useState<number | null>(null);
 
   function showNotification(name: string, xpGain: number) {
@@ -145,6 +151,7 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
     onAchievementUnlocked: showAchievement,
     fetchCloudProgress,
     onProgressChange: (progress) => { uploadProgress(progress); },
+    postFeedEvent,
   });
 
   useEffect(() => {
@@ -203,6 +210,9 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
       )}
 
       <View style={[styles.topButtons, { top: insets.top + 10 }]}>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setFeedVisible(true)}>
+          <Text style={styles.iconBtnText}>📰</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.iconBtn} onPress={() => setLeaderboardVisible(true)}>
           <Text style={styles.iconBtnText}>🏆</Text>
         </TouchableOpacity>
@@ -267,6 +277,12 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
         fetchFriendsLeaderboard={fetchFriendsLeaderboard}
         addFriend={addFriend}
         removeFriend={removeFriend}
+      />
+
+      <FeedModal
+        visible={feedVisible}
+        onClose={() => setFeedVisible(false)}
+        fetchFriendsFeed={fetchFriendsFeed}
       />
     </View>
   );

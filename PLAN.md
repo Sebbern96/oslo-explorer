@@ -92,7 +92,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [x] **Zoom level** — increased default map zoom 15 → 16
 - [x] **POI tap sheet** — tap any marker to see name, category, discovered status
 - [x] **UI details** — safe-area insets, transit markers hidden, road number shields hidden
-- [ ] **Haptic feedback** — vibrate on POI discovery (`expo-haptics`) — low priority
+- [x] **Haptic feedback** — light on tile reveal, success notification on POI discovery, medium on visit
 
 ### Stage 9 — Social & progression 🔄
 - [x] **Global leaderboard** — `LeaderboardModal` with top 20 by XP, medals for top 3, highlights current user
@@ -104,7 +104,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 - [x] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
 - [x] **POI comments** — Logged-in users can leave a short text comment (max 200 chars) on any discovered POI. `poi_comments` table with RLS. Comments load on sheet open, refresh after post. Sheet is scrollable with KeyboardAvoidingView.
 - [ ] **POI photos** — Take or pick a photo of a POI from the detail sheet using `expo-image-picker` (camera). Upload to Supabase Storage. Show thumbnail(s) in the POI detail sheet. Requires `npx expo install expo-image-picker` (verify New Architecture compatibility).
-- [ ] **Friends feed** — Chronological activity feed showing what friends have done: discovered a POI, visited a place, left a comment, uploaded a photo. `feed_events` table (user_id, type, poi_id, created_at). Shown in a new Feed modal/screen accessible from the HUD.
+- [x] **Friends feed** — Chronological activity feed (📰 button in HUD). `feed_events` table with RLS. Events emitted on discovery, visit, comment, photo. Shows friends + own activity, pull-to-refresh.
 
 ---
 
@@ -127,16 +127,14 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Progress
 
-**~93% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, redesigned profile, friends system, and Space Grotesk styling done. Next: Stage 10 (comments, photos, friends feed).
+**~98% complete** — core gameplay, UI, bydel system, auth, leaderboard, visited state, achievements, redesigned profile, friends system, and Space Grotesk styling done. Next: Stage 10 (comments, photos, friends feed).
 
 ---
 
 ## Next actions
 
-1. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet (requires `npx expo run:ios` rebuild)
-2. **Haptic feedback** — `npx expo install expo-haptics`, vibrate on POI discovery (batch with photos rebuild)
-3. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
-4. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
+1. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
+2. **Sharing flow** — share explored map screenshot or progress summary
 
 ---
 

@@ -155,6 +155,35 @@ export function useAuth() {
     return (data ?? []).map((d: any) => ({ username: d.username, xp: d.xp, userId: d.user_id }));
   }
 
+  async function postFeedEvent(type: string, poiId: number, poiName: string): Promise<void> {
+    if (!session) return;
+    const name = username ?? await AsyncStorage.getItem('cached_username');
+    await supabase.from('feed_events').insert({
+      user_id: session.user.id,
+      username: name,
+      type,
+      poi_id: poiId,
+      poi_name: poiName,
+    });
+  }
+
+  async function fetchFriendsFeed(): Promise<{ id: string; username: string | null; type: string; poi_id: number | null; poi_name: string | null; created_at: string }[]> {
+    if (!session) return [];
+    const { data: friendships } = await supabase
+      .from('friendships')
+      .select('friend_id')
+      .eq('user_id', session.user.id);
+    const friendIds = (friendships ?? []).map((f: any) => f.friend_id);
+    const allIds = [session.user.id, ...friendIds];
+    const { data } = await supabase
+      .from('feed_events')
+      .select('id, username, type, poi_id, poi_name, created_at')
+      .in('user_id', allIds)
+      .order('created_at', { ascending: false })
+      .limit(50);
+    return data ?? [];
+  }
+
   async function fetchPhotos(poiId: number): Promise<string[]> {
     const { data: files } = await supabase.storage
       .from('poi-photos')
@@ -165,7 +194,7 @@ export function useAuth() {
     );
   }
 
-  async function uploadPhoto(poiId: number, uri: string): Promise<void> {
+  async function uploadPhoto(poiId: number, uri: string, poiName?: string): Promise<void> {
     if (!session) return;
     const response = await fetch(uri);
     const blob = await response.blob();
@@ -174,6 +203,7 @@ export function useAuth() {
       .from('poi-photos')
       .upload(path, blob, { contentType: 'image/jpeg' });
     if (error) throw error;
+    if (poiName) postFeedEvent('photo', poiId, poiName);
   }
 
   async function fetchComments(poiId: number): Promise<{ id: string; username: string; text: string; created_at: string }[]> {
@@ -185,7 +215,7 @@ export function useAuth() {
     return data ?? [];
   }
 
-  async function postComment(poiId: number, text: string): Promise<void> {
+  async function postComment(poiId: number, text: string, poiName?: string): Promise<void> {
     if (!session) return;
     let resolvedUsername = username;
     if (!resolvedUsername) {
@@ -233,7 +263,8 @@ export function useAuth() {
       text: text.trim(),
     });
     if (error) throw error;
+    if (poiName) postFeedEvent('comment', poiId, poiName);
   }
 
-  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment };
+  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, postFeedEvent, fetchFriendsFeed, fetchPhotos, uploadPhoto, fetchComments, postComment };
 }

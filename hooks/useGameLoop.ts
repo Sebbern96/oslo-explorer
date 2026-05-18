@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { WebView } from "react-native-webview";
 import * as Location from "expo-location";
 import * as FileSystem from "expo-file-system/legacy";
+import * as Haptics from "expo-haptics";
 import locationsData from "../data/locations.json";
 import bydelerData from "../data/bydeler_runtime.json";
 import { findBydel, Bydel } from "../utils/geo";
@@ -38,9 +39,10 @@ interface Props {
   onProgressChange?: (progress: { visitedKeys: string[]; discoveredPOIIds: number[]; visitedPOIIds: number[]; unlockedAchievementIds: string[]; xp: number }) => void;
   onAchievementUnlocked?: (name: string, emoji: string) => void;
   fetchCloudProgress?: () => Promise<{ visitedKeys: string[]; discoveredPOIIds: number[]; visitedPOIIds: number[]; unlockedAchievementIds: string[]; xp: number } | null>;
+  postFeedEvent?: (type: string, poiId: number, poiName: string) => void;
 }
 
-export function useGameLoop({ webViewRef, showNotification, onProgressChange, onAchievementUnlocked, fetchCloudProgress }: Props) {
+export function useGameLoop({ webViewRef, showNotification, onProgressChange, onAchievementUnlocked, fetchCloudProgress, postFeedEvent }: Props) {
   const stateRef = useRef({
     visitedKeys: new Set<string>(),
     discoveredPOIs: [] as number[],
@@ -160,6 +162,7 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
             fsSave(TILES_URI, [...stateRef.current.visitedKeys]);
             fsSave(XP_URI, stateRef.current.xp);
             send({ type: "tile", key });
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             setTilesCount(stateRef.current.visitedKeys.size);
             setXp(stateRef.current.xp);
             checkAchievements();
@@ -184,7 +187,11 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
               stateRef.current.discoveredPOIs.push(poi.id);
               stateRef.current.xp += XP_PER_POI;
               send({ type: "poi", poiId: poi.id });
-              if (i === 0) showNotification(poi.name, XP_PER_POI);
+              postFeedEvent?.('discovered', poi.id, poi.name);
+              if (i === 0) {
+                showNotification(poi.name, XP_PER_POI);
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+              }
             });
             fsSave(POIS_URI, stateRef.current.discoveredPOIs);
             fsSave(XP_URI, stateRef.current.xp);
@@ -228,6 +235,9 @@ export function useGameLoop({ webViewRef, showNotification, onProgressChange, on
 
   function markVisited(poiId: number) {
     if (stateRef.current.visitedPOIs.includes(poiId)) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const poi = locationsData.find(p => p.id === poiId);
+    if (poi) postFeedEvent?.('visited', poiId, poi.name);
     stateRef.current.visitedPOIs.push(poiId);
     stateRef.current.xp += XP_PER_VISIT;
     fsSave(VISITED_URI, stateRef.current.visitedPOIs);
