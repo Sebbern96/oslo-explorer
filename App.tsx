@@ -50,7 +50,7 @@ export default function App() {
 }
 
 function AppInner() {
-  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchComments, postComment } = useAuth();
+  const { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment } = useAuth();
 
   if (loading) {
     return <View style={styles.container} />;
@@ -81,6 +81,8 @@ function AppInner() {
       addFriend={addFriend}
       removeFriend={removeFriend}
       fetchFriendsLeaderboard={fetchFriendsLeaderboard}
+      fetchPhotos={fetchPhotos}
+      uploadPhoto={uploadPhoto}
       fetchComments={fetchComments}
       postComment={postComment}
     />
@@ -98,11 +100,13 @@ interface GameScreenProps {
   addFriend: (username: string) => Promise<{ error: string | null }>;
   removeFriend: (userId: string) => Promise<void>;
   fetchFriendsLeaderboard: () => Promise<{ username: string; xp: number; userId: string }[]>;
+  fetchPhotos: (poiId: number) => Promise<string[]>;
+  uploadPhoto: (poiId: number, uri: string) => Promise<void>;
   fetchComments: (poiId: number) => Promise<{ id: string; username: string; text: string; created_at: string }[]>;
   postComment: (poiId: number, text: string) => Promise<void>;
 }
 
-function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchComments, postComment }: GameScreenProps) {
+function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment }: GameScreenProps) {
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [notification, setNotification] = useState<{ name: string; xpGain: number } | null>(null);
@@ -248,6 +252,8 @@ function GameScreen({ username, userEmail, userId, signOut, fetchCloudProgress, 
         visited={visitedPOIIds.includes(selectedPOIId!)}
         onMarkVisited={() => { if (selectedPOIId != null) { markVisited(selectedPOIId); setSelectedPOIId(null); } }}
         onClose={() => setSelectedPOIId(null)}
+        fetchPhotos={fetchPhotos}
+        uploadPhoto={uploadPhoto}
         fetchComments={fetchComments}
         postComment={postComment}
       />

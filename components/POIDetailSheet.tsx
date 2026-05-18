@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  ActionSheetIOS,
+  ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -10,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 const CATEGORY_META: Record<string, { label: string; emoji: string; color: string }> = {
   landemerke: { label: "Landemerke", emoji: "🏛",  color: "#f97316" },
@@ -42,6 +46,8 @@ interface Props {
   visited: boolean;
   onMarkVisited: () => void;
   onClose: () => void;
+  fetchPhotos: (poiId: number) => Promise<string[]>;
+  uploadPhoto: (poiId: number, uri: string) => Promise<void>;
   fetchComments: (poiId: number) => Promise<Comment[]>;
   postComment: (poiId: number, text: string) => Promise<void>;
 }
@@ -52,7 +58,9 @@ function formatTime(iso: string): string {
     " " + d.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" });
 }
 
-export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClose, fetchComments, postComment }: Props) {
+export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClose, fetchPhotos, uploadPhoto, fetchComments, postComment }: Props) {
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentText, setCommentText] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -61,9 +69,40 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
 
   useEffect(() => {
     if (!poi || !discovered) return;
+    setPhotos([]);
     setComments([]);
+    fetchPhotos(poi.id).then(setPhotos);
     fetchComments(poi.id).then(setComments);
   }, [poi?.id]);
+
+  function handleAddPhoto() {
+    if (!poi) return;
+    ActionSheetIOS.showActionSheetWithOptions(
+      { options: ['Avbryt', 'Ta bilde', 'Velg fra galleri'], cancelButtonIndex: 0 },
+      async (idx) => {
+        if (idx === 0) return;
+        let result: ImagePicker.ImagePickerResult;
+        if (idx === 1) {
+          const { status } = await ImagePicker.requestCameraPermissionsAsync();
+          if (status !== 'granted') return;
+          result = await ImagePicker.launchCameraAsync({ quality: 0.7, allowsEditing: true, aspect: [4, 3] });
+        } else {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') return;
+          result = await ImagePicker.launchImageLibraryAsync({ quality: 0.7, allowsEditing: true, aspect: [4, 3] });
+        }
+        if (result.canceled || !result.assets[0]) return;
+        setUploading(true);
+        try {
+          await uploadPhoto(poi.id, result.assets[0].uri);
+          const updated = await fetchPhotos(poi.id);
+          setPhotos(updated);
+        } finally {
+          setUploading(false);
+        }
+      }
+    );
+  }
 
   async function handleSubmit() {
     if (!commentText.trim() || submitting || !poi) return;
@@ -130,6 +169,25 @@ export function POIDetailSheet({ poi, discovered, visited, onMarkVisited, onClos
 
               {discovered && (
                 <>
+                  <View style={styles.divider} />
+                  <View style={styles.photoHeader}>
+                    <Text style={styles.sectionTitle}>Bilder</Text>
+                    <TouchableOpacity style={[styles.addPhotoBtn, { borderColor: meta.color }]} onPress={handleAddPhoto} disabled={uploading}>
+                      {uploading
+                        ? <ActivityIndicator size="small" color={meta.color} />
+                        : <Text style={[styles.addPhotoBtnText, { color: meta.color }]}>📷 Legg til</Text>
+                      }
+                    </TouchableOpacity>
+                  </View>
+
+                  {photos.length > 0 && (
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.photoScroll} contentContainerStyle={styles.photoScrollContent}>
+                      {photos.map((url, i) => (
+                        <Image key={i} source={{ uri: url }} style={styles.photoThumb} />
+                      ))}
+                    </ScrollView>
+                  )}
+
                   <View style={styles.divider} />
                   <Text style={styles.sectionTitle}>Kommentarer</Text>
 
@@ -259,6 +317,25 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(74,158,255,0.15)",
     marginVertical: 16,
   },
+  photoHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    marginBottom: 12,
+  },
+  addPhotoBtn: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    minWidth: 32,
+    alignItems: "center",
+  },
+  addPhotoBtnText: { fontFamily: "SpaceGrotesk_600SemiBold", fontSize: 12 },
+  photoScroll: { alignSelf: "stretch", marginBottom: 12 },
+  photoScrollContent: { gap: 8 },
+  photoThumb: { width: 100, height: 75, borderRadius: 8, backgroundColor: "#1a1a2e" },
   sectionTitle: {
     color: "#9090c0",
     fontFamily: "SpaceGrotesk_700Bold",

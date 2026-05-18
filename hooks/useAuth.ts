@@ -155,6 +155,27 @@ export function useAuth() {
     return (data ?? []).map((d: any) => ({ username: d.username, xp: d.xp, userId: d.user_id }));
   }
 
+  async function fetchPhotos(poiId: number): Promise<string[]> {
+    const { data: files } = await supabase.storage
+      .from('poi-photos')
+      .list(`${poiId}`, { sortBy: { column: 'created_at', order: 'asc' } });
+    if (!files || files.length === 0) return [];
+    return files.map(f =>
+      supabase.storage.from('poi-photos').getPublicUrl(`${poiId}/${f.name}`).data.publicUrl
+    );
+  }
+
+  async function uploadPhoto(poiId: number, uri: string): Promise<void> {
+    if (!session) return;
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const path = `${poiId}/${Date.now()}-${session.user.id}.jpg`;
+    const { error } = await supabase.storage
+      .from('poi-photos')
+      .upload(path, blob, { contentType: 'image/jpeg' });
+    if (error) throw error;
+  }
+
   async function fetchComments(poiId: number): Promise<{ id: string; username: string; text: string; created_at: string }[]> {
     const { data } = await supabase
       .from('poi_comments')
@@ -214,5 +235,5 @@ export function useAuth() {
     if (error) throw error;
   }
 
-  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchComments, postComment };
+  return { session, loading, username, signIn, signUp, signOut, fetchCloudProgress, uploadProgress, fetchLeaderboard, addFriend, removeFriend, fetchFriendsLeaderboard, fetchPhotos, uploadPhoto, fetchComments, postComment };
 }

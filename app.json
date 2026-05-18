@@ -14,7 +14,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sebastianbismo.osloexplorer"
+      "bundleIdentifier": "com.sebastianbismo.osloexplorer",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Ta bilder av steder du har besøkt",
+        "NSPhotoLibraryUsageDescription": "Legg til bilder fra galleriet til POIer"
+      }
     },
     "android": {
       "adaptiveIcon": {
