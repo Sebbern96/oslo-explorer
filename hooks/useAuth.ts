@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { Session } from '@supabase/supabase-js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../utils/supabase';
@@ -17,6 +18,7 @@ export function useAuth() {
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
+    AsyncStorage.getItem('cached_username').then(u => { if (u) setUsername(u); });
     AsyncStorage.getItem('pending_username').then(u => { if (u) setUsername(u); });
 
     supabase.auth.getSession().then(async ({ data }) => {
@@ -49,6 +51,7 @@ export function useAuth() {
     if (error) throw error;
     setUsername(name);
     await AsyncStorage.setItem('pending_username', name);
+    await AsyncStorage.setItem('cached_username', name);
     if (data.user) {
       await supabase.from('user_progress').upsert({
         user_id: data.user.id,
@@ -66,6 +69,7 @@ export function useAuth() {
   async function signOut() {
     setUsername(null);
     await AsyncStorage.removeItem('pending_username');
+    await AsyncStorage.removeItem('cached_username');
     await supabase.auth.signOut();
   }
 
@@ -162,10 +166,49 @@ export function useAuth() {
 
   async function postComment(poiId: number, text: string): Promise<void> {
     if (!session) return;
+    let resolvedUsername = username;
+    if (!resolvedUsername) {
+      const { data } = await supabase
+        .from('user_progress')
+        .select('username')
+        .eq('user_id', session.user.id)
+        .single();
+      resolvedUsername = data?.username ?? null;
+      if (resolvedUsername) {
+        setUsername(resolvedUsername);
+        await AsyncStorage.setItem('cached_username', resolvedUsername);
+      }
+    }
+    if (!resolvedUsername) {
+      resolvedUsername =
+        (await AsyncStorage.getItem('cached_username')) ??
+        (await AsyncStorage.getItem('pending_username'));
+    }
+    if (!resolvedUsername) {
+      resolvedUsername = await new Promise<string | null>(resolve => {
+        Alert.prompt('Sett brukernavn', 'Du trenger et brukernavn for å kommentere.', [
+          { text: 'Avbryt', onPress: () => resolve(null), style: 'cancel' },
+          { text: 'OK', onPress: (name: string | undefined) => resolve(name?.trim() || null) },
+        ]);
+      });
+      if (!resolvedUsername) return;
+      setUsername(resolvedUsername);
+      await AsyncStorage.setItem('cached_username', resolvedUsername);
+      await supabase.from('user_progress').upsert({
+        user_id: session.user.id,
+        username: resolvedUsername,
+        visited_keys: [],
+        discovered_poi_ids: [],
+        visited_poi_ids: [],
+        unlocked_achievement_ids: [],
+        xp: 0,
+        updated_at: new Date().toISOString(),
+      });
+    }
     const { error } = await supabase.from('poi_comments').insert({
       user_id: session.user.id,
       poi_id: poiId,
-      username: username ?? 'Anonym',
+      username: resolvedUsername,
       text: text.trim(),
     });
     if (error) throw error;

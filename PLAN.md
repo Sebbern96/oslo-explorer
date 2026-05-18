@@ -102,7 +102,7 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ### Stage 10 — POI engagement 💡
 - [x] **"Vært her" — visited vs. discovered** — Two separate states per POI: auto-discovered by proximity (current), and manually marked as visited by tapping "Jeg var her" in the POI detail sheet. Extra XP for visited. Stored as separate column in Supabase (`visited_poi_ids`). Marker styling differs (e.g. solid fill = visited, ring only = discovered).
-- [x] **POI comments** — Logged-in users can leave a short text comment (max 200 chars) on any discovered POI. `poi_comments` table with RLS. Comments load on sheet open, refresh after post. Sheet is scrollable with KeyboardAvoidingView. 🐛 Username shows as "Anonym" — see active bug below.
+- [x] **POI comments** — Logged-in users can leave a short text comment (max 200 chars) on any discovered POI. `poi_comments` table with RLS. Comments load on sheet open, refresh after post. Sheet is scrollable with KeyboardAvoidingView.
 - [ ] **POI photos** — Take or pick a photo of a POI from the detail sheet using `expo-image-picker` (camera). Upload to Supabase Storage. Show thumbnail(s) in the POI detail sheet. Requires `npx expo install expo-image-picker` (verify New Architecture compatibility).
 - [ ] **Friends feed** — Chronological activity feed showing what friends have done: discovered a POI, visited a place, left a comment, uploaded a photo. `feed_events` table (user_id, type, poi_id, created_at). Shown in a new Feed modal/screen accessible from the HUD.
 
@@ -133,27 +133,18 @@ A React Native fog-of-war exploration game for Oslo. The player physically walks
 
 ## Next actions
 
-1. **Fix comment username** — `username` is null in `useAuth` when `postComment` runs. Loading from `user_progress` on session init didn't work. Next attempt: fetch username directly inside `postComment` if `username` is null, or store it in AsyncStorage on every successful `fetchCloudProgress`.
-2. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet (requires `npx expo run:ios` rebuild)
-3. **Haptic feedback** — `npx expo install expo-haptics`, vibrate on POI discovery (batch with photos rebuild)
-4. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
-5. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
+1. **POI photos** — `expo-image-picker` camera; Supabase Storage upload; thumbnails in POI detail sheet (requires `npx expo run:ios` rebuild)
+2. **Haptic feedback** — `npx expo install expo-haptics`, vibrate on POI discovery (batch with photos rebuild)
+3. **Friends feed** — `feed_events` table; new Feed screen showing friend activity
+4. **Real-device testing** — connect iPhone via USB, run `npx expo run:ios --device`
 
 ---
 
-## 🐛 Active bug — Comment username shows as "Anonym"
+## ✅ Fixed bug — Comment username shows as "Anonym"
 
-**Symptom:** Comments always post with "Anonym" as username instead of the actual username.
+**Root cause:** `user_progress` lacked SELECT/INSERT/UPDATE grants for the `authenticated` role, so all DB reads/writes silently failed. Users who signed in (not signed up) on a device had no `user_progress` row and no cached username anywhere.
 
-**What we know:**
-- `username` state in `useAuth` is null when `postComment` runs
-- `fetchCloudProgress` calls `setUsername(data.username)` but this may not propagate in time
-- Loading username from `user_progress` on session init (latest attempt) didn't fix it
-- The `user_progress` row for the test user may have been created without a username column
-
-**Next to try:**
-- Fetch username directly inside `postComment` when `username` is null: `supabase.from('user_progress').select('username').eq('user_id', session.user.id).single()`
-- Or: store username in AsyncStorage on every successful cloud fetch (not just on sign-up)
+**Fix:** Added `GRANT SELECT, INSERT, UPDATE ON public.user_progress TO authenticated` in Supabase. `postComment` now resolves username via a chain: state → DB → AsyncStorage → `Alert.prompt` (creates the row on first use).
 
 ---
 
